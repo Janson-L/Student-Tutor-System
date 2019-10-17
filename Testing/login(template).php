@@ -18,6 +18,7 @@
         $loginStatus=false;
 
         $out="";
+        $userId="";
 
         define('USERID','Ken');
         define('PASS','abc');
@@ -56,7 +57,7 @@
         <h3>Please input your login credentials.</h3>
 
         <form action= 'login.php' method='GET'>
-            UserID: <input type='text' name='userId'><br>
+            UserID: <input type='text' name='userId' value='<?php echo $userId ?>'><br>
             Password: <input type='password' name='pass'><br>
             <input type='submit' value='Login'><br>
         </form> 

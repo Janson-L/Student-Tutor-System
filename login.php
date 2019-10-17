@@ -19,6 +19,7 @@
         $i=0;
         $j=0;
         $out="";
+        $userId="";
 
         $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established");
 
@@ -34,6 +35,7 @@
             $loginCredentialCheck = false;
             $out .="Missing Username ";
             }
+            $i++;
         }
 
         if(isset($_GET['pass'])){
@@ -48,6 +50,7 @@
             if($j>=1){
             $out .="Missing Password ";
             }
+            $j++;
         }
         
         if ($loginCredentialCheck==true){
@@ -68,7 +71,7 @@
         <h3>Please input your login credentials.</h3>
 
         <form action= 'login.php' method='GET'>
-            UserID: <input type='text' name='userId'><br>
+            UserID: <input type='text' name='userId' value='<?php echo $userId ?>'><br>
             Password: <input type='password' name='pass'><br>
             <input type='submit' value='Login'><br>
         </form> 
