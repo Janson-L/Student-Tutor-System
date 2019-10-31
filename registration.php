@@ -22,6 +22,25 @@
 
             if (isset($_GET['userType'])){
             $userType=$_GET['userType'];
+
+                if ($userType=="student")
+                {
+                    $idquery="SELECT id FROM Student ORDER BY ID DESC LIMIT 1;";
+                    $result=mysqli_query($dbc, $idquery) or die("Query Failed");
+                    $prevIdDb=mysqli_fetch_assoc($result);
+                    $userID.="STU";
+                    $id=$prevIdDb['id']+1;
+                    $userID.=$id;
+                }
+                else if ($userType=="tutor")
+                {
+                    $idquery="SELECT id FROM Tutor ORDER BY ID DESC LIMIT 1;";
+                    $result=mysqli_query($dbc, $idquery) or die("Query Failed");
+                    $prevIdDb=mysqli_fetch_assoc($result);
+                    $userID.="TUT";
+                    $id=$prevIdDb['id']+1;
+                    $userID.=$id;
+                }
             }
 
             if(isset($_GET['userName'])){
@@ -46,13 +65,15 @@
                 else
                 {
                     $successRegistration=true;
+                    $out = "Registration Successful. Your userID is $userID and you can now login into the system.";
                 }
             }
         ?>
 
-        <form action='SampleForm.php' method='GET'>
+        <?php if($successRegistration==false){ ?>
+        <form action='registration.php' method='GET'>
 
-        <label>UserID: </label><input type='text' name='userID' value='<?php echo $userID ?>'readonly><br>
+        <!--<label>UserID: </label><input type='text' name='userID' value='<?php echo $userID ?>'readonly><br> -->
         <label>User Type</label>
         <select name='userType' required>
         <option <?php if($userType=="student") echo 'selected="selected"'; ?>value='student'>Student</option>
@@ -61,12 +82,13 @@
 
         <label>Name: </label><input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z\s\W]{5,30}" required><br>
         <label>Matrix No: </label><input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" required ><br>
-        <label>Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,11}" required ><br>
+        <label>Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" required ><br>
         <label>Password: </label><input type='password' name='pass' required><br>
         <label>Retype Password: </label><input type='password' name='passRetype' required><br>   
         <input type='submit' value='Submit Form'><br>
         </form>
-
+        
+        <?php } ?>
         <?php
             if($formCheck==false){
                 echo "<h5>$out</h5>";
@@ -74,7 +96,16 @@
 
             if($successRegistration==true)
             {
-                echo "<h5>Successful Registration</h5>";
+                if($userType=="student"){
+                    $query ="INSERT INTO Student (ID,StudentID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed");
+                }
+                else if($userType=="tutor"){
+                    $query ="INSERT INTO Student (ID,TutorID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed");
+                }
+                
+                echo "<h5>$out</h5>";
             }
         ?>
     </body>
