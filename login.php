@@ -14,7 +14,7 @@
         
         <?php
        
-        $loginCredentialCheck = true;
+        $loginAttemptStatus = true;
         $loginStatus=false;
         $i=0;
         $j=0;
@@ -26,40 +26,58 @@
         if(isset($_GET['userId'])){
             $userId=$_GET['userId'];
             $query="SELECT userid FROM LoginCredentials WHERE UserID='$userId';";
-            $result=mysqli_query($dbc, $query) or die("Query Failed");
+            $result=mysqli_query($dbc, $query) or die("Query Failed $query");
             $userIdDb=mysqli_fetch_assoc($result);
-        }
-        else{
-           
-            if($i>=1){
-            $loginCredentialCheck = false;
-            $out .="Missing Username ";
+            
+            if ($userId === $userIdDb['userid']){
+            $query="SELECT accountStatus FROM loginCredentials WHERE userID='$userId';";
+            $result=mysqli_query($dbc, $query) or die("Query Failed $query");
+            $accountStatusDb=mysqli_fetch_assoc($result);
+
+            $query="SELECT loginAttempt FROM loginCredentials WHERE userID='$userId';";
+            $result=mysqli_query($dbc, $query) or die("Query Failed $query");
+            $loginAttemptDb=mysqli_fetch_assoc($result);
+            
+            if ($accountStatusDb['accountStatus']==0){
+                $loginAttemptStatus=false;
             }
-            $i++;
+
+            }
         }
 
         if(isset($_GET['pass'])){
         $pass=$_GET['pass'];
         $query="SELECT password FROM LoginCredentials WHERE UserID='$userId';";
-        $result=mysqli_query($dbc, $query) or die("Query Failed");
+        $result=mysqli_query($dbc, $query) or die("Query Failed $query");
         $passDb=mysqli_fetch_assoc($result);
         }
         
-        else{
-            $loginCredentialCheck = false;
-            if($j>=1){
-            $out .="Missing Password ";
-            }
-            $j++;
-        }
-        
-        if ($loginCredentialCheck==true){
+        if ($loginAttemptStatus==true&&isset($_GET['pass'])&&isset($_GET['userId'])){
             if(($userId === $userIdDb['userid']) && ($pass === $passDb['password'])){
                 $out .="You are now logged in";  
-                $loginStatus=true; 
-            }else{       
-                $out .="Incorrect Credentials. Please try again or contact administrator for further assistance";
+                $loginStatus=true;
+                $query ="UPDATE loginCredentials SET accountStatus=1 WHERE userid='$userId';";
+                $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
+                $query ="UPDATE loginCredentials SET loginattempt=0 WHERE userid='$userId';";
+                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
             }
+            else if ($userId === $userIdDb['userid']){       
+                $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
+                $newLoginAttempt= $loginAttemptDb['loginAttempt'] +1;
+                if($newLoginAttempt>=3)
+                {
+                    $query ="UPDATE loginCredentials SET accountStatus=0 WHERE userid='$userId';";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                }
+                $query ="UPDATE loginCredentials SET loginattempt=$newLoginAttempt WHERE userid='$userId';";
+                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            }
+            else{
+                $out.="No such userID found in the system. Please register a new account or contact administrator for further assistance ";
+            }
+        }
+        else if ($loginAttemptStatus==false){
+            $out.="This account has been blocked due to excessive times of inputting the wrong password. Please contact administrator for further assistance.";
         }
 
         ?>
@@ -71,16 +89,13 @@
         <h3>Please input your login credentials.</h3>
 
         <form action= 'login.php' method='GET'>
-            UserID: <input type='text' name='userId' value='<?php echo $userId ?>'><br>
-            Password: <input type='password' name='pass'><br>
+            UserID: <input type='text' name='userId' value='<?php echo $userId ?>' required><br>
+            Password: <input type='password' name='pass' required><br>
             <input type='submit' value='Login'><br>
         </form> 
         
         <?php 
-        } 
-        ?>
-
-        <?php
+        }
             echo "<h2>$out</h2>";
         ?>
 

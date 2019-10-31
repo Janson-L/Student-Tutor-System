@@ -116,7 +116,7 @@
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                 }
                 else if($userType=="tutor"){
-                    $query ="INSERT INTO Student (ID,TutorID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
+                    $query ="INSERT INTO Tutor (ID,TutorID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
                     $result = mysqli_query($dbc, $query) or die("Query Failed$query");
                     $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
                     $result = mysqli_query($dbc, $query) or die("Query Failed$query");
