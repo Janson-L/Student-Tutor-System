@@ -17,7 +17,7 @@
             $userName="";
             $matrixNo="";
             $phoneNo="";
-            $userID=""; //need to be connected to database to fetch last userID, do some processing to generate new ID
+            $userID="";
             $successRegistration=false;
 
             if (isset($_GET['userType'])){
@@ -29,7 +29,13 @@
                     $result=mysqli_query($dbc, $idquery) or die("Query Failed");
                     $prevIdDb=mysqli_fetch_assoc($result);
                     $userID.="STU";
-                    $id=$prevIdDb['id']+1;
+
+                    if($prevIdDb['id']==null){
+                        $id=1;
+                    }
+                    else{
+                        $id=$prevIdDb['id']+1;
+                    }
                     $userID.=$id;
                 }
                 else if ($userType=="tutor")
@@ -38,7 +44,13 @@
                     $result=mysqli_query($dbc, $idquery) or die("Query Failed");
                     $prevIdDb=mysqli_fetch_assoc($result);
                     $userID.="TUT";
-                    $id=$prevIdDb['id']+1;
+
+                    if($prevIdDb['id']==null){
+                        $id=1;
+                    }
+                    else{
+                        $id=$prevIdDb['id']+1;
+                    }
                     $userID.=$id;
                 }
             }
@@ -64,6 +76,7 @@
                 }     
                 else
                 {
+                    $pass=$_GET['pass'];
                     $successRegistration=true;
                     $out = "Registration Successful. Your userID is $userID and you can now login into the system.";
                 }
@@ -98,11 +111,15 @@
             {
                 if($userType=="student"){
                     $query ="INSERT INTO Student (ID,StudentID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                    $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                 }
                 else if($userType=="tutor"){
                     $query ="INSERT INTO Student (ID,TutorID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed$query");
+                    $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed$query");
                 }
                 
                 echo "<h5>$out</h5>";
