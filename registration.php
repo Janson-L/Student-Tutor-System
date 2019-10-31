@@ -5,8 +5,8 @@
     </head>
     <body>
         <h1>UTeM Student Tutor System</h1>
-        <h3>Registration From</h3>
-        <h5>Please key in the necessary details</h5>
+        <h3>Registration Form</h3>
+        
 
         <?php
             $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); //Register and change to a non root user
@@ -84,6 +84,7 @@
         ?>
 
         <?php if($successRegistration==false){ ?>
+        <h5>Please key in the necessary details</h5>
         <form action='registration.php' method='GET'>
 
         <!--<label>UserID: </label><input type='text' name='userID' value='<?php echo $userID ?>'readonly><br> -->
