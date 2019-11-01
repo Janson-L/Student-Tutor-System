@@ -1,3 +1,7 @@
+<?php
+SESSION_START(); 
+?>
+
 <html> 
     <head>
         <meta charset="utf-8">
@@ -54,12 +58,33 @@
         
         if ($loginAttemptStatus==true&&isset($_GET['pass'])&&isset($_GET['userId'])){
             if(($userId === $userIdDb['userid']) && ($pass === $passDb['password'])){
-                $out .="You are now logged in";  
+                echo "<h2>You are now logged in</h2>";  
                 $loginStatus=true;
                 $query ="UPDATE loginCredentials SET accountStatus=1 WHERE userid='$userId';";
                 $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
                 $query ="UPDATE loginCredentials SET loginattempt=0 WHERE userid='$userId';";
                 $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+
+                if(preg_match("/ADM/",$userId)){
+                    $_SESSION['loginUser']="$userId";
+                    $_SESSION['userClass']="ADM";
+                    $out .= $_SESSION['loginUser'];
+                    $out .= $_SESSION['userClass'];
+                }
+                else if (preg_match("/TUT/",$userId)){
+                    $_SESSION['loginUser']="$userId";
+                    $_SESSION['userClass']="TUT";
+                    $out .= $_SESSION['loginUser'];
+                    $out .= $_SESSION['userClass'];
+                }
+                else if (preg_match("/STU/",$userId)){
+                    $_SESSION['loginUser']="$userId";
+                    $_SESSION['userClass']="STU";
+                    $out .= $_SESSION['loginUser'];
+                    $out .= $_SESSION['userClass'];
+                }
+
+
             }
             else if ($userId === $userIdDb['userid']){       
                 $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
