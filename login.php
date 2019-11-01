@@ -68,20 +68,14 @@ SESSION_START();
                 if(preg_match("/ADM/",$userId)){
                     $_SESSION['loginUser']="$userId";
                     $_SESSION['userClass']="ADM";
-                    $out .= $_SESSION['loginUser'];
-                    $out .= $_SESSION['userClass'];
                 }
                 else if (preg_match("/TUT/",$userId)){
                     $_SESSION['loginUser']="$userId";
                     $_SESSION['userClass']="TUT";
-                    $out .= $_SESSION['loginUser'];
-                    $out .= $_SESSION['userClass'];
                 }
                 else if (preg_match("/STU/",$userId)){
                     $_SESSION['loginUser']="$userId";
                     $_SESSION['userClass']="STU";
-                    $out .= $_SESSION['loginUser'];
-                    $out .= $_SESSION['userClass'];
                 }
 
 
