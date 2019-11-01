@@ -1,0 +1,6 @@
+<?php
+    SESSION_START(); 
+    //$_SESSION['loginUser']
+    //$_SESSION['userClass']
+?>
+<h2>Admin UI</h2>

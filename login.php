@@ -68,17 +68,21 @@ SESSION_START();
                 if(preg_match("/ADM/",$userId)){
                     $_SESSION['loginUser']="$userId";
                     $_SESSION['userClass']="ADM";
+                    header("Location:admUI.php");
+                    die();
                 }
                 else if (preg_match("/TUT/",$userId)){
                     $_SESSION['loginUser']="$userId";
                     $_SESSION['userClass']="TUT";
+                    header("Location:tutUI.php");
+                    die();
                 }
                 else if (preg_match("/STU/",$userId)){
                     $_SESSION['loginUser']="$userId";
                     $_SESSION['userClass']="STU";
+                    header("Location:stuUI.php");
+                    die();
                 }
-
-
             }
             else if ($userId === $userIdDb['userid']){       
                 $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
