@@ -17,6 +17,9 @@
         <form action='studentSessionSignUp.php' method='GET'>
             <button type='Submit'>Sign up for tutoring session</button>
         </form>
+        <form action='studentSessionSignUp.php' method='GET'>
+            <button type='Submit'></button>
+        </form>
     </body>
 </html>
 
