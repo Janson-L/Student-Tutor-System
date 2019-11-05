@@ -18,8 +18,8 @@ SESSION_START();
         
         <?php
        
-        $loginAttemptStatus = true;
-        $loginStatus=false;
+        $loginAttemptStatus = true; //Flag for checking login ability. Deny login if it is more than 3 times 
+        $loginStatus=false;//Flag for denying 
         $i=0;
         $j=0;
         $out="";
