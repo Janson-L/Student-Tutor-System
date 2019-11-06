@@ -10,8 +10,6 @@
 
 <html>
     <head>
-        <style>
-        </style>
     </head>
     <body>
        
@@ -22,7 +20,7 @@
             $description="";
             $date="";
             $startTime="";
-            $duration="";
+            $endTime="";
             
         ?>
 
@@ -32,8 +30,9 @@
         <label>Topic: </label><input type='text' name='topic' value='<?php echo $topic ?>' required size="30"><br>
         <label>Description: </label><textarea name="description" rows="5" cols="25" size="50" value='<?php echo $topic ?>'></textarea> <br>
         <label>Date: </label><input type='date' name='date' value='<?php echo $date ?>' required ><br>
-        <label>Start Time(HH): </label><input type='time' name='startTime' value='<?php echo $startTime ?>' required><br>
-        <label>Duration: </label><input type='time' name='duration' value='<?php echo $duration ?>' required><br>
+        <label>Start Time: </label><input type='time' name='startTime' value='<?php echo $startTime ?>' required><br>
+        <label>End Time: </label><input type='text' name="endTime" value='<?php echo $endTime ?>' required><br>
+
         <input type='submit' value='Submit Form'><br>
         </form>
         
@@ -52,9 +51,9 @@
                 }
                 else if($userType=="tutor"){
                     $query ="INSERT INTO Tutor (ID,TutorID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed$query");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed$query");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                 }
                 
                 echo "<h5>$out</h5>";
