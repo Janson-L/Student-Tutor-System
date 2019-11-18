@@ -25,14 +25,29 @@
         ?>
 
         <form action='tutNewSession.php' method='GET'>
-
-        <!--<label>UserID: </label><input type='text' name='userID' value=''readonly><br> -->
         <label>Topic: </label><input type='text' name='topic' value='<?php echo $topic ?>' required size="30"><br>
         <label>Description: </label><textarea name="description" rows="5" cols="25" size="50" value='<?php echo $topic ?>'></textarea> <br>
         <label>Date: </label><input type='date' name='date' value='<?php echo $date ?>' required ><br>
-        <label>Start Time: </label><input type='time' name='startTime' value='<?php echo $startTime ?>' required><br>
-        <label>End Time: </label><input type='text' name="endTime" value='<?php echo $endTime ?>' required><br>
-
+        <label>Start Time:</label> 
+        <select name='startTimeH' required>
+            <?php for($i=0;$i<=9;$i++) echo "<option value=0".$i.">0".$i." </option>";?>
+            <?php for($i=10;$i<=23;$i++) echo "<option value=".$i.">".$i." </option>";?>
+        </select>
+        <select name='startTimeM' required>
+            <?php for($i=0;$i<=9;$i++) echo "<option value=0".$i.">0".$i." </option>";?>
+            <?php for($i=10;$i<=59;$i++) echo "<option value=".$i.">".$i." </option>";?>
+        </select>
+        <br>
+        <label>End Time: </label>
+        <select name='endTimeH' required>
+            <?php for($i=0;$i<=9;$i++) echo "<option value=0".$i.">0".$i." </option>";?>
+            <?php for($i=10;$i<=23;$i++) echo "<option value=".$i.">".$i." </option>";?>
+        </select>
+        <select name='endTimeM' required>
+            <?php for($i=0;$i<=9;$i++) echo "<option value=0".$i.">0".$i." </option>";?>
+            <?php for($i=10;$i<=59;$i++) echo "<option value=".$i.">".$i." </option>";?>
+        </select><br>
+        
         <input type='submit' value='Submit Form'><br>
         </form>
         
