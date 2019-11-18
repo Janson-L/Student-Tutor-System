@@ -80,11 +80,8 @@
 
             if($successRegistration==true)
             {
-                $query ="INSERT INTO Admin (ID,AdminID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
+                $query ="INSERT INTO Admin (ID,AdminID,Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo','$pass',0,1);";
                 $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                
                 echo "<h5>$out</h5>";
             }
         ?>
