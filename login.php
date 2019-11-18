@@ -20,8 +20,6 @@ SESSION_START();
        
         $loginAttemptStatus = true; //Flag for checking login ability. Deny login if it is more than 3 times 
         $loginSuccessful=false;//Flag for denying 
-        $i=0;
-        $j=0;
         $out="";
         $userId="";
         $pass="";
