@@ -48,31 +48,11 @@
             <?php for($i=10;$i<=59;$i++) echo "<option value=".$i.">".$i." </option>";?>
         </select><br>
         
-        <input type='submit' value='Submit Form'><br>
+        <input type='submit' value='Add new tutoring session'><br>
         </form>
         
         <?php
-            if($formCheck==false){
-                echo "<h5>$out</h5>";
-            }
-
-            if($successRegistration==true)
-            {
-                if($userType=="student"){
-                    $query ="INSERT INTO Student (ID,StudentID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                    $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                }
-                else if($userType=="tutor"){
-                    $query ="INSERT INTO Tutor (ID,TutorID,Name,MatrixNo,PhoneNo) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo');";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                    $query ="INSERT INTO LoginCredentials (UserID,Password,LoginAttempt,AccountStatus) VALUES('$userID','$pass',0,1);";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                }
-                
-                echo "<h5>$out</h5>";
-            }
+            
         ?>
     </body>
 </html>
