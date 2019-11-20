@@ -55,7 +55,6 @@ SESSION_START();
                 $passDb=$result['password'];
                 $loginAttemptDb=$result['loginAttempt'];
                 $accountStatusDb=$result['accountStatus'];
-                echo "$userIdDb $passDb $loginAttemptDb $accountStatusDb";
             }  
 
             if ($accountStatusDb==0){
@@ -100,42 +99,47 @@ SESSION_START();
                     die();
                  }
              }
-             else if ($userId === $userIdDb){       
-                 
-                 $newLoginAttempt= $loginAttemptDb +1;
+             else if ($userId === $userIdDb)
+             {           
+                 $newLoginAttempt= $loginAttemptDb+1;
                  if(preg_match("/ADM/",$userId)){
-                    if($newLoginAttempt>=3) {
+                    if($loginAttemptDb>=2) {
                         $query ="UPDATE admin SET accountStatus=0 WHERE adminid='$userId';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
                     }
                     $query ="UPDATE admin SET loginattempt=$newLoginAttempt WHERE adminid='$userId';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                 }
-                 else if(preg_match("/TUT/",$userId)){
-                    if($newLoginAttempt>=3) {
+                    
+                    }
+                else if(preg_match("/TUT/",$userId)){
+                    if($loginAttemptDb>=2) {
                         $query ="UPDATE tutor SET accountStatus=0 WHERE tutorid='$userId';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
                     }
                     $query ="UPDATE tutor SET loginattempt=$newLoginAttempt WHERE tutorid='$userId';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                  }
                  else if (preg_match("/STU/",$userId)){
-                    if($newLoginAttempt>=3) {
+                    if($loginAttemptDb>=2) {
                         $query ="UPDATE student SET accountStatus=0 WHERE studentid='$userId';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
                     }
                     $query ="UPDATE student SET loginattempt=$newLoginAttempt WHERE studentid='$userId';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                  }
-
+                 if($loginAttemptDb<2){
                  $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
-             }
+                 }
+            }
              else{
                  $out.="No such userID found in the system. Please register a new account or contact administrator for further assistance ";
              }
          }
          else if ($loginAttemptStatus==false){
-             $out.="This account has been blocked due to excessive times of inputting the wrong password. Please contact administrator for further assistance.";
+             $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
          }
 
         ?>
