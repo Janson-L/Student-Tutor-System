@@ -5,12 +5,10 @@
     </head>
     <body>
         <h1>UTeM Student Tutor System</h1>
-        <h3>Registration Form</h3>
-        
 
         <?php
             $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); //Register and change to a non root user
-            $formCheck=true;
+            $formCorrectCheck=true;
 
             $out="";
             $userType=""; 
@@ -21,38 +19,7 @@
             $successRegistration=false;
 
             if (isset($_GET['userType'])){
-            $userType=$_GET['userType'];
-
-                if ($userType=="student")
-                {
-                    $idquery="SELECT id FROM Student ORDER BY ID DESC LIMIT 1;";
-                    $result=mysqli_query($dbc, $idquery) or die("Query Failed");
-                    $prevIdDb=mysqli_fetch_assoc($result);
-                    $userID.="STU";
-
-                    if($prevIdDb['id']==null){
-                        $id=1;
-                    }
-                    else{
-                        $id=$prevIdDb['id']+1;
-                    }
-                    $userID.=$id;
-                }
-                else if ($userType=="tutor")
-                {
-                    $idquery="SELECT id FROM Tutor ORDER BY ID DESC LIMIT 1;";
-                    $result=mysqli_query($dbc, $idquery) or die("Query Failed");
-                    $prevIdDb=mysqli_fetch_assoc($result);
-                    $userID.="TUT";
-
-                    if($prevIdDb['id']==null){
-                        $id=1;
-                    }
-                    else{
-                        $id=$prevIdDb['id']+1;
-                    }
-                    $userID.=$id;
-                }
+                $userType=$_GET['userType'];
             }
 
             if(isset($_GET['userName'])){
@@ -71,23 +38,22 @@
             {
                 if($_GET['pass']!=$_GET['passRetype'])
                 {
-                    $formCheck=false;
+                    $formCorrectCheck=false;
                     $out .="Incorrect Password. Please make sure password is the same.";
                 }     
                 else
                 {
                     $pass=$_GET['pass'];
                     $successRegistration=true;
-                    $out = "Registration Successful. Your userID is $userID and you can now login into the system.";
                 }
             }
         ?>
 
         <?php if($successRegistration==false){ ?>
+        <h3>Registration Form</h3>
         <h5>Please key in the necessary details</h5>
         <form action='registration.php' method='GET'>
 
-        <!--<label>UserID: </label><input type='text' name='userID' value='<?php echo $userID ?>'readonly><br> -->
         <label>User Type</label>
         <select name='userType' required>
         <option <?php if($userType=="student") echo 'selected="selected"'; ?>value='student'>Student</option>
@@ -104,22 +70,58 @@
         
         <?php } ?>
         <?php
-            if($formCheck==false){
-                echo "<h5>$out</h5>";
-            }
-
             if($successRegistration==true)
             {
                 if($userType=="student"){
-                    $query ="INSERT INTO Student (ID,StudentID,Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo','$pass',0,1);";
+                    $query ="INSERT INTO Student (Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$userName','$matrixNo','$phoneNo','$pass',0,1);";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+
+                    $query="SELECT ID FROM Student ORDER BY ID DESC LIMIT 1;";
+                    $result=mysqli_query($dbc, $query) or die("Query Failed");
+                    $IdDb=mysqli_fetch_assoc($result);
+                    $IdDb=$IdDb['ID'];
+                    $userID.="STU";
+
+                    if($IdDb==null){
+                       $id=1;
+                    }
+                    else{
+                        $id=$IdDb;
+                    }
+                    $userID.=$id;
+                    
+                    $query="UPDATE student SET studentID='$userID' WHERE ID=$IdDb;";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
                 }
                 else if($userType=="tutor"){
-                    $query ="INSERT INTO Tutor (ID,TutorID,Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$id','$userID','$userName','$matrixNo','$phoneNo','$pass',0,1);";
+                    $query ="INSERT INTO Tutor (Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$userName','$matrixNo','$phoneNo','$pass',0,1);";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+
+                    $query="SELECT ID FROM Tutor ORDER BY ID DESC LIMIT 1;";
+                    $result=mysqli_query($dbc, $query) or die("Query Failed");
+                    $IdDb=mysqli_fetch_assoc($result);
+                    $IdDb=$IdDb['ID'];
+                    $userID.="TUT";
+
+                    if($IdDb==null){
+                       $id=1;
+                    }
+                    else{
+                        $id=$IdDb;
+                    }
+                    $userID.=$id;
+                    
+                    $query="UPDATE tutor SET tutorID='$userID' WHERE ID=$IdDb;";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                 }
-                
+
+                $out = "Registration Successful. Your userID is $userID and you can now login into the system. <br> You will be redirected to the login page in 5 seconds";
                 echo "<h5>$out</h5>";
+                header("Refresh:5;URL=login.php");
+                die();
+            }
+            else{
+            echo "<h5>$out</h5>";
             }
         ?>
     </body>
