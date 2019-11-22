@@ -17,7 +17,7 @@
             $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); //Register and change to a non root user
             $formCheck=true;
             $topic="";
-            $Subject Code="";
+            $subjectCode="";
             $date="";
             $startTime="";
             $endTime="";  
@@ -25,7 +25,7 @@
 
         <form action='tutNewSession.php' method='GET'>
             <label>Topic: </label><input type='text' name='topic' value='<?php echo $topic ?>' required size="30"><br>
-            <label>Subject Code(if applicable): </label><input type='text' name="Subject Code" value='<?php echo $ ?>'></textarea> <br>
+            <label>Subject Code(if applicable): </label><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>'></textarea> <br>
             <label>Date: </label><input type='date' name='date' value='<?php echo $date ?>' required ><br>
             <label>Start Time:</label> 
             <select name='startTimeH' required>
