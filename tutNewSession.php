@@ -7,9 +7,6 @@
     <h3>New Tutor Session Form</h3>
 </body>
 <?php
-    $tutorID= $_SESSION['loginUser'];
-    $out="";
-
     $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); //Register and change to a non root user
     $formFilledCorrectly=false;
     $topic="";
@@ -21,6 +18,8 @@
     $currentDate="";
     $currentTime="";
     $location="";
+    $out="";
+
 
     if (isset($_GET['topic'])){
         $topic=$_GET['topic'];
@@ -92,7 +91,7 @@
 
     if($formFilledCorrectly==true)
     {
-        $query="INSERT INTO tutoringSession (topic,subjectCode,tutorID,date,startTime,endTime,location) VALUES('$topic','$subjectCode','$tutorID','$date','$startTime','$endTime','$location');";
+        $query="INSERT INTO tutoringSession (topic,subjectCode,tutorID,date,startTime,endTime,location) VALUES('$topic','$subjectCode','{$_SESSION['loginUser']}','$date','$startTime','$endTime','$location');";
         $result=mysqli_query($dbc, $query) or die("Query Failed $query");
 
         $query="SELECT ID FROM tutoringSession ORDER BY ID DESC LIMIT 1;";
