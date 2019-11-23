@@ -17,7 +17,7 @@
             <form action='stuSessionSignUp.php' method='GET'>
                 <button type='Submit'>Sign up for tutoring session</button> <br>
             </form>
-            <form action='stuShowTimetable.php' method='GET'>
+            <form action='stuShowRegisteredSession.php' method='GET'>
                 <button type='Submit'>Show registered tutoring session</button> <br>
             </form>
             <form action='logOut.php' method='GET'>
