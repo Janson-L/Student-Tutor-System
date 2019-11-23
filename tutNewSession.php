@@ -2,8 +2,6 @@
     SESSION_START(); 
     //$_SESSION['loginUser']
     //$_SESSION['userClass']
-    $_SESSION['loginUser']="TUT1"; //testing TUT1
-    $_SESSION['userClass']="TUT";
 ?>
 <body>
     <h3>New Tutor Session Form</h3>
@@ -114,15 +112,17 @@
                     $query="UPDATE tutoringSession SET sessionID='$sessionID' WHERE ID=$IdDb;";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
 
-        $out.="Tutoring session successfully added. SessionID for this tutoring session is $sessionID <br>"; 
+        $out.="Tutoring session successfully added. SessionID for this tutoring session is $sessionID <br>";
+        $topic="";
+        $subjectCode="";
+        $date="";
+        $startTime="";
+        $endTime=""; 
+        $sessionID="";
+        $currentDate="";
+        $currentTime="";
+        $location=""; 
     }
-
-    $out .="Start Time= $startTime <br>";
-    $out .="End Time= $endTime <br>";
-    $out .="Date=$date  <br>";
-    $out .="Current Date=$currentDate <br>";
-    $out .="Current Time=$currentTime <br>";
-
 ?>
 
 <html>
@@ -155,6 +155,10 @@
             <label>Location:</label><input type='text' name='location' value='<?php echo $location ?>' required size="20"><br>
             
             <input type='submit' value='Add new tutoring session'><br>
+        </form>
+
+        <form action='tutUI.php' method='GET'>
+            <button type='Submit'>Back to Tutor UI page</button> <br>
         </form>
     </body>
 </html>
