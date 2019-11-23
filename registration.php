@@ -60,9 +60,9 @@
         <option <?php if($userType=="tutor") echo 'selected="selected"'; ?>value='tutor'>Tutor</option>
         </select><br>
 
-        <label>Name: </label><input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z\s\W]{5,30}" required><br>
-        <label>Matrix No: </label><input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" required ><br>
-        <label>Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" required ><br>
+        <label>Name: </label><input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{5,30}" placeholder="Jason (Max. 30 characters)" required maxlength="30"><br>
+        <label>Matrix No: </label><input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" required maxlength="9"><br>
+        <label>Mobile Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" placeholder="0123456789 (Max. 15 characters)" required maxlength="15"><br>
         <label>Password: </label><input type='password' name='pass' required><br>
         <label>Retype Password: </label><input type='password' name='passRetype' required><br>   
         <input type='submit' value='Submit Form'><br>

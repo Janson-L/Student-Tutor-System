@@ -152,9 +152,11 @@ SESSION_START();
 
         <form action= 'login.php' method='GET'>
             UserID: <input type='text' name='userId' value='<?php echo $userId ?>' required><br>
-             Password: <input type='password' name='pass' required><br>
-             <input type='submit' value='Login'><br>
+            Password: <input type='password' name='pass' required><br>
+            <input type='submit' value='Login'><br>
         </form> 
+
+        <a href="registration.php">Click here to create a new account!</a>
         
         <?php 
          }
