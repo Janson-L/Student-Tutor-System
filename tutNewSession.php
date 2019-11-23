@@ -33,6 +33,7 @@
 
     if(isset($_GET['startTimeM'])){
         $startTime.=$_GET['startTimeM'];
+        $startTime.="00";
     }
 
     if(isset($_GET['endTimeH'])){
@@ -41,21 +42,45 @@
 
     if(isset($_GET['endTimeM'])){
         $endTime.=$_GET['endTimeM'];
+        $endTime.="00";
     }
+
+    $currentDate=date('Y-m-d', time());
+    $currentTime= date('His', time());
+    $currentTime+="070000"; //to convert it to Malaysia Time
+    
+    if($date < $currentDate) //to check the selected date with current date
+    {
+        $formFilledCorrectly=false;
+        $out.="Date selected is not a valid date. Please select a date that is either today or later than current date. <br> ";
+    }
+    else{
+        if($startTime < $currentTime)
+        {
+            $formFilledCorrectly=false;
+            $out.="Time selected is not a valid time. Please select time that is later than current time. <br> ";
+        }
+        else if(($startTime-$currentTime)<="015900")
+        {
+            $formFilledCorrectly=false;
+            $out.="Tutors are not allowed to add tutor session that starts in less than 2 hours from the current time. <br> ";
+        }
+    }   
 
     if($formFilledCorrectly==true)
     {
-        $startTime.="00";
-        $endTime.="00";
         //$query ="INSERT INTO tutoringSession (topic,subjectCode,tutorID,date, startTime, endTime) VALUES('$topic','$matrixNo','$phoneNo','$pass',0,1);";
         //$result = mysqli_query($dbc, $query) or die("Query Failed $query");
-        $out .="Start Time= $startTime ";
-        $out .="End Time= $endTime ";
-        $out .="Date= $date ";
+        
 
-        echo "$out";
+        
     }
 
+    $out .="Start Time= $startTime <br>";
+    $out .="End Time= $endTime <br>";
+    $out .="Date=$date  <br>";
+    $out .="Current Date=$currentDate <br>";
+    $out .="Current Time=$currentTime <br>";
 
 ?>
 
@@ -89,9 +114,9 @@
             
             <input type='submit' value='Add new tutoring session'><br>
         </form>
-        
-        <?php
-            
-        ?>
     </body>
 </html>
+
+<?php
+    echo "$out";
+?>
