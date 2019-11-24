@@ -64,7 +64,7 @@ if (isset($_POST['search'])) {
 ?>
 
 <?php if ($searchTable == 0) { ?>
-    <h3>Show All Sessions</h3>
+    <h3>All Registered Sessions</h3>
 <?php }
 else if($searchTable==1){ ?>
     <h3>Search by SessionID</h3>
@@ -89,7 +89,7 @@ else if($searchTable==4){ ?>
             <th>Duration (Hour:Minute)</th>
             <th>TutorID</th>
             <th>Location</th>
-            <th>Register</th>
+            <th>Registration Status</th>
         </tr>
         <?php
             if($searchTable==0){    
@@ -160,14 +160,11 @@ else if($searchTable==4){ ?>
                                         }
                                     }
                                 }
-                                if ($sessionRegistered != true && $expiredSession != true) {
-                                    echo "Available";} 
-                                else if($expiredSession != true){?>
-                               
-                            <input type="submit" name="deregister" value="Deregister">
-                        <?php } 
+                        if($expiredSession != true){
+                            echo"Registered";
+                        }
                                     
-                                ?>
+                        ?>
                     </td>
                 </form>
             </tr>
