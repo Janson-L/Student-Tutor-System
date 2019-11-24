@@ -1,4 +1,10 @@
-<h1>UTeM Student Tutor System</h1>
+<html>
+    <head>
+        <style>
+        </style>
+    </head>
+    <body>
+        <h1>UTeM Student Tutor System</h1>
 
         <?php
             $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); //Register and change to a non root user
