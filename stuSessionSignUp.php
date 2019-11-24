@@ -8,3 +8,7 @@
     echo "<h6> $out<h6>";
 ?>
 
+<?php
+    $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); 
+    
+?>
