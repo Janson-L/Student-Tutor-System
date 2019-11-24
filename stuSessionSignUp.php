@@ -1,7 +1,7 @@
 <?php
     SESSION_START(); 
-    //$_SESSION['loginUser']
-    //$_SESSION['userClass']
+    $_SESSION['loginUser']="STU1";
+    $_SESSION['userClass']="STU";
     $out="";
     $out .= $_SESSION['loginUser'];
     $out .= $_SESSION['userClass'];
@@ -44,8 +44,13 @@
             </td> 
             </form>
         </tr>
+    <?php } ?>
+</table>
+
 <?php
+    if(isset($_GET['submit'])){
+        $query="INSERT INTO session_student (sessionID,studentID) VALUES('{$_GET['sessionID']}','{$_SESSION['loginUser']}');";
+        $result=mysqli_query($dbc, $query) or die("Query Failed $query");
     }
 ?>
-    </table>
 
