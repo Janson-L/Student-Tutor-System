@@ -72,11 +72,12 @@ if (isset($_POST['search'])) {
             <th>Start Time</th>
             <th>End Time</th>
             <th>Duration (Hour:Minute)</th>
+            <th>TutorID</th>
             <th>Location</th>
             <th>Register</th>
         </tr>
         <?php
-            $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession ORDER BY sessionID DESC LIMIT 10;";
+            $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID, location FROM tutoringsession ORDER BY sessionID DESC LIMIT 10;";
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
             while ($row = mysqli_fetch_assoc($result)) {
                 $duration = format_time(strtotime($row['endTime']) - strtotime($row['startTime']));
@@ -90,6 +91,7 @@ if (isset($_POST['search'])) {
                     <td><?php echo $row['startTime']; ?></td>
                     <td><?php echo $row['endTime']; ?></td>
                     <td><?php echo $duration; ?></td>
+                    <td><?php echo $row['tutorID']; ?></td>                   
                     <td><?php echo $row['location']; ?></td>
                     <td>
                         <?php
@@ -108,6 +110,7 @@ if (isset($_POST['search'])) {
                         <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
                         <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
                         <input type="text" name="duration" value="<?php echo $duration; ?>" style="display:none">
+                        <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
                         <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
                         <?php if ($sessionRegistered != true) { ?>
                             <input type="submit" name="register" value="Register">
@@ -133,11 +136,12 @@ if (isset($_POST['search'])) {
             <th>Start Time</th>
             <th>End Time</th>
             <th>Duration (Hour:Minute)</th>
+            <th>TutorID</th>
             <th>Location</th>
             <th>Register</th>
         </tr>
         <?php
-            $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession WHERE sessionID='$searchQuery';";
+            $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID,location FROM tutoringsession WHERE sessionID='$searchQuery';";
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
             while ($row = mysqli_fetch_assoc($result)) {
                 $duration = format_time(strtotime($row['endTime']) - strtotime($row['startTime']));
@@ -151,6 +155,7 @@ if (isset($_POST['search'])) {
                     <td><?php echo $row['startTime']; ?></td>
                     <td><?php echo $row['endTime']; ?></td>
                     <td><?php echo $duration; ?></td>
+                    <td><?php echo $row['tutorID']; ?></td>
                     <td><?php echo $row['location']; ?></td>
                     <td>
                         <?php
@@ -169,6 +174,71 @@ if (isset($_POST['search'])) {
                         <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
                         <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
                         <input type="text" name="duration" value="<?php echo $duration; ?>" style="display:none">
+                        <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
+                        <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
+                        <?php if ($sessionRegistered != true) { ?>
+                            <input type="submit" name="register" value="Register">
+                        <?php } else {
+                                    echo "Registered";
+                                }
+                                ?>
+                    </td>
+                </form>
+            </tr>
+        <?php } ?>
+    </table>
+<?php } ?>
+
+<?php if ($searchTable == 2) { ?>
+    <h3>Search by TutorID</h3>
+    <table border='1'>
+        <tr>
+            <th>Session ID</th>
+            <th>Topic</th>
+            <th>Subject Code</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Duration (Hour:Minute)</th>
+            <th>TutorID</th>
+            <th>Location</th>
+            <th>Register</th>
+        </tr>
+        <?php
+            $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID,location FROM tutoringsession WHERE tutorID='$searchQuery';";
+            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            while ($row = mysqli_fetch_assoc($result)) {
+                $duration = format_time(strtotime($row['endTime']) - strtotime($row['startTime']));
+                ?>
+            <tr>
+                <form method='POST' action='stuSessionSignUp.php'>
+                    <td><?php echo $row['sessionID']; ?></td>
+                    <td><?php echo $row['topic']; ?></td>
+                    <td><?php echo $row['subjectCode']; ?></td>
+                    <td><?php echo $row['date']; ?></td>
+                    <td><?php echo $row['startTime']; ?></td>
+                    <td><?php echo $row['endTime']; ?></td>
+                    <td><?php echo $duration; ?></td>
+                    <td><?php echo $row['tutorID']; ?></td>
+                    <td><?php echo $row['location']; ?></td>
+                    <td>
+                        <?php
+                                $sessionRegistered = false;
+                                $query2 = "SELECT studentID FROM session_student WHERE sessionID='{$row['sessionID']}';";
+                                $result2 = mysqli_query($dbc, $query2) or die("Query Failed $query2");
+                                $stuID = mysqli_fetch_assoc($result2);
+                                if ($stuID['studentID'] === $_SESSION['loginUser']) {
+                                    $sessionRegistered = true;
+                                }
+                                ?>
+                        <input type="text" name="sessionID" value="<?php echo $row['sessionID']; ?>" style="display:none">
+                        <input type="text" name="topic" value="<?php echo $row['topic']; ?>" style="display:none">
+                        <input type="text" name="subjectCode" value="<?php echo $row['subjectCode']; ?>" style="display:none">
+                        <input type="text" name="date" value="<?php echo $row['date']; ?>" style="display:none">
+                        <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
+                        <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
+                        <input type="text" name="duration" value="<?php echo $duration; ?>" style="display:none">
+                        <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
                         <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
                         <?php if ($sessionRegistered != true) { ?>
                             <input type="submit" name="register" value="Register">
