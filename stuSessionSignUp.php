@@ -11,19 +11,25 @@
 ?>
 
 <?php
+    function format_time($t) // t = seconds, f = separator 
+    {
+      return sprintf("%02d%s%02d", floor($t/3600), ':', ($t/60)%60);
+    }
+
     $query="SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession ORDER BY sessionID DESC LIMIT 10;";
     $result=mysqli_query($dbc, $query) or die("Query Failed $query");  
 ?>
 
+
 <h3>10 Latest Added Session </h3>
 <table border='1'>
-    <tr><td>Session ID</td><td>Topic</td><td>Subject Code</td><td>Date</td><td>Start Time</td><td>End Time</td><td>Duration(Hour(s))</td><td>Location</td><td>Register</td></tr>
+    <tr><td>Session ID</td><td>Topic</td><td>Subject Code</td><td>Date</td><td>Start Time</td><td>End Time</td><td>Duration (Hour:Minute)</td><td>Location</td><td>Register</td></tr>
     <?php
         while($row=mysqli_fetch_assoc($result)){
-        $duration=(strtotime($row['endTime'])-strtotime($row['startTime']))/3600;
+        $duration=format_time(strtotime($row['endTime'])-strtotime($row['startTime']));
     ?>
         <tr>
-            <form method="get">
+            <form method='POST'action='stuSessionSignUp.php'>
             <td><?php echo $row['sessionID']; ?></td>
             <td><?php echo $row['topic']; ?></td>
             <td><?php echo $row['subjectCode']; ?></td>
@@ -49,10 +55,14 @@
                 <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
                 <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
                 <input type="text" name="duration" value="<?php echo $duration; ?>" style="display:none">
-                <input type="text" name="location" value="<?php echo $row['locaton']; ?>" style="display:none">
+                <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
                 <?php if ($sessionRegistered!=true) {?>
                 <input type="submit" name="register" value="Register">
-                <?php } ?>
+                <?php } 
+                    else{
+                        echo "Registered";
+                    }
+                ?>
             </td> 
             </form>
         </tr>
@@ -60,9 +70,11 @@
 </table>
 
 <?php
-    if(isset($_GET['register'])){
-        $query="INSERT INTO session_student (sessionID,studentID) VALUES('{$_GET['sessionID']}','{$_SESSION['loginUser']}');";
+    if(isset($_POST['register'])){
+        $query="INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
         $result=mysqli_query($dbc, $query) or die("Query Failed $query");
+        echo '<meta http-equiv="refresh" content="0">';
+        die();
     }
 ?>
 
