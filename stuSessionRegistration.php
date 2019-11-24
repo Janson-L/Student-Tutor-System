@@ -41,7 +41,7 @@ if (isset($_GET['searchQuery'])) {
     <input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30">
     <input type='submit' name='search' value='Search'>
 </form>
-<form method='POST' action='stuSessionSignUp.php'>
+<form method='POST' action='stuSessionRegistration.php'>
     <input type='submit' value='Refresh'><br>
 </form>
 
@@ -89,7 +89,7 @@ else if($searchTable==4){ ?>
             <th>Duration (Hour:Minute)</th>
             <th>TutorID</th>
             <th>Location</th>
-            <th>Register</th>
+            <th>Registration Status</th>
         </tr>
         <?php
             if($searchTable==0){    
@@ -118,7 +118,7 @@ else if($searchTable==4){ ?>
                 $expiredSession = false;
                 ?>
             <tr>
-                <form method='POST' action='stuSessionSignUp.php'>
+                <form method='POST'>
                     <td><?php echo $row['sessionID']; ?></td>
                     <td><?php echo $row['topic']; ?></td>
                     <td><?php echo $row['subjectCode']; ?></td>
@@ -162,10 +162,11 @@ else if($searchTable==4){ ?>
                                 }
                                 if ($sessionRegistered != true && $expiredSession != true) { ?>
                             <input type="submit" name="register" value="Register">
-                        <?php } else if($expiredSession != true){
-                                    echo "Registered";
+                        <?php } else if($expiredSession != true){ ?>
+                            <input type="submit" name="deregister" value="Deregister">
+                            <?php
                                 }
-                                ?>
+                            ?>
                     </td>
                 </form>
             </tr>
@@ -175,6 +176,15 @@ else if($searchTable==4){ ?>
 <?php
 if (isset($_POST['register'])) {
     $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
+    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+    echo '<meta http-equiv="refresh" content="0">';
+    die();
+}
+?>
+
+<?php
+if (isset($_POST['deregister'])) {
+    $query = "DELETE FROM session_student WHERE sessionID='{$_POST['sessionID']}'AND studentID='{$_SESSION['loginUser']}';";
     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
     echo '<meta http-equiv="refresh" content="0">';
     die();
