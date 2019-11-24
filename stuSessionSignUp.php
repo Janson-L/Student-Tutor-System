@@ -10,12 +10,12 @@
     $studentID=$_SESSION['loginUser'];
 ?>
 
-<body><h3>10 Latest Added Session </h3></body>
 <?php
     $query="SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession ORDER BY sessionID DESC LIMIT 10;";
     $result=mysqli_query($dbc, $query) or die("Query Failed $query");  
-    $sessionRegistered=false;   
 ?>
+
+<h3>10 Latest Added Session </h3>
 <table border='1'>
     <tr><td>Session ID</td><td>Topic</td><td>Subject Code</td><td>Date</td><td>Start Time</td><td>End Time</td><td>Duration(Hour(s))</td><td>Location</td><td>Register</td></tr>
     <?php
