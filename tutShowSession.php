@@ -10,17 +10,21 @@
 
 <?php
     $out="";
-    $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established"); 
-    $tutorID=$_SESSION['loginUser'];
+    $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established");
 
-    $query="SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession WHERE tutorid='$tutorID'ORDER BY date DESC;";
+    function format_time_output($t) // t = seconds, f = separator 
+    {
+        return sprintf("%02d%s%02d", floor($t / 3600), ':', ($t / 60) % 60);
+    }
+
+    $query="SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession WHERE tutorid='{$_SESSION['loginUser']}'ORDER BY date DESC;";
     $result=mysqli_query($dbc, $query) or die("Query Failed $query");
 
     echo"<table border='1'>";
-    echo"<tr><td>Session ID</td><td>Topic</td><td>Subject Code</td><td>Date</td><td>Start Time</td><td>End Time</td><td>Duration(Hour(s))</td><td>Location</td></tr>\n";
+    echo"<tr><th>Session ID</th><th>Topic</th><th>Subject Code</th><th>Date</th><th>Start Time</th><th>End Time</th><th>Duration(Hour(s))</th><th>Location</th></tr>\n";
     while($row=mysqli_fetch_assoc($result)){
-        $duration=(strtotime($row['endTime'])-strtotime($row['startTime']))/3600;
-        echo"<tr><td>{$row['sessionID']}</td><td>{$row['topic']}</td><td>{$row['subjectCode']}</td><td>{$row['date']}</td><td>{$row['startTime']}</td><td>{$row['endTime']}</td><td>$duration</td><td>{$row['location']}</td></tr>\n";
+        $durationd = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));
+        echo"<tr><td>{$row['sessionID']}</td><td>{$row['topic']}</td><td>{$row['subjectCode']}</td><td>{$row['date']}</td><td>{$row['startTime']}</td><td>{$row['endTime']}</td><td>$durationd</td><td>{$row['location']}</td></tr>\n";
     }
     echo"</table>";
 ?>
