@@ -1,10 +1,6 @@
 <?php
 SESSION_START();
 //$_SESSION['loginUser'];
-if (!isset($_GET['searchType'])) {
-    $_SESSION['loginUser']="a";
-}
-
 if(preg_match("/STU/",$_SESSION['loginUser'])){
 ?>
 
@@ -19,12 +15,12 @@ $searchType = "";
 $searchQuery = "";
 $searchTable = 0;
 
-if (isset($_GET['searchType'])) {
-    $searchType = $_GET['searchType'];
+if (isset($_POST['searchType'])) {
+    $searchType = $_POST['searchType'];
 }
 
-if (isset($_GET['searchQuery'])) {
-    $searchQuery = $_GET['searchQuery'];
+if (isset($_POST['searchQuery'])) {
+    $searchQuery = $_POST['searchQuery'];
 }
 ?>
 <h2>Show Registered Tutor Sessions</h2> <br>

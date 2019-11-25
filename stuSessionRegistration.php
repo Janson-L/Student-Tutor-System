@@ -1,10 +1,5 @@
 <?php
 SESSION_START();
-//$_SESSION['loginUser'];
-if (!isset($_GET['searchType'])) {
-    $_SESSION['loginUser'] = "a";
-}
-
 if (preg_match("/STU/", $_SESSION['loginUser'])) {
     ?>
 
