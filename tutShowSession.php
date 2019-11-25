@@ -1,7 +1,8 @@
 <?php
 SESSION_START();
-//$_SESSION['loginUser'] = "STU1";
-//$_SESSION['userClass'] = "STU";
+//$_SESSION['loginUser'];
+
+if (preg_match("/TUT/", @$_SESSION['loginUser'])) {
 $out = "";
 $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
 
@@ -74,3 +75,11 @@ $result = mysqli_query($dbc, $query) or die("Query Failed $query");
 <form method='POST' action='tutUI.php'>
     <input type="submit" value="Back to Tutor UI">
 </form>
+
+<?php
+} else {
+    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+    header("Refresh:5;URL=logOut.php");
+    die();
+}
+?>

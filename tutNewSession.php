@@ -1,7 +1,7 @@
 <?php 
     SESSION_START(); 
     //$_SESSION['loginUser']
-    //$_SESSION['userClass']
+    if (preg_match("/TUT/", @$_SESSION['loginUser'])) {
 ?>
 <body>
     <h3>New Tutor Session Form</h3>
@@ -164,4 +164,12 @@
 
 <?php
     echo "$out";
+?>
+
+<?php
+} else {
+    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+    header("Refresh:5;URL=logOut.php");
+    die();
+}
 ?>
