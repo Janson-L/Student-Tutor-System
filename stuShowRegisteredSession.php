@@ -1,7 +1,7 @@
 <?php
 SESSION_START();
 //$_SESSION['loginUser'];
-if(preg_match("/STU/",$_SESSION['loginUser'])){
+if(preg_match("/STU/",@$_SESSION['loginUser'])){
 ?>
 
 <?php

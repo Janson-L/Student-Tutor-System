@@ -1,6 +1,6 @@
 <?php
     SESSION_START();
-    if(preg_match("/STU/",$_SESSION['loginUser'])){
+    if(preg_match("/STU/",@$_SESSION['loginUser'])){
 ?>
     <html>
         <head>
