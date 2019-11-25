@@ -115,7 +115,7 @@ else if($searchTable==4){ ?>
                 $expiredSession = false;
                 ?>
             <tr>
-                <form method='POST'>
+                <form method='POST' action='tutShowStudents.php'>
                     <td><?php echo $row['sessionID']; ?></td>
                     <td><?php echo $row['topic']; ?></td>
                     <td><?php echo $row['subjectCode']; ?></td>
