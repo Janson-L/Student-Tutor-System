@@ -93,19 +93,19 @@ else if($searchTable==4){ ?>
         </tr>
         <?php
             if($searchTable==0){    
-                $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID, location FROM tutoringsession ORDER BY sessionID DESC LIMIT 10;";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.sessionID DESC LIMIT 10;";
             }
             else if ($searchTable==1){
-                $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID,location FROM tutoringsession WHERE sessionID='$searchQuery';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery';";
             }
             else if ($searchTable==2){
-                $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID,location FROM tutoringsession WHERE tutorID='$searchQuery';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery';";
             }
             else if ($searchTable==3){
-                $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID,location FROM tutoringsession WHERE subjectCode='$searchQuery';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery';";
             }
             else{
-                $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,tutorID,location FROM tutoringsession WHERE topic LIKE '%$searchQuery%';";                
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%';";                
             }
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
 
@@ -127,7 +127,7 @@ else if($searchTable==4){ ?>
                     <td><?php echo $row['startTime']; ?></td>
                     <td><?php echo $row['endTime']; ?></td>
                     <td><?php echo $durationd; ?></td>
-                    <td><?php echo $row['tutorID']; ?></td>
+                    <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['location']; ?></td>
                     <td>
                         <?php
