@@ -11,28 +11,28 @@ $phoneNo = "";
 $userID = "";
 $successRegistration = false;
 
-if (isset($_GET['userType'])) {
-    $userType = $_GET['userType'];
+if (isset($_POST['userType'])) {
+    $userType = $_POST['userType'];
 }
 
-if (isset($_GET['userName'])) {
-    $userName = $_GET['userName'];
+if (isset($_POST['userName'])) {
+    $userName = $_POST['userName'];
 }
 
-if (isset($_GET['matrixNo'])) {
-    $matrixNo = $_GET['matrixNo'];
+if (isset($_POST['matrixNo'])) {
+    $matrixNo = $_POST['matrixNo'];
 }
 
-if (isset($_GET['phoneNo'])) {
-    $phoneNo = $_GET['phoneNo'];
+if (isset($_POST['phoneNo'])) {
+    $phoneNo = $_POST['phoneNo'];
 }
 
-if (isset($_GET['pass']) && isset($_GET['passRetype'])) {
-    if ($_GET['pass'] != $_GET['passRetype']) {
+if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
+    if ($_POST['pass'] != $_POST['passRetype']) {
         $formCorrectCheck = false;
         $out .= "Incorrect Password. Please make sure password is the same.";
     } else {
-        $pass = $_GET['pass'];
+        $pass = $_POST['pass'];
         $successRegistration = true;
     }
 }
@@ -41,7 +41,7 @@ if (isset($_GET['pass']) && isset($_GET['passRetype'])) {
 <?php if ($successRegistration == false) { ?>
     <h3>Registration Form</h3>
     <h5>Please key in the necessary details</h5>
-    <form action='registration.php' method='GET'>
+    <form action='registration.php' method='POST'>
 
         <label>User Type</label>
         <select name='userType' required>
@@ -56,6 +56,11 @@ if (isset($_GET['pass']) && isset($_GET['passRetype'])) {
         <label>Retype Password: </label><input type='password' name='passRetype' required><br>
         <input type='submit' value='Submit Form'><br>
     </form>
+
+    <form action='login.php' method='POST'>
+        <input type='submit' value='Return to Login Page'><br>
+    </form>
+    
 
 <?php } ?>
 <?php
