@@ -74,7 +74,6 @@ SESSION_START();
                     $query ="UPDATE admin SET loginattempt=0 WHERE adminid='$userId';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $_SESSION['loginUser']="$userId";
-                    $_SESSION['userClass']="ADM";
                     header("Location:admUI.php");
                     die();
                  }
@@ -84,7 +83,6 @@ SESSION_START();
                     $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userId';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $_SESSION['loginUser']="$userId";
-                    $_SESSION['userClass']="TUT";
                     header("Location:tutUI.php");
                     die();
                  }
@@ -94,7 +92,6 @@ SESSION_START();
                     $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userId';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $_SESSION['loginUser']="$userId";
-                    $_SESSION['userClass']="STU";
                     header("Location:stuUI.php");
                     die();
                  }
