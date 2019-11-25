@@ -159,8 +159,6 @@ else if($searchTable==4){ ?>
                                         }
                                         else if (date('His', strtotime($row['startTime'])) <= $currentTime &&$currentTime-date('His',strtotime($row['startTime']))>$duration) {
                                             echo "Expired Session";
-                                            echo $currentTime-date('His',strtotime($row['startTime']));
-                                            echo "<br> $duration";
                                             $expiredSession = true;
                                         } 
                                         
