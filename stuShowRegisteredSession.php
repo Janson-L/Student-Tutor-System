@@ -65,110 +65,112 @@ if (isset($_POST['search'])) {
 
 <?php if ($searchTable == 0) { ?>
     <h3>All Registered Sessions</h3>
-<?php }
-else if($searchTable==1){ ?>
+<?php } else if ($searchTable == 1) { ?>
     <h3>Search by SessionID</h3>
-    <?php }
-else if($searchTable==2){ ?>
+<?php } else if ($searchTable == 2) { ?>
     <h3>Search by TutorID</h3>
-    <?php }
-else if($searchTable==3){ ?>
+<?php } else if ($searchTable == 3) { ?>
     <h3>Search by Subject Code</h3>
-    <?php }
-else if($searchTable==4){ ?>
+<?php } else if ($searchTable == 4) { ?>
     <h3>Search by Topic</h3>
 <?php } ?>
-    <table border='1'>
+<table border='1'>
+    <tr>
+        <th>Session ID</th>
+        <th>Topic</th>
+        <th>Subject Code</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Duration (Hour:Minute)</th>
+        <th>TutorID</th>
+        <th>Location</th>
+        <th>Registration Status</th>
+    </tr>
+    <?php
+    if ($searchTable == 0) {
+        $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' ORDER BY t.sessionID DESC;";
+    } else if ($searchTable == 1) {
+        $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.sessionID='$searchQuery';";
+    } else if ($searchTable == 2) {
+        $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.tutorID='$searchQuery';";
+    } else if ($searchTable == 3) {
+        $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.subjectCode='$searchQuery';";
+    } else {
+        $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.topic LIKE '%$searchQuery%';";
+    }
+    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+
+    $currentDate = date('Y-m-d', time());
+    $currentTime = date('His', time());
+    $currentTime += "070000";
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $durationd = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));
+        $duration=date('His',(strtotime($row['endTime']) - strtotime($row['startTime'])));
+        $expiredSession = false;
+        ?>
         <tr>
-            <th>Session ID</th>
-            <th>Topic</th>
-            <th>Subject Code</th>
-            <th>Date</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Duration (Hour:Minute)</th>
-            <th>TutorID</th>
-            <th>Location</th>
-            <th>Registration Status</th>
-        </tr>
-        <?php
-            if($searchTable==0){    
-                $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' ORDER BY t.sessionID DESC;";
-            }
-            else if ($searchTable==1){
-                $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.sessionID='$searchQuery';";
-            }
-            else if ($searchTable==2){
-                $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.tutorID='$searchQuery';";
-            }
-            else if ($searchTable==3){
-                $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.subjectCode='$searchQuery';";
-            }
-            else{
-                $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,t.tutorID, t.location FROM tutoringsession t, student s, session_student a WHERE a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='$studentID' AND t.topic LIKE '%$searchQuery%';";
-            }
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-
-            $currentDate = date('Y-m-d', time());
-            $currentTime = date('His', time());
-            $currentTime += "070000";
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                $duration = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));
-                $expiredSession = false;
-                ?>
-            <tr>
-                <form method='POST' action='stuSessionSignUp.php'>
-                    <td><?php echo $row['sessionID']; ?></td>
-                    <td><?php echo $row['topic']; ?></td>
-                    <td><?php echo $row['subjectCode']; ?></td>
-                    <td><?php echo $row['date']; ?></td>
-                    <td><?php echo $row['startTime']; ?></td>
-                    <td><?php echo $row['endTime']; ?></td>
-                    <td><?php echo $duration; ?></td>
-                    <td><?php echo $row['tutorID']; ?></td>
-                    <td><?php echo $row['location']; ?></td>
-                    <td>
-                        <?php
-                                $sessionRegistered = false;
-                                $query2 = "SELECT studentID FROM session_student WHERE sessionID='{$row['sessionID']}';";
-                                $result2 = mysqli_query($dbc, $query2) or die("Query Failed $query2");
-                                $stuID = mysqli_fetch_assoc($result2);
-                                if ($stuID['studentID'] === $_SESSION['loginUser']) {
-                                    $sessionRegistered = true;
-                                }
-                                ?>
-                        <input type="text" name="sessionID" value="<?php echo $row['sessionID']; ?>" style="display:none">
-                        <input type="text" name="topic" value="<?php echo $row['topic']; ?>" style="display:none">
-                        <input type="text" name="subjectCode" value="<?php echo $row['subjectCode']; ?>" style="display:none">
-                        <input type="text" name="date" value="<?php echo $row['date']; ?>" style="display:none">
-                        <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
-                        <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
-                        <input type="text" name="duration" value="<?php echo $duration; ?>" style="display:none">
-                        <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
-                        <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
-                        <?php if (date('Y-m-d', strtotime($row['date'])) < $currentDate) {
-                                    echo "Expired Session";
-                                    $expiredSession = true;
-                                } else {
-                                    if ((date('Y-m-d', strtotime($row['date']))) == $currentDate) {
-                                        if (date('His', strtotime($row['startTime'])) <= $currentTime) {
-                                            echo "Expired Session";
-                                            $expiredSession = true;
-                                        } elseif (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900" && $sessionRegistered != true) {
-                                            echo "Registration Closed";
-                                        }
-                                    }
-                                }
-                        if($expiredSession != true){
-                            echo"Registered";
+            <form method='POST' action='stuSessionSignUp.php'>
+                <td><?php echo $row['sessionID']; ?></td>
+                <td><?php echo $row['topic']; ?></td>
+                <td><?php echo $row['subjectCode']; ?></td>
+                <td><?php echo $row['date']; ?></td>
+                <td><?php echo $row['startTime']; ?></td>
+                <td><?php echo $row['endTime']; ?></td>
+                <td><?php echo $durationd; ?></td>
+                <td><?php echo $row['tutorID']; ?></td>
+                <td><?php echo $row['location']; ?></td>
+                <td>
+                    <?php
+                        $sessionRegistered = false;
+                        $query2 = "SELECT studentID FROM session_student WHERE sessionID='{$row['sessionID']}';";
+                        $result2 = mysqli_query($dbc, $query2) or die("Query Failed $query2");
+                        $stuID = mysqli_fetch_assoc($result2);
+                        if ($stuID['studentID'] === $_SESSION['loginUser']) {
+                            $sessionRegistered = true;
                         }
-                                    
                         ?>
-                    </td>
-                </form>
-            </tr>
-        <?php } ?>
+                    <input type="text" name="sessionID" value="<?php echo $row['sessionID']; ?>" style="display:none">
+                    <input type="text" name="topic" value="<?php echo $row['topic']; ?>" style="display:none">
+                    <input type="text" name="subjectCode" value="<?php echo $row['subjectCode']; ?>" style="display:none">
+                    <input type="text" name="date" value="<?php echo $row['date']; ?>" style="display:none">
+                    <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
+                    <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
+                    <input type="text" name="duration" value="<?php echo $durationd; ?>" style="display:none">
+                    <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
+                    <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
+                    <?php if (date('Y-m-d', strtotime($row['date'])) < $currentDate) {
+                            echo "Expired Session";
+                            $expiredSession = true;
+                        } else {
+                            if ((date('Y-m-d', strtotime($row['date']))) == $currentDate) {
+                                if(date('His', strtotime($row['startTime']))<= $currentTime&& $currentTime-date('His',strtotime($row['startTime']))<=$duration && $sessionRegistered == true){
+                                    echo"Session Started";
+                                    $expiredSession=true;
+                                }
+                                else if (date('His', strtotime($row['startTime'])) <= $currentTime &&$currentTime-date('His',strtotime($row['startTime']))>$duration) {
+                                    echo "Expired Session";
+                                    echo $currentTime-date('His',strtotime($row['startTime']));
+                                    echo "<br> $duration";
+                                    $expiredSession = true;
+                                } 
+                                
+                                else if (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900" && $sessionRegistered != true) {
+                                    echo "Registration Closed";
+                                    $expiredSession=true;
+                                }
+                            }
+                        }
+                        if ($expiredSession != true&&$sessionRegistered==true) {
+                            echo "Registered";
+                        }
+
+                        ?>
+                </td>
+            </form>
+        </tr>
+    <?php } ?>
 </table>
 
 <?php

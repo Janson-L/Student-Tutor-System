@@ -114,7 +114,8 @@ else if($searchTable==4){ ?>
             $currentTime += "070000";
 
             while ($row = mysqli_fetch_assoc($result)) {
-                $duration = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));
+                $durationd = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));
+                $duration=date('His',(strtotime($row['endTime']) - strtotime($row['startTime'])));
                 $expiredSession = false;
                 ?>
             <tr>
@@ -125,7 +126,7 @@ else if($searchTable==4){ ?>
                     <td><?php echo $row['date']; ?></td>
                     <td><?php echo $row['startTime']; ?></td>
                     <td><?php echo $row['endTime']; ?></td>
-                    <td><?php echo $duration; ?></td>
+                    <td><?php echo $durationd; ?></td>
                     <td><?php echo $row['tutorID']; ?></td>
                     <td><?php echo $row['location']; ?></td>
                     <td>
@@ -144,7 +145,7 @@ else if($searchTable==4){ ?>
                         <input type="text" name="date" value="<?php echo $row['date']; ?>" style="display:none">
                         <input type="text" name="startTime" value="<?php echo $row['startTime']; ?>" style="display:none">
                         <input type="text" name="endTime" value="<?php echo $row['endTime']; ?>" style="display:none">
-                        <input type="text" name="duration" value="<?php echo $duration; ?>" style="display:none">
+                        <input type="text" name="duration" value="<?php echo $durationd; ?>" style="display:none">
                         <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
                         <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
                         <?php if (date('Y-m-d', strtotime($row['date'])) < $currentDate) {
@@ -152,17 +153,26 @@ else if($searchTable==4){ ?>
                                     $expiredSession = true;
                                 } else {
                                     if ((date('Y-m-d', strtotime($row['date']))) == $currentDate) {
-                                        if (date('His', strtotime($row['startTime'])) <= $currentTime) {
+                                        if(date('His', strtotime($row['startTime']))<= $currentTime&& $currentTime-date('His',strtotime($row['startTime']))<=$duration && $sessionRegistered == true){
+                                            echo"Session Started";
+                                            $expiredSession=true;
+                                        }
+                                        else if (date('His', strtotime($row['startTime'])) <= $currentTime &&$currentTime-date('His',strtotime($row['startTime']))>$duration) {
                                             echo "Expired Session";
+                                            echo $currentTime-date('His',strtotime($row['startTime']));
+                                            echo "<br> $duration";
                                             $expiredSession = true;
-                                        } elseif (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900" && $sessionRegistered != true) {
+                                        } 
+                                        
+                                        else if (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900" && $sessionRegistered != true) {
                                             echo "Registration Closed";
+                                            $expiredSession=true;
                                         }
                                     }
                                 }
                                 if ($sessionRegistered != true && $expiredSession != true) { ?>
                             <input type="submit" name="register" value="Register">
-                        <?php } else if($expiredSession != true){ ?>
+                        <?php } else if($expiredSession != true&&$sessionRegistered==true){ ?>
                             <input type="submit" name="deregister" value="Deregister">
                             <?php
                                 }
