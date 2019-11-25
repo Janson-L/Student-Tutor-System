@@ -87,7 +87,7 @@ else if($searchTable==4){ ?>
             <th>Start Time</th>
             <th>End Time</th>
             <th>Duration (Hour:Minute)</th>
-            <th>TutorID</th>
+            <th>Tutor Name</th>
             <th>Location</th>
             <th>Registration Status</th>
         </tr>
