@@ -1,11 +1,7 @@
 <?php
 SESSION_START();
-$_SESSION['loginUser'] = "STU1";
-$_SESSION['userClass'] = "STU";
-$out = "";
-$out .= $_SESSION['loginUser'];
-$out .= $_SESSION['userClass'];
-echo "<h6> $out<h6>";
+//$_SESSION['loginUser'] = "STU1";
+//$_SESSION['userClass'] = "STU";
 $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
 $studentID = $_SESSION['loginUser'];
 ?>

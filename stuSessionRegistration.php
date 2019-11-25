@@ -1,17 +1,13 @@
 <?php
 SESSION_START();
-$_SESSION['loginUser'] = "STU1";
-$_SESSION['userClass'] = "STU";
-$out = "";
-$out .= $_SESSION['loginUser'];
-$out .= $_SESSION['userClass'];
-echo "<h6> $out<h6>";
+//$_SESSION['loginUser'] = "STU1";
+//$_SESSION['userClass'] = "STU";
 $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
 $studentID = $_SESSION['loginUser'];
 ?>
 
 <?php
-function format_time_output($t) // t = seconds, f = separator 
+function format_time_output($t) 
 {
     return sprintf("%02d%s%02d", floor($t / 3600), ':', ($t / 60) % 60);
 }
@@ -180,6 +176,10 @@ else if($searchTable==4){ ?>
             </tr>
         <?php } ?>
 </table>
+<br>
+<form method='POST' action='stuUI.php'>
+    <input type="submit" value="Back to Student UI">
+</form>
 
 <?php
 if (isset($_POST['register'])) {

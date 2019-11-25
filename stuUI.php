@@ -14,13 +14,13 @@
         </head>
         <body>
             <h2>Student UI</h2>
-            <form action='stuSessionSignUp.php' method='GET'>
+            <form action='stuSessionRegistration.php' method='POST'>
                 <button type='Submit'>Sign up for tutoring session</button> <br>
             </form>
-            <form action='stuShowRegisteredSession.php' method='GET'>
+            <form action='stuShowRegisteredSession.php' method='POST'>
                 <button type='Submit'>Show registered tutoring session</button> <br>
             </form>
-            <form action='logOut.php' method='GET'>
+            <form action='logOut.php' method='POST'>
                 <button type='Submit'>Log Out</button> <br>
             </form>
         </body>
