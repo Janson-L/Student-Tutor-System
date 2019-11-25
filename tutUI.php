@@ -14,13 +14,13 @@
         </head>
         <body>
             <h2>Tutor UI</h2>
-            <form action='tutNewSession.php' method='GET'>
+            <form action='tutNewSession.php' method='POST'>
                 <button type='Submit'>Add new tutoring session</button> <br>
             </form>
-            <form action='tutShowTimetable.php' method='GET'>
+            <form action='tutShowSession.php' method='POST'>
                 <button type='Submit'>Show tutoring session</button> <br>
             </form>
-            <form action='logOut.php' method='GET'>
+            <form action='logOut.php' method='POST'>
                 <button type='Submit'>Log Out</button> <br>
             </form>
         </body>
