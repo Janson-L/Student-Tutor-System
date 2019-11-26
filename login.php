@@ -20,125 +20,149 @@ SESSION_START();
        
         $loginAttemptStatus = true; //Flag for checking login ability. Deny login if it is more than 3 times 
         $loginSuccessful=false;//Flag for denying 
+        $validUser=false;
         $out="";
-        $userId="";
+        $userID="";
         $pass="";
+        $userIDDB="";
+        $passDB="";
+        $loginAttemptDB="";
+        $accountStatusDB="";
+
 
         $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established");
 
-        if(isset($_GET['userId'])){
-            $userId=$_GET['userId'];
-            if(preg_match("/ADM/",$userId)){
-                $query="SELECT adminID,password,loginAttempt,accountStatus FROM admin WHERE adminID='$userId';";
+        if(isset($_POST['userID'])){
+            $userID=$_POST['userID'];
+            $query="SELECT AdminID AS userID FROM admin UNION SELECT studentID FROM student UNION SELECT tutorID FROM tutor;";
+            $result=mysqli_query($dbc, $query) or die("Query Failed $query");
+            while($row=mysqli_fetch_assoc($result))
+            {
+                if($userID===$row['userID']){
+                    $validUser=true;
+                }
+            }
+            
+            if($validUser==true)
+        {    
+            if(preg_match("/ADM/",$userID)){
+                $query="SELECT adminID,password,loginAttempt,accountStatus FROM admin WHERE adminID='$userID';";
                 $result=mysqli_query($dbc, $query) or die("Query Failed $query");
                 $result=mysqli_fetch_assoc($result);
-                $userIdDb=$result['adminID'];
-                $passDb=$result['password'];
-                $loginAttemptDb=$result['loginAttempt'];
-                $accountStatusDb=$result['accountStatus'];
+                $userIDDB=$result['adminID'];
+                $passDB=$result['password'];
+                $loginAttemptDB=$result['loginAttempt'];
+                $accountStatusDB=$result['accountStatus'];
+                if ($accountStatusDB==0){
+                    $loginAttemptStatus=false; 
+                }
                 
             }
-            else if (preg_match("/TUT/",$userId)){
-                $query="SELECT tutorID,password,loginAttempt,accountStatus FROM Tutor WHERE tutorID='$userId';";
+            else if (preg_match("/TUT/",$userID)){
+                $query="SELECT tutorID,password,loginAttempt,accountStatus FROM Tutor WHERE tutorID='$userID';";
                 $result=mysqli_query($dbc, $query) or die("Query Failed $query");
                 $result=mysqli_fetch_assoc($result);
-                $userIdDb=$result['tutorID'];
-                $passDb=$result['password'];
-                $loginAttemptDb=$result['loginAttempt'];
-                $accountStatusDb=$result['accountStatus'];
+                $userIDDB=$result['tutorID'];
+                $passDB=$result['password'];
+                $loginAttemptDB=$result['loginAttempt'];
+                $accountStatusDB=$result['accountStatus'];
+                if ($accountStatusDB==0){
+                    $loginAttemptStatus=false; 
+                }
             }
-            else if (preg_match("/STU/",$userId)){
-                $query="SELECT studentID,password,loginAttempt,accountStatus FROM student WHERE studentID='$userId';";
+            else if (preg_match("/STU/",$userID)){
+                $query="SELECT studentID,password,loginAttempt,accountStatus FROM student WHERE studentID='$userID';";
                 $result=mysqli_query($dbc, $query) or die("Query Failed $query");
                 $result=mysqli_fetch_assoc($result);
-                $userIdDb=$result['studentID'];
-                $passDb=$result['password'];
-                $loginAttemptDb=$result['loginAttempt'];
-                $accountStatusDb=$result['accountStatus'];
-            }  
+                $userIDDB=$result['studentID'];
+                $passDB=$result['password'];
+                $loginAttemptDB=$result['loginAttempt'];
+                $accountStatusDB=$result['accountStatus'];
+                if ($accountStatusDB==0){
+                    $loginAttemptStatus=false; 
+                }
+            }
+        }  
+            else{
+                $out.="No such userID found in the system. Please register a new account or contact administrator for further assistance ";
+                $validUser==false;
+            }
 
-            if ($accountStatusDb==0){
-                $loginAttemptStatus=false; 
-            }
+            
         }
 
-        if(isset($_GET['pass'])){
-            $pass=$_GET['pass'];
+        if(isset($_POST['pass'])){
+            $pass=$_POST['pass'];
         }
         
-        if ($loginAttemptStatus==true&&isset($_GET['pass'])&&isset($_GET['userId'])){
-            if(($userId === $userIdDb) && ($pass === $passDb)){ 
-                if(preg_match("/ADM/",$userId)){
-                    $query ="UPDATE admin SET accountStatus=1 WHERE adminid='$userId';";
+        if ($validUser==true&&isset($_POST['pass'])&&isset($_POST['userID'])){
+            if(($userID === $userIDDB) && ($pass === $passDB)){ 
+                if(preg_match("/ADM/",$userID)){
+                    $query ="UPDATE admin SET accountStatus=1 WHERE adminid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
-                    $query ="UPDATE admin SET loginattempt=0 WHERE adminid='$userId';";
+                    $query ="UPDATE admin SET loginattempt=0 WHERE adminid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                    $_SESSION['loginUser']="$userId";
+                    $_SESSION['loginUser']="$userID";
                     header("Location:admUI.php");
                     die();
                  }
-                 else if (preg_match("/TUT/",$userId)){
-                    $query ="UPDATE tutor SET accountStatus=1 WHERE tutorid='$userId';";
+                 else if (preg_match("/TUT/",$userID)){
+                    $query ="UPDATE tutor SET accountStatus=1 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
-                    $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userId';";
+                    $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                    $_SESSION['loginUser']="$userId";
+                    $_SESSION['loginUser']="$userID";
                     header("Location:tutUI.php");
                     die();
                  }
-                 else if (preg_match("/STU/",$userId)){
-                    $query ="UPDATE tutor SET accountStatus=1 WHERE tutorid='$userId';";
+                 else if (preg_match("/STU/",$userID)){
+                    $query ="UPDATE tutor SET accountStatus=1 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
-                    $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userId';";
+                    $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                    $_SESSION['loginUser']="$userId";
+                    $_SESSION['loginUser']="$userID";
                     header("Location:stuUI.php");
                     die();
                  }
              }
-             else if ($userId === $userIdDb)
+             else if ($userID === $userIDDB)
              {           
-                 $newLoginAttempt= $loginAttemptDb+1;
-                 if(preg_match("/ADM/",$userId)){
-                    if($loginAttemptDb>=2) {
-                        $query ="UPDATE admin SET accountStatus=0 WHERE adminid='$userId';";
+                 $newLoginAttempt= $loginAttemptDB+1;
+                 if(preg_match("/ADM/",$userID)){
+                    if($loginAttemptDB>=2) {
+                        $query ="UPDATE admin SET accountStatus=0 WHERE adminid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                         $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
+                        
                     }
-                    $query ="UPDATE admin SET loginattempt=$newLoginAttempt WHERE adminid='$userId';";
+                    $query ="UPDATE admin SET loginattempt=$newLoginAttempt WHERE adminid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     
                     }
-                else if(preg_match("/TUT/",$userId)){
-                    if($loginAttemptDb>=2) {
-                        $query ="UPDATE tutor SET accountStatus=0 WHERE tutorid='$userId';";
+                else if(preg_match("/TUT/",$userID)){
+                    if($loginAttemptDB>=2) {
+                        $query ="UPDATE tutor SET accountStatus=0 WHERE tutorid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                         $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
                     }
-                    $query ="UPDATE tutor SET loginattempt=$newLoginAttempt WHERE tutorid='$userId';";
+                    $query ="UPDATE tutor SET loginattempt=$newLoginAttempt WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                  }
-                 else if (preg_match("/STU/",$userId)){
-                    if($loginAttemptDb>=2) {
-                        $query ="UPDATE student SET accountStatus=0 WHERE studentid='$userId';";
+                 else if (preg_match("/STU/",$userID)){
+                    if($loginAttemptDB>=2) {
+                        $query ="UPDATE student SET accountStatus=0 WHERE studentid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                         $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
                     }
-                    $query ="UPDATE student SET loginattempt=$newLoginAttempt WHERE studentid='$userId';";
+                    $query ="UPDATE student SET loginattempt=$newLoginAttempt WHERE studentid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                 }
-                 if($loginAttemptDb<2){
-                 $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
-                 }
-            }
-             else{
-                 $out.="No such userID found in the system. Please register a new account or contact administrator for further assistance ";
-             }
-         }
-         else if ($loginAttemptStatus==false){
-             $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
-         }
+                    }
 
+                    if($loginAttemptDB<2){
+                    $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
+                    }
+            }
+         }
         ?>
 
          <?php
@@ -147,8 +171,8 @@ SESSION_START();
         <h1>Login Form</h1>
         <h3>Please input your login credentials.</h3>
 
-        <form action= 'login.php' method='GET'>
-            UserID: <input type='text' name='userId' value='<?php echo $userId ?>' required><br>
+        <form action= 'login.php' method='POST'>
+            UserID: <input type='text' name='userID' value='<?php echo $userID ?>' required><br>
             Password: <input type='password' name='pass' required><br>
             <input type='submit' value='Login'><br>
         </form> 
