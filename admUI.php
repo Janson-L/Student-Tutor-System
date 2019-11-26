@@ -3,12 +3,12 @@ SESSION_START();
 if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
     ?>
 
-    <h2>Student UI</h2>
+    <h2>Admin UI</h2>
     <form action='admAddUser.php' method='POST'>
         <button type='Submit'>Add Users</button> <br>
     </form>
-    <form action='' method='POST'>
-        <button type='Submit'>Delete Users</button> <br>
+    <form action='admManageUsers.php' method='POST'>
+        <button type='Submit'>Manage Users</button> <br>
     </form>
     <form action='' method='POST'>
         <button type='Submit'>Delete Tutoring Session</button> <br>
