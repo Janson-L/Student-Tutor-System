@@ -76,7 +76,7 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
 
         <?php
             if ($searchTable == 0) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.sessionID DESC LIMIT 10;";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.ID DESC LIMIT 10;";
             } else if ($searchTable == 1) {
                 $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery' ORDER BY s.sessionID DESC;";
             } else if ($searchTable == 2) {
@@ -119,7 +119,7 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
                 $expiredSession = false;
                 ?>
             <tr>
-                <form method='POST' action='tutShowStudents.php'>
+                <form method='POST'>
                     <td><?php echo $row['sessionID']; ?></td>
                     <td><?php echo $row['topic']; ?></td>
                     <td><?php echo $row['subjectCode']; ?></td>

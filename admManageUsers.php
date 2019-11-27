@@ -1,6 +1,6 @@
 <?php
 SESSION_START();
-if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
+if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     ?>
     <?php
         $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
@@ -28,8 +28,13 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
         <input type='submit' name='search' value='Search'>
     </form>
     <form method='POST' action='admManageUsers.php'>
-        <input type='submit' value='Refresh'><br>
+        <input type='submit' value='Refresh'>
     </form>
+
+    <form method='POST' action='admUI.php'>
+        <input type="submit" value="Back to Admin UI">
+    </form>
+
 
     <?php
         if (isset($_POST['search'])) {
@@ -63,26 +68,24 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
             }
 
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-            if(mysqli_num_rows($result)>0){
-            ?> 
+            if (mysqli_num_rows($result) > 0) {
+                ?>
             <table border='1'>
-            <tr>
-                <th>User ID</th>
-                <th>Name</th>
-                <th>Matrix No</th>
-                <th>Phone No</th>
-                <th>Login Attempt</th>
-                <th>Account Status</th>
-                <th>Edit</th>
-                <th>Reset Password</th>
-                <th>Delete</th>
-            </tr>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Matrix No</th>
+                    <th>Phone No</th>
+                    <th>Login Attempt</th>
+                    <th>Account Status</th>
+                    <th>Edit</th>
+                    <th>Reset Password</th>
+                    <th>Delete</th>
+                </tr>
             <?php
-            }
-            else
-            {
-                echo"No result is found. Please make sure you have entered the correct search term.";
-            }
+                    } else {
+                        echo "No result is found. Please make sure you have entered the correct search term.";
+                    }
 
                     while ($row = mysqli_fetch_assoc($result)) {
                         ?>
@@ -129,27 +132,21 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
                 </tr>
         <?php }
             } ?>
-        </table> <br>
+            </table> <br>
 
-
-
-        <form method='POST' action='admUI.php'>
-            <input type="submit" value="Back to Admin UI">
-        </form>
+            <?php
+                if (isset($_POST['deleteUser'])) {
+                    $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
+                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                    echo '<meta http-equiv="refresh" content="0">';
+                    die();
+                }
+                ?>
 
         <?php
-            if (isset($_POST['deleteUser'])) {
-                $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                echo '<meta http-equiv="refresh" content="0">';
-                die();
-            }
-            ?>
-
-    <?php
-    } else {
-        echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
-        header("Refresh:5;URL=logOut.php");
-        die();
-    }
-    ?>
+        } else {
+            echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+            header("Refresh:5;URL=logOut.php");
+            die();
+        }
+        ?>

@@ -45,7 +45,7 @@ SESSION_START();
             
             if($validUser==true)
         {    
-            if(preg_match("/ADM/",$userID)){
+            if(preg_match("/\AADM/",$userID)){
                 $query="SELECT adminID,password,loginAttempt,accountStatus FROM admin WHERE adminID='$userID';";
                 $result=mysqli_query($dbc, $query) or die("Query Failed $query");
                 $result=mysqli_fetch_assoc($result);
@@ -58,7 +58,7 @@ SESSION_START();
                 }
                 
             }
-            else if (preg_match("/TUT/",$userID)){
+            else if (preg_match("/\ATUT/",$userID)){
                 $query="SELECT tutorID,password,loginAttempt,accountStatus FROM Tutor WHERE tutorID='$userID';";
                 $result=mysqli_query($dbc, $query) or die("Query Failed $query");
                 $result=mysqli_fetch_assoc($result);
@@ -70,7 +70,7 @@ SESSION_START();
                     $loginAttemptStatus=false; 
                 }
             }
-            else if (preg_match("/STU/",$userID)){
+            else if (preg_match("/\ASTU/",$userID)){
                 $query="SELECT studentID,password,loginAttempt,accountStatus FROM student WHERE studentID='$userID';";
                 $result=mysqli_query($dbc, $query) or die("Query Failed $query");
                 $result=mysqli_fetch_assoc($result);
@@ -97,7 +97,7 @@ SESSION_START();
         
         if ($validUser==true&&isset($_POST['pass'])&&isset($_POST['userID'])){
             if(($userID === $userIDDB) && ($pass === $passDB)){ 
-                if(preg_match("/ADM/",$userID)){
+                if(preg_match("/\AADM/",$userID)){
                     $query ="UPDATE admin SET accountStatus=1 WHERE adminid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
                     $query ="UPDATE admin SET loginattempt=0 WHERE adminid='$userID';";
@@ -106,7 +106,7 @@ SESSION_START();
                     header("Location:admUI.php");
                     die();
                  }
-                 else if (preg_match("/TUT/",$userID)){
+                 else if (preg_match("/\ATUT/",$userID)){
                     $query ="UPDATE tutor SET accountStatus=1 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
                     $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userID';";
@@ -115,7 +115,7 @@ SESSION_START();
                     header("Location:tutUI.php");
                     die();
                  }
-                 else if (preg_match("/STU/",$userID)){
+                 else if (preg_match("/\ASTU/",$userID)){
                     $query ="UPDATE tutor SET accountStatus=1 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query"); 
                     $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userID';";
@@ -128,7 +128,7 @@ SESSION_START();
              else if ($userID === $userIDDB)
              {           
                  $newLoginAttempt= $loginAttemptDB+1;
-                 if(preg_match("/ADM/",$userID)){
+                 if(preg_match("/\AADM/",$userID)){
                     if($loginAttemptDB>=2) {
                         $query ="UPDATE admin SET accountStatus=0 WHERE adminid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
@@ -139,7 +139,7 @@ SESSION_START();
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     
                     }
-                else if(preg_match("/TUT/",$userID)){
+                else if(preg_match("/\ATUT/",$userID)){
                     if($loginAttemptDB>=2) {
                         $query ="UPDATE tutor SET accountStatus=0 WHERE tutorid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
@@ -148,7 +148,7 @@ SESSION_START();
                     $query ="UPDATE tutor SET loginattempt=$newLoginAttempt WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                  }
-                 else if (preg_match("/STU/",$userID)){
+                 else if (preg_match("/\ASTU/",$userID)){
                     if($loginAttemptDB>=2) {
                         $query ="UPDATE student SET accountStatus=0 WHERE studentid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
