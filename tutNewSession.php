@@ -1,7 +1,7 @@
 <?php 
     SESSION_START(); 
     //$_SESSION['loginUser']
-    //$_SESSION['userClass']
+    if (preg_match("/TUT/", @$_SESSION['loginUser'])) {
 ?>
 <body>
     <h3>New Tutor Session Form</h3>
@@ -21,41 +21,41 @@
     $out="";
 
 
-    if (isset($_GET['topic'])){
-        $topic=$_GET['topic'];
+    if (isset($_POST['topic'])){
+        $topic=$_POST['topic'];
     }
 
-    if(isset($_GET['subjectCode'])){
-        $subjectCode=$_GET['subjectCode'];
+    if(isset($_POST['subjectCode'])){
+        $subjectCode=$_POST['subjectCode'];
     }
 
-    if(isset($_GET['date'])){
-        $date=$_GET['date'];
+    if(isset($_POST['date'])){
+        $date=$_POST['date'];
     }
 
-    if(isset($_GET['startTimeH'])){
-        $startTime.=$_GET['startTimeH'];
+    if(isset($_POST['startTimeH'])){
+        $startTime.=$_POST['startTimeH'];
     }
 
-    if(isset($_GET['startTimeM'])){
-        $startTime.=$_GET['startTimeM'];
+    if(isset($_POST['startTimeM'])){
+        $startTime.=$_POST['startTimeM'];
         $startTime.="00";
     }
 
-    if(isset($_GET['endTimeH'])){
-        $endTime.=$_GET['endTimeH'];
+    if(isset($_POST['endTimeH'])){
+        $endTime.=$_POST['endTimeH'];
     }
 
-    if(isset($_GET['endTimeM'])){
-        $endTime.=$_GET['endTimeM'];
+    if(isset($_POST['endTimeM'])){
+        $endTime.=$_POST['endTimeM'];
         $endTime.="00";
     }
 
-    if(isset($_GET['location'])){
-        $location=$_GET['location'];
+    if(isset($_POST['location'])){
+        $location=$_POST['location'];
     }
 
-    if(isset($_GET['startTimeH'])&&isset($_GET['startTimeM'])&&isset($_GET['endTimeH'])&&isset($_GET['endTimeM']))
+    if(isset($_POST['startTimeH'])&&isset($_POST['startTimeM'])&&isset($_POST['endTimeH'])&&isset($_POST['endTimeM']))
     {   
         $formFilledCorrectly=true;
         $currentDate=date('Y-m-d', time());
@@ -128,7 +128,7 @@
     <head>
     </head>
     <body>
-        <form action='tutNewSession.php' method='GET'>
+        <form action='tutNewSession.php' method='POST'>
             <label>Topic: </label><input type='text' name='topic' value='<?php echo $topic ?>' required size="30"><br>
             <label>Subject Code(if applicable): </label><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>'></textarea> <br>
             <label>Date: </label><input type='date' name='date' value='<?php echo $date ?>' required ><br>
@@ -152,11 +152,11 @@
                 <?php for($i=10;$i<=59;$i+=5) echo "<option value=".$i.">".$i." </option>";?>
             </select><br>
             <label>Location:</label><input type='text' name='location' value='<?php echo $location ?>' required size="20"><br>
-            
+            <br>
             <input type='submit' value='Add new tutoring session'><br>
-        </form>
+        </form><br>
 
-        <form action='tutUI.php' method='GET'>
+        <form action='tutUI.php' method='POST'>
             <button type='Submit'>Back to Tutor UI page</button> <br>
         </form>
     </body>
@@ -164,4 +164,12 @@
 
 <?php
     echo "$out";
+?>
+
+<?php
+} else {
+    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+    header("Refresh:5;URL=logOut.php");
+    die();
+}
 ?>
