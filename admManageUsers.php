@@ -66,21 +66,18 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
         <?php
             if($searchTable==0)
             {
-                $query="SELECT adminID AS userID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM admin UNION
-                SELECT studentID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM student UNION
-                SELECT tutorID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM tutor;";
+                $query="SELECT studentID AS userID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student UNION
+                SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor;";
             }
             if($searchTable==1)
             {
-                $query="SELECT adminID AS userID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM admin UNION
-                SELECT studentID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM student UNION
-                SELECT tutorID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM tutor WHERE userID='$searchQuery';";
+                $query="SELECT studentID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student UNION
+                SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor WHERE userID='$searchQuery';";
             }
             else if($searchTable==2)
             {
-                $query="SELECT adminID AS userID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM admin UNION
-                SELECT studentID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM student UNION
-                SELECT tutorID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM tutor WHERE name LIKE'%$searchQuery%';";
+                $query="SELECT studentID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student UNION
+                SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor WHERE name LIKE'%$searchQuery%';";
             }
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
 
@@ -101,7 +98,7 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
                         <input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" style="display:none">
                         <input type="text" name="loginAttempt" value="<?php echo $row['loginAttempt']; ?>" style="display:none">
                         <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">     
-                        
+
                         <input type="submit" name="editUsers" value="Edit Users">        
                     </td>
                     <td>
