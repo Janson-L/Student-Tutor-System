@@ -40,10 +40,11 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
     }
 }
 ?>
-<?php if ($successRegistration!=true) {?>
+
+<?php if ($successRegistration == false) { ?>
     <h3>Registration Form</h3>
     <h5>Please key in the necessary details</h5>
-    <form action='admAddUser.php' method='POST'>
+    <form action='registration.php' method='POST'>
 
         <label>User Type</label>
         <select name='userType' required>
@@ -52,9 +53,9 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
             <option <?php if ($userType == "admin") echo 'selected="selected"'; ?>value='admin'>Admin</option>
         </select><br>
 
-        <label>Name: </label><input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,30}" required maxlength="30"> (3-30 Characters, no special characters except / and @) <br>
-        <label>Matrix No: </label><input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789"required maxlength="10"><br>
-        <label>Mobile Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)<br>
+        <label>Name: </label><input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{5,30}" placeholder="Jason (Max. 30 characters)" required maxlength="30"><br>
+        <label>Matrix No: </label><input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" required maxlength="9"><br>
+        <label>Mobile Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" placeholder="0123456789 (Max. 15 characters)" required maxlength="15"><br>
         <label>Password: </label><input type='password' name='pass' required><br>
         <label>Retype Password: </label><input type='password' name='passRetype' required><br>
         <input type='submit' value='Submit Form'><br>
@@ -63,9 +64,10 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
     <form action='admUI.php' method='POST'>
         <input type='submit' value='Return to Admin UI'><br>
     </form>
+    
 
+<?php } ?>
 <?php
-}
 if ($successRegistration == true) {
     if ($userType == "student") {
         $query = "INSERT INTO Student (Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$userName','$matrixNo','$phoneNo','$pass',0,1);";
@@ -123,13 +125,11 @@ if ($successRegistration == true) {
         }
         $userID .= $id;
 
-        $query = "UPDATE admin SET adminID='$userID' WHERE ID=$IdDb;";
+        $query = "UPDATE tutor SET tutorID='$userID' WHERE ID=$IdDb;";
         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
     }
+
     echo "Registration Successful!";
-    header("Refresh:2;URL=admAddUser.php");
-
-
 } else {
     echo "<h5>$out</h5>";
 }
