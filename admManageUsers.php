@@ -81,7 +81,7 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
             }
             else
             {
-                echo"No result is found. Please make sure you have the correct search term.";
+                echo"No result is found. Please make sure you have entered the correct search term.";
             }
 
                     while ($row = mysqli_fetch_assoc($result)) {

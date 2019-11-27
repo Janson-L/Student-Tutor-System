@@ -23,21 +23,24 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
         }
         ?>
 
-    <h2>Show Tutor Sessions</h2> <br>
+    <h2>Session Registration</h2> <br>
     <form method='POST'>
         <label>Search Type</label>
         <select name='searchType' required>
+            <option <?php if ($searchType == "topicSearch") echo 'selected="selected"'; ?>value='topicSearch'>Search by Topic</option>
             <option <?php if ($searchType == "sessionSearch") echo 'selected="selected"'; ?>value='sessionSearch'>Search by SessionID</option>
             <option <?php if ($searchType == "tutorIDSearch") echo 'selected="selected"'; ?>value='tutorIDSearch'>Search by TutorID</option>
             <option <?php if ($searchType == "subjectCodeSearch") echo 'selected="selected"'; ?>value='subjectCodeSearch'>Search by Subject Code </option>
-            <option <?php if ($searchType == "topicSearch") echo 'selected="selected"'; ?>value='topicSearch'>Search by Topic</option>
         </select>
 
         <input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30">
         <input type='submit' name='search' value='Search'>
     </form>
     <form method='POST' action='stuSessionRegistration.php'>
-        <input type='submit' value='Refresh'><br>
+        <input type='submit' value='Refresh'>
+    </form>
+    <form method='POST' action='stuUI.php'>
+        <input type="submit" value="Return to Student UI">
     </form>
 
     <?php
@@ -67,35 +70,45 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
     <?php } else if ($searchTable == 3) { ?>
         <h3>Search by Subject Code</h3>
     <?php } else if ($searchTable == 4) { ?>
-        <h3>Search by topic</h3>
+        <h3>Search by Topic</h3>
     <?php } ?>
-    <table border='1'>
-        <tr>
-            <th>Session ID</th>
-            <th>Topic</th>
-            <th>Subject Code</th>
-            <th>Date</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Duration (Hour:Minute)</th>
-            <th>Tutor Name</th>
-            <th>Location</th>
-            <th>Registration Status</th>
-        </tr>
+    
+
         <?php
             if ($searchTable == 0) {
                 $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.sessionID DESC LIMIT 10;";
             } else if ($searchTable == 1) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery' ORDER BY s.sessionID DESC;";
             } else if ($searchTable == 2) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery' ORDER BY s.sessionID DESC;";
             } else if ($searchTable == 3) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery' ORDER BY s.sessionID DESC;";
             } else {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%';";
+                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%' ORDER BY s.sessionID DESC;";
             }
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            if(mysqli_num_rows($result)>0){
+            ?>
+            <table border='1'>
+                <tr>
+                    <th>Session ID</th>
+                    <th>Topic</th>
+                    <th>Subject Code</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Duration (Hour:Minute)</th>
+                    <th>Tutor Name</th>
+                    <th>Location</th>
+                    <th>Registration Status</th>
+                </tr>
 
+        <?php
+            }
+            else
+            {
+                echo"No result is found. Please make sure you have entered the correct search term.";
+            }
             $currentDate = date('Y-m-d', time());
             $currentTime = date('His', time());
             $currentTime += "070000";
@@ -165,9 +178,6 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
         <?php } ?>
     </table>
     <br>
-    <form method='POST' action='stuUI.php'>
-        <input type="submit" value="Return to Student UI">
-    </form>
 
     <?php
         if (isset($_POST['register'])) {
