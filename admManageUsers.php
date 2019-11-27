@@ -113,6 +113,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                             <input type="text" name="name" value="<?php echo $row['name']; ?>" style="display:none">
                             <input type="text" name="matrixNo" value="<?php echo $row['matrixNo']; ?>" style="display:none">
                             <input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" style="display:none">
+                            <input type="text" name="password" value="<?php echo $row['password']; ?>" style="display:none">
                             <input type="text" name="loginAttempt" value="<?php echo $row['loginAttempt']; ?>" style="display:none">
                             <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">
                             <input type="submit" name="resetPassword" value="Reset Password">
