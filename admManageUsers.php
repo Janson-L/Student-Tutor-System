@@ -35,16 +35,20 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
         if (isset($_POST['search'])) {
             if ($_POST['searchType'] == "userIDSearch") {
                 $searchTable = 1;
-                $searchQuery = $_POST['searchQuery'];
             } 
             else if ($_POST['searchType'] == "userNameSearch") {
                 $searchTable = 2;
-                $searchQuery = $_POST['searchQuery'];
             }
-        
-  if ($searchTable == 1) { ?>
+        }
+    ?>
+
+    <?php if ($searchTable == 0) { ?>
+        <h3>Show All</h3>
+     <?php }    
+    else if ($searchTable == 1) { ?>
         <h3>Search by User ID</h3>
-    <?php } else if ($searchTable == 2) { ?>
+    <?php } 
+    else if ($searchTable == 2) { ?>
         <h3>Search by User Name</h3>
     <?php } ?>
     <table border='1'>
@@ -60,6 +64,12 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
             <th>Delete</th>
         </tr>
         <?php
+            if($searchTable==0)
+            {
+                $query="SELECT adminID AS userID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM admin UNION
+                SELECT studentID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM student UNION
+                SELECT tutorID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM tutor;";
+            }
             if($searchTable==1)
             {
                 $query="SELECT adminID AS userID, name, matrixNo, phoneno,loginAttempt, accountStatus FROM admin UNION
@@ -90,20 +100,21 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
                         <input type="text" name="matrixNo" value="<?php echo $row['matrixNo']; ?>" style="display:none">
                         <input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" style="display:none">
                         <input type="text" name="loginAttempt" value="<?php echo $row['loginAttempt']; ?>" style="display:none">
-                        <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">
-                        <input type="submit" name="edit" value="Edit">        
+                        <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">     
+                        
+                        <input type="submit" name="editUsers" value="Edit Users">        
                     </td>
                     <td>
                         <input type="submit" name="resetPassword" value="Reset Password">        
                     </td>
                     <td>
-                        <input type="submit" name="deleteUser" value="Delete User">        
+                        <input type="submit" name="deleteUser" value="Delete User">
                     </td>
                 </form>
             </tr>
             <?php } ?>
             </table> <br>
-            <?php } ?>
+ 
 
 
 <form method='POST' action='admUI.php'>
@@ -111,10 +122,10 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
 </form>
 
 <?php
-} 
+}
 else {
     echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
     header("Refresh:5;URL=logOut.php");
-    die();
+   die();
 }
 ?>
