@@ -84,7 +84,6 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
             while ($row = mysqli_fetch_assoc($result)) {
                 ?>
             <tr>
-                <form method='POST'>
                     <td><?php echo $row['userID']; ?></td>
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['matrixNo']; ?></td>
@@ -92,22 +91,38 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
                     <td><?php echo $row['loginAttempt']; ?></td>
                     <td><?php echo $row['accountStatus']; ?></td>
                     <td>
+                    <form method='POST' action='admEditUser.php'>
                         <input type="text" name="userID" value="<?php echo $row['userID']; ?>" style="display:none">
                         <input type="text" name="name" value="<?php echo $row['name']; ?>" style="display:none">
                         <input type="text" name="matrixNo" value="<?php echo $row['matrixNo']; ?>" style="display:none">
                         <input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" style="display:none">
                         <input type="text" name="loginAttempt" value="<?php echo $row['loginAttempt']; ?>" style="display:none">
                         <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">     
-
-                        <input type="submit" name="editUsers" value="Edit Users">        
+                        <input type="submit" name="editUser" value="Edit User"> 
+                    </form>       
                     </td>
                     <td>
-                        <input type="submit" name="resetPassword" value="Reset Password">        
+                        <form method='POST' action='admResetPassword.php'>
+                            <input type="text" name="userID" value="<?php echo $row['userID']; ?>" style="display:none">
+                            <input type="text" name="name" value="<?php echo $row['name']; ?>" style="display:none">
+                            <input type="text" name="matrixNo" value="<?php echo $row['matrixNo']; ?>" style="display:none">
+                            <input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" style="display:none">
+                            <input type="text" name="loginAttempt" value="<?php echo $row['loginAttempt']; ?>" style="display:none">
+                            <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">
+                            <input type="submit" name="resetPassword" value="Reset Password">   
+                        </form>     
                     </td>
                     <td>
+                    <form method='POST' action='admDeleteUser.php'>
+                        <input type="text" name="userID" value="<?php echo $row['userID']; ?>" style="display:none">
+                        <input type="text" name="name" value="<?php echo $row['name']; ?>" style="display:none">
+                        <input type="text" name="matrixNo" value="<?php echo $row['matrixNo']; ?>" style="display:none">
+                        <input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" style="display:none">
+                        <input type="text" name="loginAttempt" value="<?php echo $row['loginAttempt']; ?>" style="display:none">
+                        <input type="text" name="accountStatus" value="<?php echo $row['accountStatus']; ?>" style="display:none">
                         <input type="submit" name="deleteUser" value="Delete User">
+                    </form>
                     </td>
-                </form>
             </tr>
             <?php } ?>
             </table> <br>
@@ -117,6 +132,15 @@ if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
 <form method='POST' action='admUI.php'>
 <input type="submit" value="Back to Admin UI">
 </form>
+
+<?php
+        if (isset($_POST['deleteUser'])) {
+            $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
+            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            echo '<meta http-equiv="refresh" content="0">';
+            die();
+        }
+?>
 
 <?php
 }
