@@ -1,7 +1,7 @@
 <?php 
     SESSION_START(); 
     //$_SESSION['loginUser']
-    if (preg_match("/TUT/", @$_SESSION['loginUser'])) {
+    if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
 ?>
 <body>
     <h3>New Tutor Session Form</h3>

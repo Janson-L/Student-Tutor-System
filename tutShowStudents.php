@@ -1,6 +1,6 @@
 <?php
 SESSION_START();
-if (preg_match("/TUT/", @$_SESSION['loginUser'])) {
+if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
     $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
     //$_SESSION['loginUser'];
     $index = 1;

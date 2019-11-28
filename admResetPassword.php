@@ -1,6 +1,6 @@
 <?php
 SESSION_START();
-if (preg_match("/ADM/", @$_SESSION['loginUser'])) {
+if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
 
 <?php
