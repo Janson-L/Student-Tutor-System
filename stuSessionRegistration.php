@@ -88,6 +88,9 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
             }
             $result = mysqli_query($dbc, $query) or die("Query Failed $query");
             if(mysqli_num_rows($result)>0){
+                $currentDate = date('Y-m-d', time());
+                $currentTime = date('His', time());
+                $currentTime += "070000";
             ?>
             <table border='1'>
                 <tr>
@@ -109,9 +112,7 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
             {
                 echo"No result is found. Please make sure you have entered the correct search term.";
             }
-            $currentDate = date('Y-m-d', time());
-            $currentTime = date('His', time());
-            $currentTime += "070000";
+            
 
             while ($row = mysqli_fetch_assoc($result)) {
                 $durationd = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));

@@ -39,6 +39,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             $result=mysqli_query($dbc,$query) or die("Query Failed $query");
             echo"Update successful. You will now be redirected back to Manage User UI.";
             header("Refresh:5;URL=admManageUsers.php");
+            die();
         }
         
     }

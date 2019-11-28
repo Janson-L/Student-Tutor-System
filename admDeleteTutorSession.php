@@ -8,47 +8,26 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 
 ?>
 
-    <?php if(!isset($_POST['editUserConfirm'])){ ?>
-        <h2>Edit User </h2>
+    <?php if(!isset($_POST['deleteSessionConfirm'])){ ?>
+        <h2>Confirmation </h2>
+        Are you sure you want to delete <?php echo "{$_POST['topic']} ({$_POST['sessionID']})" ?> ?<br>
     <form method='POST'>
-    <?php if (preg_match("/\ASTU/", $_POST['userID'])){
-    ?>
-        <label>Student ID:</label><input type="text" name="userID" value="<?php echo $_POST['userID']; ?>" readonly><br>
-    <?php
-    }
-    else if (preg_match("/\ATUT/", $_POST['userID'])){?>
-        <label>Tutor ID:</label><input type="text" name="userID" value="<?php echo $_POST['userID']; ?>" readonly><br>
-    <?php } ?>
-        
-        <label>Name:</label><input type="text" name="name" value="<?php echo $_POST['name']; ?>"pattern="[A-Za-z /@]{3,30}" required maxlength="30" > (3-30 Characters, no special characters except / and @)<br>
-        <label>Matrix No:</label><input type="text" name="matrixNo" value="<?php echo $_POST['matrixNo']; ?>"pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789"required maxlength="10"><br>
-        <label>Phone No:</label><input type="text" name="phoneNo" value="<?php echo $_POST['phoneNo']; ?>"pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)<br>
-
-        <label></label><input type="submit" name="editUserConfirm" value="Edit User">
+        <input type="text" name="sessionID" value="<?php echo $_POST['sessionID']; ?>" style="display:none"><br>
+        <label></label><input type="submit" name="deleteSessionConfirm" value="Confirm">
     </form>
 
-    <form method='POST' action='admManageUsers.php'>
-        <input type="submit" value="Back to Manage Users UI">
+    <form method='POST' action='admManageTutorSession.php'>
+        <input type="submit" value="Cancel">
     </form>
     <?php } ?>
 <?php
-    if(isset($_POST['editUserConfirm']))
+    if(isset($_POST['deleteSessionConfirm']))
     {
-        if(preg_match("/\ASTU/", $_POST['userID']))
-        {
-            $query="UPDATE student SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE studentID='{$_POST['userID']}';";
-            $result=mysqli_query($dbc,$query) or die("Query Failed $query");
-            echo"Update successful. You will now be redirected back to Manage User UI.";
-            header("Refresh:5;URL=admManageUsers.php");
-        }
-        else if (preg_match("/\ATUT/", $_POST['userID']))
-        {
-            $query="UPDATE tutor SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE tutorID='{$_POST['userID']}';";
-            $result=mysqli_query($dbc,$query) or die("Query Failed $query");
-            echo"Update successful. You will now be redirected back to Manage User UI.";
-            header("Refresh:5;URL=admManageUsers.php");
-        }
-        
+       $query="DELETE FROM tutoringSession WHERE sessionID='{$_POST['sessionID']}';";
+       $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+       echo"Update successful. You will now be redirected back to Manage User UI.";
+       header("Refresh:5;URL=admManageTutorSession.php");
+       die();
     }
         ?>
 
