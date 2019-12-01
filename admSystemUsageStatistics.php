@@ -24,7 +24,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     $query="SELECT COUNT(sessionID) AS tutoringSessionNo FROM tutoringSession;";
     $result=mysqli_query($dbc,$query) or die("Query Failed $query");
     $row = mysqli_fetch_assoc($result);
-    $tutoringSessionNo=$row['tutoringSessionNo'];
+    $noOfTutoringSession=$row['tutoringSessionNo'];
 
     $query="SELECT startTime, endTime FROM tutoringSession;";
     $result=mysqli_query($dbc,$query) or die("Query Failed $query");
@@ -65,7 +65,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 <table border='1'>
     <tr>
         <th>No. of tutoring sessions listed:</th>
-        <td><?php echo "$tutoringSessionNo"; ?></td>
+        <td><?php echo "$noOfTutoringSession"; ?></td>
     </tr>
 </table><br>
 

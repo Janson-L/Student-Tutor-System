@@ -15,6 +15,9 @@
             <form action='stuShowRegisteredSession.php' method='POST'>
                 <button type='Submit'>Show registered tutoring session</button> <br>
             </form>
+            <form action='stuSystemUsageStatistics.php' method='POST'>
+                <button type='Submit'>Show system usage statistics</button> <br>
+            </form>
             <form action='logOut.php' method='POST'>
                 <button type='Submit'>Log Out</button> <br>
             </form>
