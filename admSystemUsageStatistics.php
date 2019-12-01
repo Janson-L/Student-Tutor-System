@@ -11,6 +11,16 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             return sprintf("%02d%s%02d%s", floor($t / 3600), ' hour(s) ', ($t / 60) % 60,' minute(s)');
         }
 
+    $query="SELECT COUNT(studentID) AS noOfStudent FROM student;";
+    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $row = mysqli_fetch_assoc($result);
+    $noOfStudent=$row['noOfStudent'];
+
+    $query="SELECT COUNT(tutorID) AS noOfTutor FROM tutor;";
+    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $row = mysqli_fetch_assoc($result);
+    $noOfTutor=$row['noOfTutor'];
+
     $query="SELECT COUNT(sessionID) AS tutoringSessionNo FROM tutoringSession;";
     $result=mysqli_query($dbc,$query) or die("Query Failed $query");
     $row = mysqli_fetch_assoc($result);
@@ -26,6 +36,31 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     $durationd=format_time_output($duration);
 
 ?>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
+           <script type="text/javascript">  
+           google.charts.load('current', {'packages':['corechart']});  
+           google.charts.setOnLoadCallback(drawChart);  
+           function drawChart()  
+           {  
+                var data = google.visualization.arrayToDataTable([  
+                          ['User Type', 'Number'],  
+                          ['Student',<?php echo $noOfStudent; ?>],
+                          ['Tutor',<?php echo $noOfTutor; ?>]  
+                ]);  
+                var options = {  
+                      title: 'Percentage of User Type',  
+                     };  
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));  
+                chart.draw(data, options);  
+           }  
+           </script>  
+<body>
+    <br /><br />
+        <div style="width:900px;">
+        <div id="piechart" style="width:900px;height:500px;"></div>
+    <br />
+</body>
+
 
 <table border='1'>
     <tr>
