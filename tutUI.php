@@ -18,6 +18,9 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         <form action='tutShowSession.php' method='POST'>
             <button type='Submit'>Show tutoring session</button> <br>
         </form>
+        <form action='tutSystemUsageStatistics.php' method='POST'>
+            <button type='Submit'>Show system usage statistics</button> <br>
+        </form>
         <form action='logOut.php' method='POST'>
             <button type='Submit'>Log Out</button> <br>
         </form>
