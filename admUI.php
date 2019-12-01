@@ -13,7 +13,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     <form action='admManageTutorSession.php' method='POST'>
         <button type='Submit'>Delete Tutoring Session</button> <br>
     </form>
-    <form action='' method='POST'>
+    <form action='admSystemUsageStatistics.php' method='POST'>
         <button type='Submit'>Show System Usage Statistics</button> <br>
     </form>
     <form action='logOut.php' method='POST'>
