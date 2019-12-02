@@ -2,6 +2,20 @@
 SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     ?>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    </head>
+    <ul>
+        <li class="active"><a href="admUI.php">Home</a></li>
+        <li><a href="admAddUser.php">Add User</a></li>
+        <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
+        <li><a href="admManageUsers.php">Manage Users</a></li>
+        <li style="float:right"><a href="logOut.php">Log Out</a></li>
+    </ul>
+
+
+
     <?php
         $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
         $searchType = "";

@@ -3,6 +3,20 @@ SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
 
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    </head>
+    <ul>
+        <li><a href="admUI.php">Home</a></li>
+        <li><a href="admAddUser.php">Add User</a></li>
+        <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
+        <li class="active"><a href="admManageUsers.php">Manage Users</a></li>
+        <li><a href="admSystemUsageStatistics.php">System Usage Statistics</a></li>
+        <li style="float:right"><a href="logOut.php">Log Out</a></li>
+    </ul>
+
+
+
 <?php
     $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
     $validUpdate=false;
@@ -38,15 +52,19 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
         {
             $query="UPDATE student SET password='{$_POST['newPassword']}', loginAttempt='{$_POST['loginAttempt']}', accountStatus='{$_POST['accountStatus']}' WHERE studentID='{$_POST['userID']}';";
             $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+            mysqli_close($dbc);
             echo"Update successful. You will now be redirected back to Manage User UI.";
             header("Refresh:5;URL=admManageUsers.php");
+            die();
         }
         else if (preg_match("/\ATUT/", $_POST['userID']))
         {
             $query="UPDATE tutor SET name='{$_POST['newPassword']}', loginAttempt='{$_POST['loginAttempt']}', accountStatus='{$_POST['accountStatus']}' WHERE tutorID='{$_POST['userID']}';";
             $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+            mysqli_close($dbc);
             echo"Update successful. You will now be redirected back to Manage User UI.";
             header("Refresh:5;URL=admManageUsers.php");
+            die();
         }
     }
 ?>
