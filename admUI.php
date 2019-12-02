@@ -6,8 +6,8 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     <link rel="stylesheet" href="css/style.css">
     </head>
     <ul>
-        <li><a href="admUI.php">Home</a></li>
-        <li class="dropdown active">
+        <li class="active"><a href="admUI.php">Home</a></li>
+        <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Manage Users</a>
             <div class="dropdown-content">
             <a href="admAddUser.php">Add User</a>
