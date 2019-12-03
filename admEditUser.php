@@ -30,7 +30,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     <form method='POST'>
 
     
-        <label>Student ID:</label><input type="text" name="userID" value="<?php echo $_POST['userID']; ?>" style="display:none"><br>
+        <input type="text" name="userID" value="<?php echo $_POST['userID']; ?>" style="display:none">
         <label>Name:</label><input type="text" name="name" value="<?php echo $_POST['name']; ?>"pattern="[A-Za-z /@]{3,30}" required maxlength="30" > (3-30 Characters, no special characters except / and @)<br>
         <label>Matrix No:</label><input type="text" name="matrixNo" value="<?php echo $_POST['matrixNo']; ?>"pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789"required maxlength="10"><br>
         <label>Phone No:</label><input type="text" name="phoneNo" value="<?php echo $_POST['phoneNo']; ?>"pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)<br>

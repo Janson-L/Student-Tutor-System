@@ -36,7 +36,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             $searchQuery = $_POST['searchQuery'];
         }
         ?>
-    <h2>Manage Users</h2>
+    <h2>Update and Delete User</h2>
     <form method='POST'>
         <label>Search Type</label>
         <select name='searchType' required>

@@ -41,7 +41,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             return sprintf("%02d%s%02d", floor($t / 3600), ':', ($t / 60) % 60);
         }
         ?>
-    <h2>Tutor Session Search</h2>
+    <h2>Manage Tutor Session</h2>
     <form method='POST'>
         <label>Search Type</label>
         <select name='searchType' required>

@@ -57,6 +57,8 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     mysqli_close($dbc);
 ?>
 
+<h2>System Usage Statistics</h2>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
            <script type="text/javascript">  
            google.charts.load('current', {'packages':['corechart']});  
