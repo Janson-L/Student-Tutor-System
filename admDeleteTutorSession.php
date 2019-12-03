@@ -4,7 +4,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
 
 <head>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
     </head>
     <ul>
         <li><a href="admUI.php">Home</a></li>
