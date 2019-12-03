@@ -12,7 +12,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             <a href="javascript:void(0)" class="dropbtn">Manage Users</a>
             <div class="dropdown-content">
             <a href="admAddUser.php">Add User</a>
-            <a href="admManageUsers.php">Manage Users</a>
+            <a href="admManageUsers.php">Update and Delete Users</a>
         </div>
         </li>
         <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>

@@ -13,7 +13,7 @@ if(preg_match("/\AADM/",@$_SESSION['loginUser'])){
             <a href="javascript:void(0)" class="dropbtn">Manage Users</a>
             <div class="dropdown-content">
             <a href="admAddUser.php">Add User</a>
-            <a href="admManageUsers.php">Manage Users</a>
+            <a href="admManageUsers.php">Update and Delete Users</a>
         </div>
         </li>
         <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
@@ -60,8 +60,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
 }
 ?>
 <?php if ($successRegistration!=true) {?>
-    <h3>Registration Form</h3>
-    <h5>Please key in the necessary details</h5>
+    <h2>Add New User</h2>
     <form action='admAddUser.php' method='POST'>
 
         <label>User Type</label>
