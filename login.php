@@ -4,19 +4,15 @@ SESSION_START();
 
 <html> 
     <head>
-        <meta charset="utf-8">
         <title>UTeM Student Tutor System</title>
-        <style>
-        /*    body{
-                text-align:center;
-            }*/
-        </style>
+        <link rel="stylesheet" href="css/form.css">
     </head>
 
     <body>
-        <h1>UTeM Student Tutor System</h1>
+        <h1>UTeM Student Tutor System (USTS)</h1>
         
         <?php
+        $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established");
        
         $loginAttemptStatus = true; //Flag for checking login ability. Deny login if it is more than 3 times 
         $loginSuccessful=false;//Flag for denying 
@@ -30,7 +26,7 @@ SESSION_START();
         $accountStatusDB="";
 
 
-        $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established");
+        
 
         if(isset($_POST['userID'])){
             $userID=$_POST['userID'];
@@ -84,7 +80,7 @@ SESSION_START();
             }
         }  
             else{
-                $out.="No such userID found in the system. Please register a new account or contact administrator for further assistance ";
+                $out.="No such user registered. Please register a new account or contact administrator for further assistance.";
                 $validUser==false;
             }
 
@@ -103,6 +99,7 @@ SESSION_START();
                     $query ="UPDATE admin SET loginattempt=0 WHERE adminid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $_SESSION['loginUser']="$userID";
+                    mysqli_close($dbc);
                     header("Location:admUI.php");
                     die();
                  }
@@ -112,6 +109,7 @@ SESSION_START();
                     $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $_SESSION['loginUser']="$userID";
+                    mysqli_close($dbc);
                     header("Location:tutUI.php");
                     die();
                  }
@@ -121,6 +119,7 @@ SESSION_START();
                     $query ="UPDATE tutor SET loginattempt=0 WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     $_SESSION['loginUser']="$userID";
+                    mysqli_close($dbc);
                     header("Location:stuUI.php");
                     die();
                  }
@@ -168,20 +167,31 @@ SESSION_START();
          <?php
         if($loginSuccessful!=true){
          ?>
-        <h1>Login Form</h1>
-        <h3>Please input your login credentials.</h3>
 
+        <h2>Login</h2>
+        <div class="container">
         <form action= 'login.php' method='POST'>
-            UserID: <input type='text' name='userID' value='<?php echo $userID ?>' required><br>
-            Password: <input type='password' name='pass' required><br>
-            <input type='submit' value='Login'><br>
+            <div class="row">
+            <div class="col-25">UserID: </div>
+            <div class="col-75"><input type='text' name='userID' value='<?php echo $userID ?>' required><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">Password: </div>
+            <div class="col-75"><input type='password' name='pass' required><br>
+            </div>
+        </div>
+        <div class="row">
+            <br><input type='submit' value='Login'><br>
+        </div>
         </form> 
-
-        <a href="registration.php">Click here to create a new account!</a>
-        
+        <div class="row">
+        No account yet? Click <a href="registration.php">here</a> to create a new account!
+        </div>
+    </div>
         <?php 
          }
-            echo "<h2>$out</h2>";
+            echo "<h4>$out</h4>";
         ?>
         
     </body>

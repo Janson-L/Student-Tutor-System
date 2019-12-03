@@ -5,6 +5,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     ?>
 
     <head>
+        <title>USTS-Add User</title>
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/form.css">
     </head>

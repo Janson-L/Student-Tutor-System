@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table,td,th{
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    height: 50px;
+    background-color:rgb(30, 128, 189);
+    color: white;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  tr:nth-child(odd) {background-color: #cfcbcb;}

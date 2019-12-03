@@ -4,7 +4,10 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
 
 <head>
+    <title>Confirmation</title>
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/outStyle.css">
     </head>
     <ul>
         <li><a href="admUI.php">Home</a></li>
@@ -29,15 +32,19 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 
     <?php if(!isset($_POST['deleteSessionConfirm'])){ ?>
         <h2>Confirmation </h2>
-        Are you sure you want to delete <?php echo "{$_POST['topic']} ({$_POST['sessionID']})" ?> ?<br>
+        <div class="container">
+        <div class="prompt">Are you sure you want to delete <?php echo "{$_POST['topic']} ({$_POST['sessionID']})" ?> ?</div>
     <form method='POST'>
-        <input type="text" name="sessionID" value="<?php echo $_POST['sessionID']; ?>" style="display:none"><br>
-        <label></label><input type="submit" name="deleteSessionConfirm" value="Confirm">
+        <input type="text" name="sessionID" value="<?php echo $_POST['sessionID']; ?>" style="display:none">
+        <div class="row">
+        <div class="col-40"><input type="submit" name="deleteSessionConfirm" value="Confirm"></div>
     </form>
 
     <form method='POST' action='admManageTutorSession.php'>
-        <input type="submit" value="Cancel">
+    <div class="col-25" > <input type="submit" value="Cancel"></div>
     </form>
+    </div>
+</div>
     <?php } ?>
 <?php
     if(isset($_POST['deleteSessionConfirm']))

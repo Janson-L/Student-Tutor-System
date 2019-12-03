@@ -40,14 +40,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
 <head>
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/outStyle.css">
-    <link rel="stylesheet" href="css/navbar.css">
 </head>
-
-<ul>
-    <li class="active" ><a>UTeM Student Tutor System</a></li>
-        <li><a href="login.php">Login</a></li></li>
-
-    </ul>
 
 <?php if ($successRegistration == false) { ?>
     

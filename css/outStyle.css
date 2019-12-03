@@ -1,9 +1,14 @@
 p { 
-    font-size:14px; 
+    font-size:large; 
     color:black; 
-    font-style:italic;
   }
 
   .important {
     font-weight:bold;
   }
+
+.prompt{ 
+  font-size:large; 
+  color:black;
+  text-align: center; 
+}

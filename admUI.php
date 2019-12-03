@@ -1,10 +1,14 @@
 <?php
 SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
-    ?>
-    <head>
+?>
+
+<head>
+    <title>USTS Admin Home Page</title>
     <link rel="stylesheet" href="css/navbar.css">
-    </head>
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+</head>
     <ul>
         <li class="active"><a href="admUI.php">Home</a></li>
         <li class="dropdown">
@@ -18,24 +22,16 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
         <li><a href="admSystemUsageStatistics.php">System Usage Statistics</a></li>
         <li style="float:right"><a href="logOut.php">Log Out</a></li>
     </ul>
-
-    <h2>Admin UI</h2>
-    <form action='admAddUser.php' method='POST'>
-        <button type='Submit'>Add Users</button> <br>
-    </form>
-    <form action='admManageUsers.php' method='POST'>
-        <button type='Submit'>Manage Users</button> <br>
-    </form>
-    <form action='admManageTutorSession.php' method='POST'>
-        <button type='Submit'>Delete Tutoring Session</button> <br>
-    </form>
-    <form action='admSystemUsageStatistics.php' method='POST'>
-        <button type='Submit'>Show System Usage Statistics</button> <br>
-    </form>
-    <form action='logOut.php' method='POST'>
-        <button type='Submit'>Log Out</button> <br>
-    </form>
-
+<?php 
+    $dbc=mysqli_connect('localhost','root','','utem_student_tutor_system') or die("Connection not established");
+    $query="SELECT name FROM admin WHERE adminID='{$_SESSION['loginUser']}';";
+    $result=mysqli_query($dbc, $query) or die("Query Failed $Query");
+    $row=mysqli_fetch_assoc($result);
+    mysqli_close($dbc);
+?>
+<div class="container">
+Welcome back to UTeM Student Tutor System(USTS), <span class="important"> <?php echo"{$row['name']}" ?> </span>.
+</div>
 
 <?php
 } else {
