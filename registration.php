@@ -1,4 +1,3 @@
-<h1>UTeM Student Tutor System</h1>
 <?php
 $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established"); 
 $formCorrectCheck = true;
@@ -38,9 +37,21 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
 }
 ?>
 
+<head>
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+    <link rel="stylesheet" href="css/navbar.css">
+</head>
+
+<ul>
+    <li class="active" ><a>UTeM Student Tutor System</a></li>
+        <li><a href="login.php">Login</a></li></li>
+
+    </ul>
+
 <?php if ($successRegistration == false) { ?>
-    <head><link rel="stylesheet" href="css/form.css"></head>
-    <h3>Registration Form</h3>
+    
+    <h2>Registration Form</h2>
     <div class="container">
             <form action='registration.php' method='POST'>
                 <div class="col-25">
@@ -98,7 +109,6 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
 
         </form>
         </div>
-   
 
     <form action='login.php' method='POST'>
         <input type='submit' value='Return to Login Page'><br>
@@ -147,10 +157,14 @@ if ($successRegistration == true) {
         $query = "UPDATE tutor SET tutorID='$userID' WHERE ID=$IdDb;";
         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
     }
+?>
+   Registration Successful. Your userID is 
+   <span class="important"> <?php echo "$userID"; ?> </span>.
+   You will be redirected to the login page in 10 seconds.
 
-    $out = "Registration Successful. Your userID is $userID and you can now login into the system. <br> You will be redirected to the login page in 5 seconds";
-    echo "<h5>$out</h5>";
-    header("Refresh:5;URL=login.php");
+<?php
+    mysqli_close($dbc);
+    header("Refresh:10;URL=login.php");
     die();
 } else {
     echo "<h5>$out</h5>";

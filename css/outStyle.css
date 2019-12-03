@@ -1,0 +1,9 @@
+p { 
+    font-size:14px; 
+    color:black; 
+    font-style:italic;
+  }
+
+  .important {
+    font-weight:bold;
+  }

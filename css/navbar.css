@@ -30,7 +30,7 @@ ul {
   }
   
   .active {
-    background-color: #4CAF50;
+    background-color: rgb(30, 128, 189);
   }
  
   li a, .dropbtn {
@@ -42,7 +42,7 @@ ul {
   }
   
   li .dropdown:hover .dropbtn {
-    background-color: #4CAF50;
+    background-color: rgb(30, 128, 189);
   }
   
   li.dropdown {
