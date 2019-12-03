@@ -54,7 +54,9 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     }
     $durationd=format_time_output($duration);
 
+    mysqli_close($dbc);
 ?>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
            <script type="text/javascript">  
            google.charts.load('current', {'packages':['corechart']});  

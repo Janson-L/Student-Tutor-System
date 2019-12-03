@@ -160,13 +160,8 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             </table> <br>
 
             <?php
-                if (isset($_POST['deleteUser'])) {
-                    $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-                    echo '<meta http-equiv="refresh" content="0">';
-                    die();
-                }
-                ?>
+                mysqli_close($dbc);
+            ?>
 
         <?php
         } else {

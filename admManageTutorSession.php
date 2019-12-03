@@ -85,13 +85,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     <?php } else if ($searchTable == 3) { ?>
         <h3>Search by tutorID</h3>
     <?php } ?>
-    <?php
-        // if($searchTable==0)
-        // {
-        //     $query="SELECT studentID AS userID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student UNION
-        //     SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor;";
-        // }
-    
+    <?php    
             if($searchTable==0){
                 $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.ID DESC LIMIT 10;";
             }
@@ -162,6 +156,9 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
          <?php } 
              ?>
             </table> <br>
+            <?php
+                mysqli_close($dbc);
+            ?>
  <?php
         } else {
             echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";

@@ -145,11 +145,13 @@ if ($successRegistration == true) {
         $query = "UPDATE admin SET adminID='$userID' WHERE ID=$IdDb;";
         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
     }
+    mysqli_close($dbc);
     echo "Registration Successful!";
     header("Refresh:2;URL=admAddUser.php");
 
 
 } else {
+    mysqli_close($dbc);
     echo "<h5>$out</h5>";
 }
 ?>

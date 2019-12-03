@@ -49,17 +49,16 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
         {
             $query="UPDATE student SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE studentID='{$_POST['userID']}';";
             $result=mysqli_query($dbc,$query) or die("Query Failed $query");
-            echo"Update successful. You will now be redirected back to Manage User UI.";
-            header("Refresh:5;URL=admManageUsers.php");
         }
         else if (preg_match("/\ATUT/", $_POST['userID']))
         {
             $query="UPDATE tutor SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE tutorID='{$_POST['userID']}';";
             $result=mysqli_query($dbc,$query) or die("Query Failed $query");
-            echo"Update successful. You will now be redirected back to Manage User UI.";
-            header("Refresh:5;URL=admManageUsers.php");
-            die();
         }
+        mysqli_close($dbc);
+        echo"Update successful. You will now be redirected back to Manage User UI in 3 seconds.";
+        header("Refresh:3;URL=admManageUsers.php");
+        die();
         
     }
         ?>
