@@ -39,23 +39,66 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
 ?>
 
 <?php if ($successRegistration == false) { ?>
+    <head><link rel="stylesheet" href="css/form.css"></head>
     <h3>Registration Form</h3>
-    <h5>Please key in the necessary details</h5>
-    <form action='registration.php' method='POST'>
+    <div class="container">
+            <form action='registration.php' method='POST'>
+                <div class="col-25">
+                    <label>User Type:</label>
+                </div>
+                <div class="col-75">
+                    <select name='userType' required>
+                        <option <?php if ($userType == "student") echo 'selected="selected"'; ?>value='student'>Student</option>
+                        <option <?php if ($userType == "tutor") echo 'selected="selected"'; ?>value='tutor'>Tutor</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Name: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,30}" required maxlength="30"> (3-30 Characters, no special characters except / and @)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Matrix No: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789" required maxlength="10">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Mobile Phone No: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Password: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type='password' name='pass' required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label>Retype Password: </label>
+                    </div>
+                    <div class="col-75">
+                        <input type='password' name='passRetype' required>
+                    </div>
+                </div>
+                <div class="row">
+                        <br><input type='submit' value='Submit Form'>
+                </div>
 
-        <label>User Type</label>
-        <select name='userType' required>
-            <option <?php if ($userType == "student") echo 'selected="selected"'; ?>value='student'>Student</option>
-            <option <?php if ($userType == "tutor") echo 'selected="selected"'; ?>value='tutor'>Tutor</option>
-        </select><br>
-
-        <label>Name: </label><input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,30}" required maxlength="30"> (3-30 Characters, no special characters except / and @) <br>
-        <label>Matrix No: </label><input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789"required maxlength="10"><br>
-        <label>Mobile Phone No: </label><input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)<br>
-        <label>Password: </label><input type='password' name='pass' required maxlength="12"><br>
-        <label>Retype Password: </label><input type='password' name='passRetype' required><br>
-        <input type='submit' value='Submit Form'><br>
-    </form>
+        </form>
+        </div>
+   
 
     <form action='login.php' method='POST'>
         <input type='submit' value='Return to Login Page'><br>
