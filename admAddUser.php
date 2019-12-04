@@ -1,14 +1,14 @@
+<head>
+        <title>USTS-Add User</title>
+        <link rel="stylesheet" href="css/navbar.css">
+        <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="css/outStyle.css">
+</head>
 <?php
 SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 
     ?>
-
-    <head>
-        <title>USTS-Add User</title>
-        <link rel="stylesheet" href="css/navbar.css">
-        <link rel="stylesheet" href="css/form.css">
-    </head>
     <ul>
         <li><a href="admUI.php">Home</a></li>
         <li class="dropdown active">
@@ -184,15 +184,20 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 $result = mysqli_query($dbc, $query) or die("Query Failed $query");
             }
             mysqli_close($dbc);
-            echo "Registration Successful!";
-            header("Refresh:2;URL=admAddUser.php");
+            ?>
+            <div class=prompt> Registration Successful! <br>You will be redirected in 3 seconds.</div>
+            <?php
+            header("Refresh:3;URL=admAddUser.php");
         } else {
             mysqli_close($dbc);
             echo "<h5>$out</h5>";
         }
         ?>
-<?php } else {
-    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+<?php } 
+else { 
+    ?>
+    <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
+    <?php
     header("Refresh:5;URL=logOut.php");
     die();
 }

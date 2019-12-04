@@ -151,9 +151,9 @@ if ($successRegistration == true) {
         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
     }
 ?>
-   Registration Successful. Your userID is 
+   <div class="prompt">Registration Successful. Your userID is 
    <span class="important"> <?php echo "$userID"; ?> </span>.
-   You will be redirected to the login page in 10 seconds.
+   You will be redirected to the login page in 10 seconds. </div>
 
 <?php
     mysqli_close($dbc);
