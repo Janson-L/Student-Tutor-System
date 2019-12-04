@@ -104,7 +104,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                         <label>Password: </label>
                     </div>
                     <div class="col-75">
-                        <input type='password' name='pass' required>
+                        <input type='password' name='pass' required>(Maximum 12 characters)
                     </div>
                 </div>
                 <div class="row">
@@ -196,6 +196,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 <?php } 
 else { 
     ?>
+    <br>
     <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
     <?php
     header("Refresh:5;URL=logOut.php");

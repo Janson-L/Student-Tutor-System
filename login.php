@@ -181,12 +181,12 @@ SESSION_START();
             <div class="col-75"><input type='password' name='pass' required><br>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="float:right;">
             <br><input type='submit' value='Login'><br>
         </div>
         </form> 
         <div class="row">
-        No account yet? Click <a href="registration.php">here</a> to create a new account!
+        <br><br>No account yet? Click <a href="registration.php">here</a> to create a new account!
         </div>
     </div>
         <?php 

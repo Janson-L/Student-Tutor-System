@@ -1,11 +1,14 @@
+<head>
+    <title>USTS- Edit User</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+</head>
+
 <?php
 SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
-
-<head>
-    <link rel="stylesheet" href="css/navbar.css">
-    </head>
     <ul>
         <li><a href="admUI.php">Home</a></li>
         <li class="dropdown active">
@@ -37,17 +40,27 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     }
 ?>
 <?php if($validUpdate!=true){ ?>
+<div class="container">
 <form method='POST'>
-    <input type="text" name="userID" value=<?php echo $_POST['userID'] ?> style="display:none">
-    <label>New Password:</label><input type="text" name="newPassword" required maxlength="12"><br>
-    <label>Retype New Password:</label><input type="text" name="newPasswordRetype" required maxlength="12"><br>
+    <input type="text" name="userID" value=<?php echo "{$_POST['userID']}" ?> style="display:none">
+    <div class="row">
+    <div class="col-25"><label>New Password:</label></div>
+    <div class="col-75"><input type="text" name="newPassword" required maxlength="12"></div>
+    </div>
+    <div class="row">
+    <div class="col-25">
+    <label>Retype New Password:</label></div>
+    <div class="col-75"><input type="text" name="newPasswordRetype" required maxlength="12"><br></div>
+    </div>
     <input type="text" name="loginAttempt" value="0" style="display:none">
     <input type="text" name="accountStatus" value="1" style="display:none">
+    <br>
+    <div class="row" style="float:right;">
     <input type="submit" name="resetPasswordConfirm" value="Confirm">
+    </div>
+    <br><br>
 </form>
-<form method='POST' action='admManageUsers.php'>
-    <input type="submit" value="Cancel">
-</form>
+</div>
 <?php } ?>
 
 <?php
@@ -64,7 +77,10 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             $result=mysqli_query($dbc,$query) or die("Query Failed $query");
         }
             mysqli_close($dbc);
-            echo"Update successful. You will now be redirected back to Manage User UI in 3 seconds.";
+            ?>
+            <br>
+            <div class="prompt">Update successful. You will now be redirected back to Manage User UI in 3 seconds.</div>
+            <?php
             header("Refresh:3;URL=admManageUsers.php");
             die();
     }

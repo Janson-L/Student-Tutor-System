@@ -85,7 +85,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                         <label>Password: </label>
                     </div>
                     <div class="col-75">
-                        <input type='password' name='pass' required>
+                        <input type='password' name='pass' required> (Maximum 12 Characters)
                     </div>
                 </div>
                 <div class="row">
@@ -96,18 +96,16 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                         <input type='password' name='passRetype' required>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="float:right;">
                         <br><input type='submit' value='Submit Form'>
                 </div>
 
         </form>
-        </div>
-
+       
     <form action='login.php' method='POST'>
-        <input type='submit' value='Return to Login Page'><br>
+    <div class="row" ><input type='submit' value='Return to Login Page'></div>
     </form>
-    
-
+</div>
 <?php } ?>
 <?php
 if ($successRegistration == true) {
