@@ -1,14 +1,14 @@
-<?php
-SESSION_START();
-if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
-?>
-
 <head>
     <title>USTS- Admin UI</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/outStyle.css">
 </head>
+
+<?php
+SESSION_START();
+if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
+?>
     <ul>
         <li class="active"><a href="admUI.php">Home</a></li>
         <li class="dropdown">
