@@ -202,5 +202,4 @@ else {
     header("Refresh:5;URL=logOut.php");
     die();
 }
-
 ?>

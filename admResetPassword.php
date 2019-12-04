@@ -87,10 +87,12 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
 
 <?php
-}
-else {
-    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+} else { 
+    ?>
+    <br>
+    <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
+    <?php
     header("Refresh:5;URL=logOut.php");
-   die();
+    die();
 }
 ?>

@@ -1,14 +1,15 @@
-<?php
-SESSION_START();
-if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
-    ?>
-
-    <head>
+<head>
         <title>USTS-Manage Tutor Session</title>
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/form.css">
         <link rel="stylesheet" href="css/table.css">
-    </head>
+        <link rel="stylesheet" href="css/outStyle.css">
+</head>
+
+<?php
+SESSION_START();
+if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
+    ?>
     <ul>
         <li><a href="admUI.php">Home</a></li>
         <li class="dropdown">
@@ -170,8 +171,11 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
         mysqli_close($dbc);
         ?>
 <?php
-} else {
-    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+} else { 
+    ?>
+    <br>
+    <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
+    <?php
     header("Refresh:5;URL=logOut.php");
     die();
 }
