@@ -1,3 +1,11 @@
+<head>
+    <title>USTS- </title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+</head>
+
 <?php
     SESSION_START();
     if(preg_match("/\ASTU/",@$_SESSION['loginUser'])){

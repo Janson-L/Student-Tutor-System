@@ -1,11 +1,15 @@
+<head>
+    <title>USTS- System Usage Statistics </title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+</head>
+
 <?php
 SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
-
-<head>
-    <link rel="stylesheet" href="css/navbar.css">
-    </head>
     <ul>
         <li><a href="admUI.php">Home</a></li>
         <li class="dropdown">
@@ -77,27 +81,23 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 chart.draw(data, options);  
            }  
            </script>  
-<body>
-    <br /><br />
+
+<div class="container">
         <div style="width:900px;">
         <div id="piechart" style="width:900px;height:500px;"></div>
-    <br />
-</body>
 
-
-<table border='1'>
+<table>
     <tr>
         <th>No. of tutoring sessions listed:</th>
-        <td><?php echo "$noOfTutoringSession"; ?></td>
-    </tr>
-</table><br>
-
-<table border='1'>
-    <tr>
         <th>Total duration of tutoring sessions:</th>
+    
+    </tr>
+    <tr>
+    <td><?php echo "$noOfTutoringSession"; ?></td>
         <td><?php echo "$durationd"; ?></td>
     </tr>
 </table>
+</div>
 
 <?php
 }else { 
