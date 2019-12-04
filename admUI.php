@@ -4,7 +4,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 ?>
 
 <head>
-    <title>USTS Admin Home Page</title>
+    <title>USTS- Admin UI</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/outStyle.css">
