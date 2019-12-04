@@ -1,19 +1,21 @@
+<head>
+    <title>USTS-Update and Delete User</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/table.css">
+</head>
 <?php
 SESSION_START();
 if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     ?>
-
-<head>
-    <link rel="stylesheet" href="css/navbar.css">
-    </head>
     <ul>
         <li><a href="admUI.php">Home</a></li>
         <li class="dropdown active">
             <a href="javascript:void(0)" class="dropbtn">Manage Users</a>
             <div class="dropdown-content">
-            <a href="admAddUser.php">Add User</a>
-            <a href="admManageUsers.php">Update and Delete Users</a>
-        </div>
+                <a href="admAddUser.php">Add User</a>
+                <a href="admManageUsers.php">Update and Delete Users</a>
+            </div>
         </li>
         <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
         <li><a href="admSystemUsageStatistics.php">System Usage Statistics</a></li>
@@ -37,24 +39,24 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
         }
         ?>
     <h2>Update and Delete User</h2>
-    <form method='POST'>
-        <label>Search Type</label>
-        <select name='searchType' required>
-            <option <?php if ($searchType == "userIDSearch") echo 'selected="selected"'; ?>value='userIDSearch'>Search by userID</option>
-            <option <?php if ($searchType == "userNameSearch") echo 'selected="selected"'; ?>value='userNameSearch'>Search by user name</option>
-        </select>
+    <div class="container">
+        <form method='POST'>
+            <div class="row">
+                <div class="col-15"><label>Search Type:</label></div>
+                <div class="col-15"><select name='searchType' required>
+                        <option <?php if ($searchType == "userIDSearch") echo 'selected="selected"'; ?>value='userIDSearch'>Search by userID</option>
+                        <option <?php if ($searchType == "userNameSearch") echo 'selected="selected"'; ?>value='userNameSearch'>Search by user name</option>
+                    </select>
+                </div>
 
-        <input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30">
-        <input type='submit' name='search' value='Search'>
-    </form>
-    <form method='POST' action='admManageUsers.php'>
-        <input type='submit' value='Refresh'>
-    </form>
-
-    <form method='POST' action='admUI.php'>
-        <input type="submit" value="Back to Admin UI">
-    </form>
-
+                <div class="col-25"><input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30"></div>
+                <div class="col-5"><input type='submit' name='search' value='Search'></div>
+        </form>
+        <form method='POST' action='admManageUsers.php'>
+            <div class="col-5"><input type='submit' value='Refresh'></div>
+        </form>
+    </div>
+    
 
     <?php
         if (isset($_POST['search'])) {
@@ -93,7 +95,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 $currentTime = date('His', time());
                 $currentTime += "070000";
                 ?>
-            <table border='1'>
+            <table>
                 <tr>
                     <th>User ID</th>
                     <th>Name</th>
@@ -109,7 +111,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                     } else {
                         echo "No result is found. Please make sure you have entered the correct search term.";
                     }
-                    
+
 
                     while ($row = mysqli_fetch_assoc($result)) {
                         ?>
@@ -157,11 +159,11 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 </tr>
         <?php }
             } ?>
-            </table> <br>
+            </table> </div> <br>
 
             <?php
                 mysqli_close($dbc);
-            ?>
+                ?>
 
         <?php
         } else {

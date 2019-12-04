@@ -37,11 +37,12 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
     <form method='POST'>
         <input type="text" name="sessionID" value="<?php echo $_POST['sessionID']; ?>" style="display:none">
         <div class="row">
-        <div class="col-40"><input type="submit" name="deleteSessionConfirm" value="Confirm"></div>
+            <div class="col-35"></div>
+        <div class="col-25"><input type="submit" name="deleteSessionConfirm" value="Confirm"></div>
     </form>
 
     <form method='POST' action='admManageTutorSession.php'>
-    <div class="col-25" > <input type="submit" value="Cancel"></div>
+    <div class="col-15" > <input type="submit" value="Cancel"></div>
     </form>
     </div>
 </div>
@@ -52,7 +53,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
        $query="DELETE FROM tutoringSession WHERE sessionID='{$_POST['sessionID']}';";
        $result=mysqli_query($dbc,$query) or die("Query Failed $query");
        mysqli_close($dbc);
-       echo"Update successful. You will now be redirected back to Manage User UI.";
+       echo"Delete successful. You will now be redirected back to Manage User UI.";
        header("Refresh:5;URL=admManageTutorSession.php");
        die();
     }
