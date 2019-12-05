@@ -7,7 +7,7 @@
 
 <?php
 SESSION_START();
-if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
+if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && isset($_POST['deleteUser'])) {
     ?>
     <ul>
         <li><a href="admUI.php">Home</a></li>
@@ -72,7 +72,16 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             ?>
 
 <?php
-} else { 
+} 
+else if (preg_match("/\AADM/", @$_SESSION['loginUser'])){
+    ?>
+    <br>
+    <div class="prompt">You did not navigate the pages correctly. <br> You will be navigated back to Manage Users UI in 5 seconds.</div>
+<?php
+    header("Refresh:5;URL=admManageUsers.php");
+    die();
+}
+else { 
     ?>
     <br>
     <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>

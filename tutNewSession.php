@@ -88,9 +88,9 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
                     if ($startTime <= $currentTime) {
                         $formFilledCorrectly = false;
                         $out .= "Time selected is not a valid time. Please select time that is later than current time. <br> ";
-                    } else if (($startTime - $currentTime) <= "015900") {
+                    } else if (($startTime - $currentTime) <= "055900") {
                         $formFilledCorrectly = false;
-                        $out .= "Tutors are not allowed to add tutor session that starts in less than 2 hours from the current time. <br> ";
+                        $out .= "Tutors are not allowed to add tutor session that starts in less than 6 hours from the current time. <br> ";
                     }
                 }
 
@@ -177,11 +177,13 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
             </div>
             <br>
             <div class="row" style="float:right;">
-            <input type='submit' name="addNewTutoringSession"value='Add new tutoring session'>
+            <input type='submit' name="addNewTutoringSession" value='Add new tutoring session'>
     </div>
         </form><br>
 
     </div>
+        Note: <br> 
+        1. Tutors can only create new tutoring session at least 6 hours before starting time.
     <?php
        if ($formFilledCorrectly == true) {
         ?>
