@@ -1,7 +1,28 @@
+<head>
+    <title>USTS- Session Registration</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+</head>
+
 <?php
 SESSION_START();
-if (preg_match("/STU/", @$_SESSION['loginUser'])) {
+if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
     ?>
+
+    <ul>
+        <li class="active"><a href="stuUI.php">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Tutor Session</a>
+            <div class="dropdown-content">
+                <a href="stuSessionRegistration.php">Register/Deregister Tutor Session</a>
+                <a href="stuShowRegisteredSession.php">Show Registered Tutor Session</a>
+            </div>
+        </li>
+        <li><a href="stuSystemUsageStatistics.php">System Usage Statistics</a></li>
+        <li style="float:right"><a href="logOut.php">Log Out</a></li>
+    </ul>
 
     <?php
         $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
@@ -23,25 +44,25 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
         }
         ?>
 
-    <h2>Session Registration</h2> <br>
+    <h2>Session Registration</h2> 
+    <div class="container">
     <form method='POST'>
-        <label>Search Type</label>
-        <select name='searchType' required>
+        <div class="row">
+        <div class="col-15"><label>Search Type:</label></div>
+        <div class="col-15"><select name='searchType' required>
             <option <?php if ($searchType == "topicSearch") echo 'selected="selected"'; ?>value='topicSearch'>Search by Topic</option>
             <option <?php if ($searchType == "sessionSearch") echo 'selected="selected"'; ?>value='sessionSearch'>Search by SessionID</option>
             <option <?php if ($searchType == "tutorIDSearch") echo 'selected="selected"'; ?>value='tutorIDSearch'>Search by TutorID</option>
             <option <?php if ($searchType == "subjectCodeSearch") echo 'selected="selected"'; ?>value='subjectCodeSearch'>Search by Subject Code </option>
-        </select>
+        </select></div>
 
-        <input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30">
-        <input type='submit' name='search' value='Search'>
+        <div class="col-25"><input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30"></div>
+        <div class="col-5"><input type='submit' name='search' value='Search'></div>
     </form>
     <form method='POST' action='stuSessionRegistration.php'>
-        <input type='submit' value='Refresh'>
+        <div class="col-5"><input type='submit' value='Refresh'></div>
     </form>
-    <form method='POST' action='stuUI.php'>
-        <input type="submit" value="Return to Student UI">
-    </form>
+    </div>
 
     <?php
         if (isset($_POST['search'])) {
@@ -62,57 +83,56 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
         ?>
 
     <?php if ($searchTable == 0) { ?>
-        <h3>10 Latest Added Session </h3>
+        <h2>10 Latest Added Session </h2>
     <?php } else if ($searchTable == 1) { ?>
-        <h3>Search by SessionID</h3>
+        <h2>Search by SessionID</h2>
     <?php } else if ($searchTable == 2) { ?>
-        <h3>Search by TutorID</h3>
+        <h2>Search by TutorID</h2>
     <?php } else if ($searchTable == 3) { ?>
-        <h3>Search by Subject Code</h3>
+        <h2>Search by Subject Code</h2>
     <?php } else if ($searchTable == 4) { ?>
-        <h3>Search by Topic</h3>
+        <h2>Search by Topic</h2>
     <?php } ?>
-    
 
-        <?php
-            if ($searchTable == 0) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.ID DESC LIMIT 10;";
-            } else if ($searchTable == 1) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery' ORDER BY s.sessionID DESC;";
-            } else if ($searchTable == 2) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery' ORDER BY s.sessionID DESC;";
-            } else if ($searchTable == 3) {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery' ORDER BY s.sessionID DESC;";
-            } else {
-                $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%' ORDER BY s.sessionID DESC;";
-            }
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-            if(mysqli_num_rows($result)>0){
-                $currentDate = date('Y-m-d', time());
-                $currentTime = date('His', time());
-                $currentTime += "070000";
+
+    <?php
+        if ($searchTable == 0) {
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.ID DESC LIMIT 10;";
+        } else if ($searchTable == 1) {
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery' ORDER BY s.sessionID DESC;";
+        } else if ($searchTable == 2) {
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery' ORDER BY s.sessionID DESC;";
+        } else if ($searchTable == 3) {
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery' ORDER BY s.sessionID DESC;";
+        } else {
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%' ORDER BY s.sessionID DESC;";
+        }
+        $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+        if (mysqli_num_rows($result) > 0) {
+            $currentDate = date('Y-m-d', time());
+            $currentTime = date('His', time());
+            $currentTime += "070000";
             ?>
-            <table border='1'>
-                <tr>
-                    <th>Session ID</th>
-                    <th>Topic</th>
-                    <th>Subject Code</th>
-                    <th>Date</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Duration (Hour:Minute)</th>
-                    <th>Tutor Name</th>
-                    <th>Location</th>
-                    <th>Registration Status</th>
-                </tr>
+            <div style="overflow-x:auto;">
+        <table>
+            <tr>
+                <th>Session ID</th>
+                <th>Topic</th>
+                <th>Subject Code</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Duration (Hour:Minute)</th>
+                <th>Tutor Name</th>
+                <th>Location</th>
+                <th>Registration Status</th>
+            </tr>
 
         <?php
+            } else {
+                echo "No result is found. Please make sure you have entered the correct search term.";
             }
-            else
-            {
-                echo"No result is found. Please make sure you have entered the correct search term.";
-            }
-            
+
 
             while ($row = mysqli_fetch_assoc($result)) {
                 $durationd = format_time_output(strtotime($row['endTime']) - strtotime($row['startTime']));
@@ -177,34 +197,38 @@ if (preg_match("/STU/", @$_SESSION['loginUser'])) {
                 </form>
             </tr>
         <?php } ?>
-    </table>
-    <br>
+        </table>
+
+        </div>
+        <br>
+
+        <?php
+            if (isset($_POST['register'])) {
+                $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
+                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                mysqli_close($dbc);
+                echo '<meta http-equiv="refresh" content="0">';
+                die();
+            }
+            ?>
+
+        <?php
+            if (isset($_POST['deregister'])) {
+                $query = "DELETE FROM session_student WHERE sessionID='{$_POST['sessionID']}'AND studentID='{$_SESSION['loginUser']}';";
+                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                mysqli_close($dbc);
+                echo '<meta http-equiv="refresh" content="0">';
+                die();
+            }
+            ?>
 
     <?php
-        if (isset($_POST['register'])) {
-            $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-            echo '<meta http-equiv="refresh" content="0">';
-            die();
-        }
+    } else {
         ?>
-
+        <br>
+        <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
     <?php
-        if (isset($_POST['deregister'])) {
-            $query = "DELETE FROM session_student WHERE sessionID='{$_POST['sessionID']}'AND studentID='{$_SESSION['loginUser']}';";
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
-            echo '<meta http-equiv="refresh" content="0">';
-            die();
-        }
-        ?>
-
-<?php
-} else { 
+        header("Refresh:5;URL=logOut.php");
+        die();
+    }
     ?>
-    <br>
-    <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
-    <?php
-    header("Refresh:5;URL=logOut.php");
-    die();
-}
-?>
