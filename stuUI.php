@@ -1,5 +1,5 @@
 <head>
-    <title>USTS- Admin UI</title>
+    <title>USTS- Student UI</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/outStyle.css">
@@ -8,7 +8,7 @@
 <?php
 SESSION_START();
 if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
-    ?>
+?>
 
     <ul>
         <li class="active"><a href="stuUI.php">Home</a></li>

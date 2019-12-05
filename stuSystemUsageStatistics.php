@@ -54,11 +54,11 @@
 <table>
     <tr>
         <th>No. of tutoring sessions enrolled:</th>
-        <th>Total duration of tutoring sessions attended:</th>
+        <td><?php echo "$noOfTutoringSession"; ?></td>
         
     </tr>
     <tr>
-    <td><?php echo "$noOfTutoringSession"; ?></td>
+    <th>Total duration of tutoring sessions attended:</th>
         <td><?php echo "$durationd"; ?></td>
     </tr>
 </table><br>

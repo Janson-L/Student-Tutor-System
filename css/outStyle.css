@@ -1,6 +1,7 @@
 p { 
     font-size:large; 
-    color:black; 
+    color:black;
+    text-align: left; 
   }
 
   .important {

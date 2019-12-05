@@ -89,11 +89,12 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 <table>
     <tr>
         <th>No. of tutoring sessions listed:</th>
-        <th>Total duration of tutoring sessions:</th>
+        <td><?php echo "$noOfTutoringSession"; ?></td>
+        
     
     </tr>
     <tr>
-    <td><?php echo "$noOfTutoringSession"; ?></td>
+    <th>Total duration of tutoring sessions:</th>
         <td><?php echo "$durationd"; ?></td>
     </tr>
 </table>

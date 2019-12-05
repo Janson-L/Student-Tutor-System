@@ -1,8 +1,28 @@
+<head>
+    <title>USTS- System Usage Statistics</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/outStyle.css">
+    <link rel="stylesheet" href="css/table.css">
+</head>
+
 <?php
 SESSION_START();
 //$_SESSION['loginUser']
 if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
 ?>
+<ul>
+        <li><a href="tutUI.php">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Manage Tutor Session</a>
+            <div class="dropdown-content">
+                <a href="tutNewSession.php">Add New Tutor Session</a>
+                <a href="tutShowSession.php">Show Tutor Session</a>
+            </div>
+        </li>
+        <li class="active"><a href="tutSystemUsageStatistics.php">System Usage Statistics</a></li>
+        <li style="float:right"><a href="logOut.php">Log Out</a></li>
+    </ul>
 
 <?php
     $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
@@ -34,33 +54,32 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         $duration +=(strtotime($row['endTime']) - strtotime($row['startTime']));
     }
     $durationd=format_time_output($duration);
-
+    mysqli_close($dbc);
 ?>
-
-<table border='1'>
+<h2>System Usage Statistics</h2>
+<div class="container">
+<table>
     <tr>
         <th>No. of tutoring sessions organized:</th>
         <td><?php echo "$noOfTutoringSession"; ?></td>
     </tr>
-</table><br>
-
-<table border='1'>
     <tr>
         <th>Total no. of distinct students taught:</th>
         <td><?php echo "$noOfStudentD"; ?></td>
     </tr>
-</table><br>
-
-<table border='1'>
     <tr>
         <th>Total duration of tutoring sessions organized:</th>
         <td><?php echo "$durationd"; ?></td>
     </tr>
 </table>
+</div>
 
 <?php
 } else {
-    echo "<h3>You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</h3>";
+    ?>
+    <br>
+    <div class="prompt">You don't have the privilege to view this page. You will be logged out and redirected to the login page in 5 seconds.<br> Please login with the correct account.</div>
+<?php
     header("Refresh:5;URL=logOut.php");
     die();
 }
