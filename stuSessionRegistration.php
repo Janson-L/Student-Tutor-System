@@ -12,8 +12,8 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
     ?>
 
     <ul>
-        <li class="active"><a href="stuUI.php">Home</a></li>
-        <li class="dropdown">
+        <li><a href="stuUI.php">Home</a></li>
+        <li class="dropdown active">
             <a href="javascript:void(0)" class="dropbtn">Tutor Session</a>
             <div class="dropdown-content">
                 <a href="stuSessionRegistration.php">Register/Deregister Tutor Session</a>
@@ -62,6 +62,7 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
     <form method='POST' action='stuSessionRegistration.php'>
         <div class="col-5"><input type='submit' value='Refresh'></div>
     </form>
+
     </div>
 
     <?php
@@ -83,7 +84,7 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
         ?>
 
     <?php if ($searchTable == 0) { ?>
-        <h2>10 Latest Added Session </h2>
+        <h2>10 Recently Added Session </h2>
     <?php } else if ($searchTable == 1) { ?>
         <h2>Search by SessionID</h2>
     <?php } else if ($searchTable == 2) { ?>
@@ -99,13 +100,13 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
         if ($searchTable == 0) {
             $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID ORDER BY s.ID DESC LIMIT 10;";
         } else if ($searchTable == 1) {
-            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery' ORDER BY s.sessionID DESC;";
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.sessionID='$searchQuery' ORDER BY s.ID DESC;";
         } else if ($searchTable == 2) {
-            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery' ORDER BY s.sessionID DESC;";
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.tutorID='$searchQuery' ORDER BY s.ID DESC;";
         } else if ($searchTable == 3) {
-            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery' ORDER BY s.sessionID DESC;";
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery' ORDER BY s.ID DESC;";
         } else {
-            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%' ORDER BY s.sessionID DESC;";
+            $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%' ORDER BY s.ID DESC;";
         }
         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
         if (mysqli_num_rows($result) > 0) {
@@ -170,15 +171,15 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
                         <input type="text" name="tutorID" value="<?php echo $row['tutorID']; ?>" style="display:none">
                         <input type="text" name="location" value="<?php echo $row['location']; ?>" style="display:none">
                         <?php if (date('Y-m-d', strtotime($row['date'])) < $currentDate) {
-                                    echo "Expired Tutor Session";
+                                    echo "Tutor Session Ended";
                                     $expiredSession = true;
                                 } else {
                                     if ((date('Y-m-d', strtotime($row['date']))) == $currentDate) {
                                         if (date('His', strtotime($row['startTime'])) <= $currentTime && $currentTime - date('His', strtotime($row['startTime'])) <= $duration && $sessionRegistered == true) {
-                                            echo "Session Started";
+                                            echo "Tutor Session Started";
                                             $expiredSession = true;
                                         } else if (date('His', strtotime($row['startTime'])) <= $currentTime && $currentTime - date('His', strtotime($row['startTime'])) > $duration) {
-                                            echo "Expired Tutor Session";
+                                            echo "Tutor Session Ended";
                                             $expiredSession = true;
                                         } else if (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900" && $sessionRegistered != true) {
                                             echo "Registration Closed";
@@ -220,8 +221,11 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
                 echo '<meta http-equiv="refresh" content="0">';
                 die();
             }
-            ?>
-
+    ?>
+    <div class="container">
+    Note: <br>
+    1. Registration will be closed 4 hours before the starting time of tutor session.
+        </div>
     <?php
     } else {
         ?>

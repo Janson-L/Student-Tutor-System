@@ -1,5 +1,5 @@
 <head>
-    <title>USTS- </title>
+    <title>USTS- System Usage Statistics </title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/table.css">
@@ -10,6 +10,19 @@
     SESSION_START();
     if(preg_match("/\ASTU/",@$_SESSION['loginUser'])){
 ?>
+
+<ul>
+        <li><a href="stuUI.php">Home</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Tutor Session</a>
+            <div class="dropdown-content">
+                <a href="stuSessionRegistration.php">Register/Deregister Tutor Session</a>
+                <a href="stuShowRegisteredSession.php">Show Registered Tutor Session</a>
+            </div>
+        </li>
+        <li class="active"><a href="stuSystemUsageStatistics.php">System Usage Statistics</a></li>
+        <li style="float:right"><a href="logOut.php">Log Out</a></li>
+    </ul>
 
 <?php
     $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established");
@@ -33,21 +46,24 @@
     }
     $durationd=format_time_output($duration);
 
+    mysqli_close($dbc);
 ?>
 
-<table border='1'>
+<h2>System Usage Statistics</h2>
+<div class="container">
+<table>
     <tr>
         <th>No. of tutoring sessions enrolled:</th>
-        <td><?php echo "$noOfTutoringSession"; ?></td>
-    </tr>
-</table><br>
-
-<table border='1'>
-    <tr>
         <th>Total duration of tutoring sessions attended:</th>
+        
+    </tr>
+    <tr>
+    <td><?php echo "$noOfTutoringSession"; ?></td>
         <td><?php echo "$durationd"; ?></td>
     </tr>
-</table>
+</table><br>
+</div>
+
 
 <?php
 } else { 
