@@ -156,11 +156,13 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
                                 $sessionRegistered = false;
                                 $query2 = "SELECT studentID FROM session_student WHERE sessionID='{$row['sessionID']}';";
                                 $result2 = mysqli_query($dbc, $query2) or die("Query Failed $query2");
-                                $stuID = mysqli_fetch_assoc($result2);
-                                if ($stuID['studentID'] === $_SESSION['loginUser']) {
+                                while($row2 = mysqli_fetch_assoc($result2)){
+                                if ($row2['studentID'] === $_SESSION['loginUser']) {
                                     $sessionRegistered = true;
+                                    break;
                                 }
-                                ?>
+                            }
+                        ?>
                         <input type="text" name="sessionID" value="<?php echo $row['sessionID']; ?>" style="display:none">
                         <input type="text" name="topic" value="<?php echo $row['topic']; ?>" style="display:none">
                         <input type="text" name="subjectCode" value="<?php echo $row['subjectCode']; ?>" style="display:none">
@@ -175,13 +177,13 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
                                     $expiredSession = true;
                                 } else {
                                     if ((date('Y-m-d', strtotime($row['date']))) == $currentDate) {
-                                        if (date('His', strtotime($row['startTime'])) <= $currentTime && $currentTime - date('His', strtotime($row['startTime'])) <= $duration && $sessionRegistered == true) {
+                                        if (date('His', strtotime($row['startTime'])) <= $currentTime && $currentTime - date('His', strtotime($row['startTime'])) <= $duration) {
                                             echo "Tutor Session Started";
                                             $expiredSession = true;
                                         } else if (date('His', strtotime($row['startTime'])) <= $currentTime && $currentTime - date('His', strtotime($row['startTime'])) > $duration) {
                                             echo "Tutor Session Ended";
                                             $expiredSession = true;
-                                        } else if (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900" && $sessionRegistered != true) {
+                                        } else if (((date('His', strtotime($row['startTime']))) - $currentTime) <= "035900") {
                                             echo "Registration Closed";
                                             $expiredSession = true;
                                         }

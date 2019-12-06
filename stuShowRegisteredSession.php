@@ -152,7 +152,7 @@ if (isset($_POST['search'])) {
                             $expiredSession = true;
                         } else {
                             if ((date('Y-m-d', strtotime($row['date']))) == $currentDate) {
-                                if(date('His', strtotime($row['startTime']))<= $currentTime&& $currentTime-date('His',strtotime($row['startTime']))<=$duration && $sessionRegistered == true){
+                                if(date('His', strtotime($row['startTime']))<= $currentTime&& $currentTime-date('His',strtotime($row['startTime']))<=$duration){
                                     echo"Tutor Session Started";
                                     $expiredSession=true;
                                 }
