@@ -6,7 +6,7 @@
 </head>
 <?php
 SESSION_START();
-if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && isset($_POST['deleteSession'])) {
+if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['deleteSession']))||(isset($_POST['deleteSessionConfirm']))) {
 ?>
     <ul>
         <li><a href="admUI.php">Home</a></li>
@@ -41,7 +41,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && isset($_POST['deleteSess
     </form>
 
     <form method='POST' action='admManageTutorSession.php'>
-    <div class="col-15" > <input type="submit" value="Cancel"></div>
+    <div class="col-15" > <input type="submit" name="delete" value="Cancel"></div>
     </form>
     </div>
 </div>
@@ -52,7 +52,10 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && isset($_POST['deleteSess
        $query="DELETE FROM tutoringSession WHERE sessionID='{$_POST['sessionID']}';";
        $result=mysqli_query($dbc,$query) or die("Query Failed $query");
        mysqli_close($dbc);
-       echo"Delete successful. You will now be redirected back to Manage User UI.";
+       ?>
+       <br>
+       <div class="prompt">Delete successful. You will now be redirected back to Manage Session UI.</div>
+       <?php
        header("Refresh:5;URL=admManageTutorSession.php");
        die();
     }

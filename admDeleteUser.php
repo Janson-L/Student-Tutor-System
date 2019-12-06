@@ -7,7 +7,7 @@
 
 <?php
 SESSION_START();
-if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && isset($_POST['deleteUser'])) {
+if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['deleteUser']) || isset($_POST['deleteUserConfirm']))) {
     ?>
     <ul>
         <li><a href="admUI.php">Home</a></li>

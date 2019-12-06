@@ -7,7 +7,7 @@
 
 <?php
 SESSION_START();
-if ((preg_match("/\AADM/", @$_SESSION['loginUser']))&&isset($_POST['resetPassword'])) {
+if ((preg_match("/\AADM/", @$_SESSION['loginUser']))&&(isset($_POST['resetPassword'])|| isset($_POST['resetPasswordConfirm']))) {
 ?>
     <ul>
         <li><a href="admUI.php">Home</a></li>

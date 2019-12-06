@@ -6,7 +6,7 @@
     </head>
 <?php
 SESSION_START();
-if ((preg_match("/\AADM/", @$_SESSION['loginUser']))&& isset($_POST['editUser'])) {
+if ((preg_match("/\AADM/", @$_SESSION['loginUser']))&& (isset($_POST['editUser'])||isset($_POST['editUserConfirm']))) {
 ?>
 
 
