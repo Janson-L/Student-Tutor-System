@@ -45,8 +45,8 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             <div class="row">
                 <div class="col-15"><label>Search Type:</label></div>
                 <div class="col-15"><select name='searchType' required>
-                        <option <?php if ($searchType == "userIDSearch") echo 'selected="selected"'; ?>value='userIDSearch'>Search by userID</option>
                         <option <?php if ($searchType == "userNameSearch") echo 'selected="selected"'; ?>value='userNameSearch'>Search by user name</option>
+                        <option <?php if ($searchType == "userIDSearch") echo 'selected="selected"'; ?>value='userIDSearch'>Search by userID</option>
                     </select>
                 </div>
 

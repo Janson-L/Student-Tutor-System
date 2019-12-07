@@ -58,7 +58,7 @@ if (isset($_POST['searchQuery'])) {
         <div class="col-25"><input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30"></div>
         <div class="col-5"><input type='submit' name='search' value='Search'></div>
     </form>
-    <form method='POST' action='stuSessionRegistration.php'>
+    <form method='POST' action='stuShowRegisteredSession.php'>
         <div class="col-5"><input type='submit' value='Refresh'></div>
     </form>
 </div>
@@ -160,6 +160,9 @@ if (isset($_POST['search'])) {
                                     echo "Tutor Session Ended";
                                     $expiredSession=true;
                                 } 
+                            }
+                            else{
+                                echo"Upcoming Tutor Session";
                             }
                         }
                         ?>

@@ -142,7 +142,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
                 <div class="col-75"><input type='text' name='topic' value='<?php echo $topic ?>' required maxlength="30">(Maximum 30 characters)</div>
             </div>
             <div class="row">
-                <div class="col-25"><label>Subject Code(if applicable): </label></div>
+                <div class="col-25"><label>Subject Code (Optional): </label></div>
                 <div class="col-75"><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>' pattern="[A-Z]{4}[0-9]{4}" maxlength="8" placeholder="BITI1113"></div>
             </div>
             <div class="row">
@@ -182,15 +182,20 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         </form><br>
 
     </div>
-        Note: <br> 
-        1. Tutors can only create new tutoring session at least 6 hours before starting time.
+        
     <?php
        if ($formFilledCorrectly == true) {
         ?>
  <p>Tutoring session successfully added. SessionID for this tutoring session is <span class="important"><?php echo "$successSessionID"; ?></span>.</p> 
        <?php
-    }
+    } else{
         ?>
+        <div class="error"><?php echo"$out"; ?></div>
+    <?php
+    }
+    ?>
+        Note: <br> 
+        1. Tutors can only create new tutoring session at least 6 hours before starting time.
 
 <?php } else {
     ?>

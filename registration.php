@@ -1,3 +1,10 @@
+<head>
+        <title>Registration</title>
+        <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="css/outStyle.css">
+</head>
+
+
 <?php
 $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established"); 
 $formCorrectCheck = true;
@@ -36,11 +43,6 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
     }
 }
 ?>
-
-<head>
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/outStyle.css">
-</head>
 
 <?php if ($successRegistration == false) { ?>
     
@@ -103,7 +105,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
         </form>
        
     <form action='login.php' method='POST'>
-    <div class="row" ><input type='submit' value='Return to Login Page'></div>
+    <div class="row"><input type='submit' value='Return to Login Page'></div>
     </form>
 </div>
 <?php } ?>
@@ -157,7 +159,8 @@ if ($successRegistration == true) {
     mysqli_close($dbc);
     header("Refresh:10;URL=login.php");
     die();
-} else {
-    echo "<h5>$out</h5>";
+} else { ?>
+    <div class="error"><?php echo"$out"?></div> 
+<?php
 }
 ?>

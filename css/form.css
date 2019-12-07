@@ -37,7 +37,11 @@
     float: left;
     width: 6%;
     margin-top: 6px;
-
+  }
+  .col-7 {
+    float: left;
+    width: 7%;
+    margin-top: 6px;
   }
   
   .col-15 {

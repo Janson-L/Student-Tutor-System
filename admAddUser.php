@@ -190,7 +190,10 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             header("Refresh:3;URL=admAddUser.php");
         } else {
             mysqli_close($dbc);
-            echo "<h5>$out</h5>";
+        ?>
+            
+            <div class="error"><?php echo "$out";?></div>
+        <?php
         }
         ?>
 <?php } 

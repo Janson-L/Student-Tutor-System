@@ -13,3 +13,9 @@ p {
   color:black;
   text-align: center; 
 }
+
+.error{
+  font-size:large; 
+    color:red;
+    text-align: left; 
+}

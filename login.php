@@ -6,6 +6,7 @@ SESSION_START();
     <head>
         <title>UTeM Student Tutor System</title>
         <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="css/outStyle.css">
     </head>
 
     <body>
@@ -139,7 +140,7 @@ SESSION_START();
                     
                     }
                 else if(preg_match("/\ATUT/",$userID)){
-                    if($loginAttemptDB>=2) {
+                    if($loginAttemptDB>2) {
                         $query ="UPDATE tutor SET accountStatus=0 WHERE tutorid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                         $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
@@ -148,7 +149,7 @@ SESSION_START();
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                  }
                  else if (preg_match("/\ASTU/",$userID)){
-                    if($loginAttemptDB>=2) {
+                    if($loginAttemptDB>2) {
                         $query ="UPDATE student SET accountStatus=0 WHERE studentid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                         $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
@@ -157,7 +158,7 @@ SESSION_START();
                     $result = mysqli_query($dbc, $query) or die("Query Failed $query");
                     }
 
-                    if($loginAttemptDB<2){
+                    if($loginAttemptDB<=2){
                     $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
                     }
             }
@@ -186,13 +187,13 @@ SESSION_START();
         </div>
         </form> 
         <div class="row">
-        <br><br>No account yet? Click <a href="registration.php">here</a> to create a new account!
+        <br><br><p>No account yet? Click <a href="registration.php">here</a> to create a new account!</p>
         </div>
     </div>
         <?php 
          }
-            echo "<h4>$out</h4>";
         ?>
+        <div class="error"><?php echo"$out"; ?> </div>
         
     </body>
  
