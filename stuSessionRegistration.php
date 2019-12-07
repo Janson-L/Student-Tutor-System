@@ -20,6 +20,13 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
                 <a href="stuShowRegisteredSession.php">Show Registered Tutor Session</a>
             </div>
         </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Manage Personal Information</a>
+            <div class="dropdown-content">
+                <a href="editPersonalInfo.php">Edit Personal Information</a>
+                <a href="resetPersonalPassword.php">Reset Password</a>
+            </div>
+        </li>
         <li><a href="stuSystemUsageStatistics.php">System Usage Statistics</a></li>
         <li style="float:right"><a href="logOut.php">Log Out</a></li>
     </ul>

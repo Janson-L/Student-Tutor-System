@@ -21,6 +21,13 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
                 <a href="tutShowSession.php">Show Tutor Session</a>
             </div>
         </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Manage Personal Information</a>
+            <div class="dropdown-content">
+                <a href="editPersonalInfo.php">Edit Personal Information</a>
+                <a href="resetPersonalPassword.php">Reset Password</a>
+            </div>
+        </li>
         <li><a href="tutSystemUsageStatistics.php">System Usage Statistics</a></li>
         <li style="float:right"><a href="logOut.php">Log Out</a></li>
     </ul>

@@ -19,6 +19,13 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             </div>
         </li>
         <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
+        <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Manage Personal Information</a>
+                <div class="dropdown-content">
+                    <a href="editPersonalInfo.php">Edit Personal Information</a>
+                    <a href="resetPersonalPassword.php">Reset Password</a>
+                </div>
+            </li>
         <li><a href="admSystemUsageStatistics.php">System Usage Statistics</a></li>
         <li style="float:right"><a href="logOut.php">Log Out</a></li>
     </ul>
