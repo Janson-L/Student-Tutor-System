@@ -152,7 +152,7 @@ if ($successRegistration == true) {
     }
 ?>
    <div class="prompt">Registration Successful. Your userID is 
-   <span class="important"> <?php echo "$userID"; ?> </span>. <br><br> This ID will be used to login to your account. <br><br>
+   <span class="important"> <?php echo "$userID"; ?> </span>. <br><br> This userID will be used to login to your account. <br><br>
    You will be redirected to the login page in 10 seconds. </div>
 
 <?php
