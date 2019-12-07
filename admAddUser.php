@@ -80,7 +80,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                         <label>Name: </label>
                     </div>
                     <div class="col-75">
-                        <input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,30}" required maxlength="30"> (3-30 Characters, no special characters except / and @)
+                        <input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,50}" required maxlength="50"> (3-50 Characters, no special characters except / and @)
                     </div>
                 </div>
                 <div class="row">

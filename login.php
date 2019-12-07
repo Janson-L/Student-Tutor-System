@@ -173,7 +173,7 @@ SESSION_START();
         <form action= 'login.php' method='POST'>
             <div class="row">
             <div class="col-25">UserID: </div>
-            <div class="col-75"><input type='text' name='userID' value='<?php echo $userID ?>' required><br>
+            <div class="col-75"><input type='text' name='userID' value='<?php echo $userID ?>' required><br> (Eg: STU5, TUT3, ADM1,...)
             </div>
         </div>
         <div class="row">
