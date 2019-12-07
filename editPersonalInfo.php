@@ -56,7 +56,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
     else if (preg_match("/\ATUT/", @$_SESSION['loginUser'])){?>
         <ul>
         <li><a href="tutUI.php">Home</a></li>
-        <li class="dropdown active">
+        <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Manage Tutor Session</a>
             <div class="dropdown-content">
                 <a href="tutNewSession.php">Add New Tutor Session</a>
@@ -111,15 +111,11 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
                     <div class="col-75"><input type="text" name="phoneNo" value="<?php echo $row['phoneNo']; ?>" pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)</div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-75"></div>
-                    <div class="col-5"></div>
-                    <div class="col-5"></div>
-                    <div class="col-7"><input type="submit" name="editInfoConfirm" value="Edit User"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                    <div class="row" style="float:right;"><input type="submit" name="editInfoConfirm" value="Update Information"></div>
+                <br><br> 
+                </form>
+                </div>   
+ 
 
 
     <?php } ?>

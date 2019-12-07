@@ -42,7 +42,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
                     <a href="stuShowRegisteredSession.php">Show Registered Tutor Session</a>
                 </div>
             </li>
-            <li class="dropdown">
+            <li class="dropdown active">
                 <a href="javascript:void(0)" class="dropbtn">Manage Personal Information</a>
                 <div class="dropdown-content">
                     <a href="editPersonalInfo.php">Edit Personal Information</a>
@@ -56,7 +56,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
         else if (preg_match("/\ATUT/", @$_SESSION['loginUser'])){?>
             <ul>
             <li><a href="tutUI.php">Home</a></li>
-            <li class="dropdown active">
+            <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Manage Tutor Session</a>
                 <div class="dropdown-content">
                     <a href="tutNewSession.php">Add New Tutor Session</a>
@@ -105,17 +105,11 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
                 <input type="text" name="accountStatus" value="1" style="display:none">
                 <br>
                 <div class="row">
-                    <div class="col-75"></div>
-                    <div class="col-5"></div>
-                    <div class="col-5"></div>
-                    <div class="col-5"><input type="submit" name="resetPasswordConfirm" value="Confirm"></div>
+                <div class="col-5" style="float:right;"><input type="submit" name="resetPasswordConfirm" value="Confirm"></div>
 
             </form>
+            </div>
 
-            <form method="POST" action="admManageUsers.php">
-                <div class="col-5"><input type="submit" value="Cancel"></div>
-                </div>
-            </form>
         </div>
     <?php } ?>
 
