@@ -60,6 +60,10 @@ if ((preg_match("/\ATUT/", @$_SESSION['loginUser'])) && (isset($_POST['showStude
             }
             ?>
         </table><br>
+        <form method="POST" action="tutShowSession.php">
+            <div class="row" style="float:right;"><input type='submit' value='Back'></div>
+        </form>
+        <br><br>
     </div>
 <?php
 } else if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {

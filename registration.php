@@ -7,7 +7,6 @@
 
 <?php
 $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established"); 
-$formCorrectCheck = true;
 
 $out = "";
 $userType = "";
@@ -16,36 +15,65 @@ $matrixNo = "";
 $phoneNo = "";
 $userID = "";
 $successRegistration = false;
+$formCheckUserName=false;
+$formCheckMatrixNo=false;
+$formCheckPhoneNo=false;
+$formCheckPassword=false;
+
 
 if (isset($_POST['userType'])) {
     $userType = $_POST['userType'];
 }
 
 if (isset($_POST['userName'])) {
-    $userName = $_POST['userName'];
+    $userName = ucwords($_POST['userName']);
+    if(preg_match("/^[A-Za-z \/@]{3,50}+$/", $userName)){
+        $formCheckUserName=true;
+    }
+    else{
+        $out .= "<br>Name must between 3-50 characters and can only contain alphabets, / and @";
+    }
 }
 
 if (isset($_POST['matrixNo'])) {
     $matrixNo = $_POST['matrixNo'];
+    if(preg_match("/[A-Z]{1}[0-9]{9}/", $matrixNo))
+    {
+        $formCheckMatrixNo=true;
+    }
+    else{
+        $out .= "<br>First Character of Matrix Number must be capital letter and no space in between.";
+        $formCheckMatrixNo = false;
+    }
 }
 
 if (isset($_POST['phoneNo'])) {
     $phoneNo = $_POST['phoneNo'];
+    if(preg_match("/[0-9]{10,15}/", $phoneNo)){
+        $formCheckPhoneNo=true;
+    }
+    else{
+        $out .= "<br>Phone number must be numbers only and between 10-15 numbers.";
+        $formCheckPhoneNo = false;
+    }
 }
 
 if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
     if ($_POST['pass'] != $_POST['passRetype']) {
-        $formCorrectCheck = false;
-        $out .= "Incorrect Password. Please make sure password is the same.";
+        $out .= "<br>Incorrect Password. Please make sure both password is the same.";
+        $formCheckPassword = false;
     } else {
         $pass = $_POST['pass'];
-        $successRegistration = true;
+        $formCheckPassword = true;
+    }
+
+    if($formCheckMatrixNo&&$formCheckPassword&&$formCheckPhoneNo&&$formCheckUserName){
+        $successRegistration=true;
     }
 }
 ?>
 
-<?php if ($successRegistration == false) { ?>
-    
+<?php if ($successRegistration == false) {?>
     <h2>Registration Form</h2>
     <div class="container">
             <form action='registration.php' method='POST'>
@@ -63,7 +91,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                         <label>Name: </label>
                     </div>
                     <div class="col-75">
-                        <input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,50}" required maxlength="50"> (3-50 Characters, no special characters except / and @)
+                        <input type='text' name='userName' value='<?php echo $userName ?>' required maxlength="50"> (3-50 Characters, no special characters except / and @)
                     </div>
                 </div>
                 <div class="row">
@@ -71,7 +99,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                         <label>Matrix No: </label>
                     </div>
                     <div class="col-75">
-                        <input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789" required maxlength="10">
+                        <input type='text' name='matrixNo' value='<?php echo $matrixNo ?>' placeholder="B123456789" required maxlength="10">
                     </div>
                 </div>
                 <div class="row">
@@ -79,7 +107,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                         <label>Mobile Phone No: </label>
                     </div>
                     <div class="col-75">
-                        <input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)
+                        <input type='text' name='phoneNo' value='<?php echo $phoneNo ?>' placeholder="0123456789" required maxlength="15"> (10-15 numbers)
                     </div>
                 </div>
                 <div class="row">
@@ -99,7 +127,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                     </div>
                 </div>
                 <div class="row" style="float:right;">
-                        <br><input type='submit' value='Submit Form'>
+                        <br><input type='submit' value='Register'>
                 </div>
 
         </form>
