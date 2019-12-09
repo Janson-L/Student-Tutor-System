@@ -60,7 +60,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label>Name(as in NRIC): </label>
+                        <label>Name: </label>
                     </div>
                     <div class="col-75">
                         <input type='text' name='userName' value='<?php echo $userName ?>' pattern="[A-Za-z /@]{3,50}" required maxlength="50"> (3-50 Characters, no special characters except / and @)
@@ -151,8 +151,8 @@ if ($successRegistration == true) {
         $result = mysqli_query($dbc, $query) or die("Query Failed $query");
     }
 ?>
-   <div class="prompt">Registration Successful. Your userID is 
-   <span class="important"> <?php echo "$userID"; ?> </span>. <br><br> This userID will be used to login to your account. <br><br>
+   <div class="prompt">Registration Successful. <br><br>
+   <span class="superImportant">userID:<span class="important"> <?php echo "$userID"; ?> </span> </span>. <br><br> This userID will be used to login to your account. <br><br>
    You will be redirected to the login page in 10 seconds. </div>
 
 <?php
