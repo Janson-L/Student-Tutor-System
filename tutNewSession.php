@@ -146,11 +146,11 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         <form action='tutNewSession.php' method='POST'>
             <div class="row">
                 <div class="col-25"><label>Topic: </label></div>
-                <div class="col-75"><input type='text' name='topic' value='<?php echo $topic ?>' required maxlength="30">(Maximum 30 characters)</div>
+                <div class="col-75"><input type='text' name='topic' value='<?php echo $topic ?>'pattern="^[A-Za-z0-9 ]{1,30}$" required maxlength="30">(Maximum 30 alphanumeric characters)</div>
             </div>
             <div class="row">
-                <div class="col-25"><label>Subject Code (Optional): </label></div>
-                <div class="col-75"><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>' pattern="[A-Z]{4}[0-9]{4}" maxlength="8" placeholder="BITI1113"></div>
+                <div class="col-25"><label>Subject Code (if applicable): </label></div>
+                <div class="col-75"><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>' pattern="^[A-Z]{4}[0-9]{4}$" maxlength="8" placeholder="BITI1113"></div>
             </div>
             <div class="row">
                 <div class="col-25"><label>Date: </label></div>
@@ -180,7 +180,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
             </div>
             <div class="row">
                 <div class="col-25"><label>Location:</label></div>
-                <div class="col-75"><input type='text' name='location' value='<?php echo $location ?>' required maxlength="20">(Maximum 20 characters)</div>
+                <div class="col-75"><input type='text' name='location' value='<?php echo $location ?>' pattern="^[A-Za-z0-9 ]{1,20}$" required maxlength="20">(Maximum 20 alphanumeric characters)</div>
             </div>
             <br>
             <div class="row" style="float:right;">

@@ -64,7 +64,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
                     <option <?php if ($searchType == "subjectCodeSearch") echo 'selected="selected"'; ?>value='subjectCodeSearch'>Search by Subject Code </option>
                 </select></div>
 
-                <div class="col-25"><input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30"></div>
+                <div class="col-25"><input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="^[A-Za-z0-9 ]{1,30}$" maxlength="30">(Maximum 30 alphanumeric characters only)</div>
                 <div class="col-5"><input type='submit' name='search' value='Search'></div>
 
                 <form method='POST' action='tutShowSession.php'>

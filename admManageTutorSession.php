@@ -65,7 +65,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             </select>
             </div>
 
-            <div class="col-25"> <input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="[A-Za-z0-9 ]{0,30}" placeholder="(Maximum 30 characters)" maxlength="30"></div>
+            <div class="col-25"> <input type='text' name='searchQuery' value='<?php echo $searchQuery ?>' pattern="^[A-Za-z0-9 ]{1,30}$" maxlength="30">(Max. 30 alphanumeric characters only)</div>
             <div class="col-5"><input type='submit' name='search' value='Search'></div>
         
         </form>
