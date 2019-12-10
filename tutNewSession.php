@@ -110,7 +110,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
 
         if ($formFilledCorrectly == true) {
             $query = "INSERT INTO tutoringSession (topic,subjectCode,tutorID,date,startTime,endTime,location) VALUES('$topic','$subjectCode','{$_SESSION['loginUser']}','$date','$startTime','$endTime','$location');";
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            $result = mysqli_query($dbc, $query) or die("Query Failed");
 
             $query = "SELECT ID FROM tutoringSession ORDER BY ID DESC LIMIT 1;";
             $result = mysqli_query($dbc, $query) or die("Query Failed");
@@ -126,7 +126,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
             $sessionID .= $id;
 
             $query = "UPDATE tutoringSession SET sessionID='$sessionID' WHERE ID=$IdDb;";
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            $result = mysqli_query($dbc, $query) or die("Query Failed");
             
             $successSessionID=$sessionID;
             $topic = "";

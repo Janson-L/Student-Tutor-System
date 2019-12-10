@@ -61,11 +61,11 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['deleteUse
         if (isset($_POST['deleteUserConfirm'])) {
             if (preg_match("/\ASTU/", $_POST['userID'])) {
                 $query = "DELETE FROM student WHERE studentID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
                 
             } else if (preg_match("/\ATUT/", $_POST['userID'])) {
                 $query = "DELETE FROM tutor WHERE tutorID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             }
             mysqli_close($dbc);
             ?>

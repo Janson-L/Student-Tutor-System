@@ -168,7 +168,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
         if ($successRegistration == true) {
             if ($userType == "student") {
                 $query = "INSERT INTO Student (Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$userName','$matrixNo','$phoneNo','$pass',0,1);";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
 
                 $query = "SELECT ID FROM Student ORDER BY ID DESC LIMIT 1;";
                 $result = mysqli_query($dbc, $query) or die("Query Failed");
@@ -184,10 +184,10 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                 $userID .= $id;
 
                 $query = "UPDATE student SET studentID='$userID' WHERE ID=$IdDb;";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             } else if ($userType == "tutor") {
                 $query = "INSERT INTO Tutor (Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$userName','$matrixNo','$phoneNo','$pass',0,1);";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
 
                 $query = "SELECT ID FROM Tutor ORDER BY ID DESC LIMIT 1;";
                 $result = mysqli_query($dbc, $query) or die("Query Failed");
@@ -203,10 +203,10 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                 $userID .= $id;
 
                 $query = "UPDATE tutor SET tutorID='$userID' WHERE ID=$IdDb;";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             } else if ($userType == "admin") {
                 $query = "INSERT INTO admin (Name,MatrixNo,PhoneNo,Password,LoginAttempt,AccountStatus) VALUES('$userName','$matrixNo','$phoneNo','$pass',0,1);";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
 
                 $query = "SELECT ID FROM Admin ORDER BY ID DESC LIMIT 1;";
                 $result = mysqli_query($dbc, $query) or die("Query Failed");
@@ -222,7 +222,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
                 $userID .= $id;
 
                 $query = "UPDATE admin SET adminID='$userID' WHERE ID=$IdDb;";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             }
             mysqli_close($dbc);
             ?>

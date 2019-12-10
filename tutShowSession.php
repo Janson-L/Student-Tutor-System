@@ -108,7 +108,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
                 } else if ($searchTable == 3) {
                     $query = "SELECT sessionID,topic,subjectCode,date,startTime,endTime,location FROM tutoringsession WHERE tutorid='{$_SESSION['loginUser']}' AND topic LIKE'%$searchQuery%' ORDER BY ID DESC;";
                 }
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
 
                 if (mysqli_num_rows($result) > 0) {
                     ?>

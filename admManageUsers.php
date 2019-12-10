@@ -97,7 +97,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor WHERE name LIKE'%$searchQuery%';";
             }
 
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            $result = mysqli_query($dbc, $query) or die("Query Failed");
             if (mysqli_num_rows($result) > 0) {
                 $currentDate = date('Y-m-d', time());
                 $currentTime = date('His', time());

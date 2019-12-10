@@ -45,7 +45,7 @@ if ((preg_match("/\ATUT/", @$_SESSION['loginUser'])) && (isset($_POST['showStude
 
                 <?php
                     $query = "SELECT t.studentID,s.name FROM student s, session_student t WHERE s.studentID=t.studentID AND t.sessionID='{$_POST['sessionID']}';";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed");
                     while ($row = mysqli_fetch_assoc($result)) { ?>
                     <td>
                         <?php

@@ -57,7 +57,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['deleteSes
     if(isset($_POST['deleteSessionConfirm']))
     {
        $query="DELETE FROM tutoringSession WHERE sessionID='{$_POST['sessionID']}';";
-       $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+       $result=mysqli_query($dbc,$query) or die("Query Failed");
        mysqli_close($dbc);
        ?>
        <br>

@@ -40,12 +40,12 @@
         }
 
     $query="SELECT COUNT(s.sessionID) AS noOfTutoringSession FROM tutoringSession t,session_student s  WHERE t.sessionID=s.sessionID AND s.studentID='{$_SESSION['loginUser']}';";
-    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $result=mysqli_query($dbc,$query) or die("Query Failed");
     $row = mysqli_fetch_assoc($result);
     $noOfTutoringSession=$row['noOfTutoringSession'];
 
     $query="SELECT t.startTime, t.endTime FROM tutoringSession t,session_student s  WHERE t.sessionID=s.sessionID AND s.studentID='{$_SESSION['loginUser']}';";
-    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $result=mysqli_query($dbc,$query) or die("Query Failed");
     
     while($row = mysqli_fetch_assoc($result))
     {

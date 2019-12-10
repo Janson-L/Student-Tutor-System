@@ -111,7 +111,7 @@ if (isset($_POST['search'])) {
     } else {
         $query = "SELECT t.sessionID,t.topic,t.subjectCode,t.date,t.startTime,t.endTime,b.name, t.location FROM tutor b,tutoringsession t, student s, session_student a WHERE b.tutorID=t.tutorID AND a.sessionID=t.sessionID AND a.studentID=s.studentID AND s.studentID='{$_SESSION['loginUser']}' AND t.topic LIKE '%$searchQuery%' ORDER BY t.ID DESC;";
     }
-    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+    $result = mysqli_query($dbc, $query) or die("Query Failed");
     if(mysqli_num_rows($result)>0){
     ?>
     <div style="overflow-x:auto;">

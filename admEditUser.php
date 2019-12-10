@@ -77,10 +77,10 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['editUser'
             if (isset($_POST['editUserConfirm'])) {
                 if (preg_match("/\ASTU/", $_POST['userID'])) {
                     $query = "UPDATE student SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE studentID='{$_POST['userID']}' ORDER BY ID;";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed");
                 } else if (preg_match("/\ATUT/", $_POST['userID'])) {
                     $query = "UPDATE tutor SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE tutorID='{$_POST['userID']}';";
-                    $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                    $result = mysqli_query($dbc, $query) or die("Query Failed");
                 }
                 mysqli_close($dbc);
                 ?>

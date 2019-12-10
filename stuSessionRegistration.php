@@ -115,7 +115,7 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
         } else {
             $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.topic LIKE '%$searchQuery%' ORDER BY s.ID DESC;";
         }
-        $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+        $result = mysqli_query($dbc, $query) or die("Query Failed");
         if (mysqli_num_rows($result) > 0) {
             $currentDate = date('Y-m-d', time());
             $currentTime = date('His', time());
@@ -215,7 +215,7 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
         <?php
             if (isset($_POST['register'])) {
                 $query = "INSERT INTO session_student (sessionID,studentID) VALUES('{$_POST['sessionID']}','{$_SESSION['loginUser']}');";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
                 mysqli_close($dbc);
                 echo '<meta http-equiv="refresh" content="0">';
                 die();
@@ -225,7 +225,7 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
         <?php
             if (isset($_POST['deregister'])) {
                 $query = "DELETE FROM session_student WHERE sessionID='{$_POST['sessionID']}'AND studentID='{$_SESSION['loginUser']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
                 mysqli_close($dbc);
                 echo '<meta http-equiv="refresh" content="0">';
                 die();

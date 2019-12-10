@@ -113,7 +113,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 $query = "SELECT s.sessionID,s.topic,s.subjectCode,s.date,s.startTime,s.endTime,t.name,s.location FROM tutoringsession s, tutor t WHERE t.tutorID=s.tutorID AND s.subjectCode='$searchQuery' ORDER BY s.ID DESC;";
             }
 
-            $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+            $result = mysqli_query($dbc, $query) or die("Query Failed");
             if (mysqli_num_rows($result) > 0) {
                 $currentDate = date('Y-m-d', time());
                 $currentTime = date('His', time());

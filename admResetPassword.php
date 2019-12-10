@@ -79,10 +79,10 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['resetPass
         if ((isset($_POST['resetPasswordConfirm'])) && ($validUpdate == true)) {
             if (preg_match("/\ASTU/", $_POST['userID'])) {
                 $query = "UPDATE student SET password='{$_POST['newPassword']}', loginAttempt='{$_POST['loginAttempt']}', accountStatus='{$_POST['accountStatus']}' WHERE studentID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             } else if (preg_match("/\ATUT/", $_POST['userID'])) {
                 $query = "UPDATE tutor SET password='{$_POST['newPassword']}', loginAttempt='{$_POST['loginAttempt']}', accountStatus='{$_POST['accountStatus']}' WHERE tutorID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             }
             mysqli_close($dbc);
             ?>

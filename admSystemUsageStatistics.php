@@ -42,22 +42,22 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
         }
 
     $query="SELECT COUNT(studentID) AS noOfStudent FROM student;";
-    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $result=mysqli_query($dbc,$query) or die("Query Failed");
     $row = mysqli_fetch_assoc($result);
     $noOfStudent=$row['noOfStudent'];
 
     $query="SELECT COUNT(tutorID) AS noOfTutor FROM tutor;";
-    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $result=mysqli_query($dbc,$query) or die("Query Failed");
     $row = mysqli_fetch_assoc($result);
     $noOfTutor=$row['noOfTutor'];
 
     $query="SELECT COUNT(sessionID) AS tutoringSessionNo FROM tutoringSession;";
-    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $result=mysqli_query($dbc,$query) or die("Query Failed");
     $row = mysqli_fetch_assoc($result);
     $noOfTutoringSession=$row['tutoringSessionNo'];
 
     $query="SELECT startTime, endTime FROM tutoringSession;";
-    $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+    $result=mysqli_query($dbc,$query) or die("Query Failed");
     
     while($row = mysqli_fetch_assoc($result))
     {
