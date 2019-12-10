@@ -81,7 +81,7 @@ SESSION_START();
             }
         }  
             else{
-                $out.="No such user registered. Please register a new account or contact administrator for further assistance.";
+                $out.="No such user registered. Please register a new account.";
                 $validUser==false;
             }
 
@@ -143,7 +143,7 @@ SESSION_START();
                     if($loginAttemptDB>2) {
                         $query ="UPDATE tutor SET accountStatus=0 WHERE tutorid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed");
-                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
+                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator at admin@USTS.com for further assistance.";
                     }
                     $query ="UPDATE tutor SET loginattempt=$newLoginAttempt WHERE tutorid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed");
@@ -152,14 +152,14 @@ SESSION_START();
                     if($loginAttemptDB>2) {
                         $query ="UPDATE student SET accountStatus=0 WHERE studentid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed");
-                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
+                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator at admin@USTS.com for further assistance.";
                     }
                     $query ="UPDATE student SET loginattempt=$newLoginAttempt WHERE studentid='$userID';";
                     $result = mysqli_query($dbc, $query) or die("Query Failed");
                     }
 
                     if($loginAttemptDB<=2){
-                    $out .="Incorrect Credentials. Please try again or contact administrator for further assistance ";
+                    $out .="Incorrect Credentials. Please try again.";
                     }
             }
          }
