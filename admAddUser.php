@@ -62,7 +62,7 @@ if (isset($_POST['userName'])) {
 
 if (isset($_POST['matrixNo'])) {
     $matrixNo = $_POST['matrixNo'];
-    if(preg_match("/[A-Z]{1}[0-9]{9}/", $matrixNo))
+    if(preg_match("/^[A-Z]{1}[0-9]{9}+$/", $matrixNo))
     {
         $formCheckMatrixNo=true;
     }
@@ -74,7 +74,7 @@ if (isset($_POST['matrixNo'])) {
 
 if (isset($_POST['phoneNo'])) {
     $phoneNo = $_POST['phoneNo'];
-    if(preg_match("/[0-9]{10,15}/", $phoneNo)){
+    if(preg_match("/^[0-9]{10,15}+$/", $phoneNo)){
         $formCheckPhoneNo=true;
     }
     else{
