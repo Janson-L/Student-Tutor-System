@@ -80,15 +80,15 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
     
         if (preg_match("/\AADM/", @$_SESSION['loginUser'])){
             $query="SELECT adminID AS userID, name, matrixNo, phoneNo FROM admin WHERE adminID='{$_SESSION['loginUser']}';";
-            $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+            $result=mysqli_query($dbc,$query) or die("Query Failed");
         }
         else if (preg_match("/\ASTU/", @$_SESSION['loginUser'])){
             $query="SELECT studentID AS userID, name, matrixNo, phoneNo FROM student WHERE studentID='{$_SESSION['loginUser']}';";
-            $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+            $result=mysqli_query($dbc,$query) or die("Query Failed");
         }
         else if (preg_match("/\ATUT/", @$_SESSION['loginUser'])){
             $query="SELECT tutorID AS userID, name, matrixNo, phoneNo FROM tutor WHERE tutorID='{$_SESSION['loginUser']}';";
-            $result=mysqli_query($dbc,$query) or die("Query Failed $query");
+            $result=mysqli_query($dbc,$query) or die("Query Failed");
         }
         $row=mysqli_fetch_assoc($result);
     ?>
@@ -123,13 +123,13 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) ||(preg_match("/\ASTU/", @$
         if (isset($_POST['editInfoConfirm'])) {
             if (preg_match("/\ASTU/", $_POST['userID'])) {
                 $query = "UPDATE student SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE studentID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             } else if (preg_match("/\ATUT/", $_POST['userID'])) {
                 $query = "UPDATE tutor SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE tutorID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             } else if(preg_match("/\AADM/", $_POST['userID'])){
                 $query = "UPDATE admin SET name='{$_POST['name']}', matrixNo='{$_POST['matrixNo']}', phoneNo='{$_POST['phoneNo']}' WHERE adminID='{$_POST['userID']}';";
-                $result = mysqli_query($dbc, $query) or die("Query Failed $query");
+                $result = mysqli_query($dbc, $query) or die("Query Failed");
             }
             mysqli_close($dbc);
             ?>
