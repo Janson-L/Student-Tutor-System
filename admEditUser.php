@@ -48,11 +48,11 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['editUser'
                 </div>
                 <div class="row">
                     <div class="col-25"><label>Matrix No:</label></div>
-                    <div class="col-75"><input type="text" name="matrixNo" value="<?php echo $_POST['matrixNo']; ?>" pattern="[A-Z]{1}[0-9]{9}" placeholder="B123456789" required maxlength="10">(First Character must be capital letter and no space in between)</div>
+                    <div class="col-75"><input type="text" name="matrixNo" value="<?php echo $_POST['matrixNo']; ?>" pattern="^[BDMP]{1}[0-9]{9}$" placeholder="B123456789" required maxlength="10">(First Character must be capital letter and no space in between)</div>
                 </div>
                 <div class="row">
                     <div class="col-25"><label>Phone No:</label></div>
-                    <div class="col-75"><input type="text" name="phoneNo" value="<?php echo $_POST['phoneNo']; ?>" pattern="[0-9]{10,15}" placeholder="0123456789" required maxlength="15"> (10-15 numbers)</div>
+                    <div class="col-75"><input type="text" name="phoneNo" value="<?php echo $_POST['phoneNo']; ?>" pattern="^[0-9]{10,15}$" placeholder="0123456789" required maxlength="15"> (10-15 numbers)</div>
                 </div>
                 <br>
                 <div class="row">

@@ -37,12 +37,16 @@ if (isset($_POST['userName'])) {
 
 if (isset($_POST['matrixNo'])) {
     $matrixNo = $_POST['matrixNo'];
-    if(preg_match("/^[A-Z]{1}[0-9]{9}+$/", $matrixNo))
+    if(preg_match("/^[BDMP]{1}[0-9]{9}+$/", $matrixNo))
     {
         $formCheckMatrixNo=true;
     }
+    else if(preg_match("/\A[BDMPbdmp]/", $matrixNo)){
+        $out .= "<br>First character of Matrix Number must be capital letter and no space in between.";
+        $formCheckMatrixNo = false;
+    }
     else{
-        $out .= "<br>First Character of Matrix Number must be capital letter and no space in between.";
+        $out .= "<br>Invalid student Matrix Number. Please enter a valid student Matrix Number.";
         $formCheckMatrixNo = false;
     }
 }
