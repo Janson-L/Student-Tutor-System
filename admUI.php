@@ -34,6 +34,20 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 Welcome back to UTeM Student Tutor System(USTS), <span class="important"> <?php echo"{$row['name']}" ?> </span>.
 </div>
 
+<div class="row">
+<h2>Note:</h2>
+</div>
+<div class="row">
+<p>1. UTeM Student Tutor System is a platform for student to join a tutoring session as well as host a tutoring session.</p>
+</div>
+<div class="row">
+<p>2.Admins are free to moderate. However, abuse of power will be penalized.</p>
+</div>
+</div>
+<div class="row">
+<p>3. Any problem/suggestion/feedback? Feel free to send an email to dev@USTS.com .</p>
+</div>
+
 <?php
 } else { 
     ?>

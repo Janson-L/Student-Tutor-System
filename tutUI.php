@@ -41,6 +41,25 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
 Welcome back to UTeM Student Tutor System (USTS), <span class="important"> <?php echo"{$row['name']}" ?> </span>.
 </div>
 
+<div class="row">
+<h2>Note:</h2>
+</div>
+<div class="row">
+<p>1. UTeM Student Tutor System is a platform for student to join a tutoring session as well as host a tutoring session.</p>
+</div>
+<div class="row">
+<p>2. Registration will be closed 4 hours before the tutoring session starts to give time for tutor to prepare materials.</p>
+</div>
+<div class="row">
+<p>3. Tutors are not allowed to edit the tutoring session after adding it. Please check carefully before submitting.</p>
+</div>
+<div class="row">
+<p>4. Tutors are not allowed to create a tutoring session 6 hours before starting time.</p>
+</div>
+<div class="row">
+<p>5. Any problem/suggestion/feedback? Feel free to send an email to admin@USTS.com .</p>
+</div>
+
 <?php
 } else {
     ?>

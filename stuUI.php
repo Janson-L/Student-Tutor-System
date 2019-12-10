@@ -40,7 +40,18 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
 <div class="container">
 Welcome back to UTeM Student Tutor System (USTS), <span class="important"> <?php echo"{$row['name']}" ?> </span>.
 </div>
-
+<div class="row">
+<h2>Note:</h2>
+</div>
+<div class="row">
+<p>1. UTeM Student Tutor System is a platform for student to join a tutoring session as well as host a tutoring session.</p>
+</div>
+<div class="row">
+<p>2. Registration will be closed 4 hours before the tutoring session starts to give time for tutor to prepare materials.</p>
+</div>
+<div class="row">
+<p>3. Any problem/suggestion/feedback? Feel free to send an email to admin@USTS.com .</p>
+</div>
 <?php
 } else {
     ?>
