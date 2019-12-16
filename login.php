@@ -132,7 +132,7 @@ SESSION_START();
                     if($loginAttemptDB>=2) {
                         $query ="UPDATE admin SET accountStatus=0 WHERE adminid='$userID';";
                         $result = mysqli_query($dbc, $query) or die("Query Failed");
-                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator for further assistance.";
+                        $out.="This account has been blocked for entering the wrong password for more than 3 times. Please contact administrator at admin@USTS.com for further assistance.";
                         
                     }
                     $query ="UPDATE admin SET loginattempt=$newLoginAttempt WHERE adminid='$userID';";
