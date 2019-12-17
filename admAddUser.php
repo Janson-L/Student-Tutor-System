@@ -103,7 +103,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
         }
         ?>
 <?php if ($successRegistration == false) {?>
-    <h2>Add New Users</h2>
+    <h2>Add New User</h2>
     <div class="container">
             <form action='admAddUser.php' method='POST'>
                 <div class="col-25">
