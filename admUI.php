@@ -18,7 +18,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             <a href="admManageUsers.php">Update and Delete Users</a>
         </div>
         </li>
-        <li><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
+        <li><a href="admManageTutorSession.php">Manage Tutoring Session</a></li>
         <li><a href="editPersonalInfo.php">Edit Personal Info</a></li>
         <li><a href="admSystemUsageStatistics.php">System Usage Statistics</a></li>
         <li style="float:right"><a href="logOut.php">Log Out</a></li>

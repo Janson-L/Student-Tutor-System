@@ -17,7 +17,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['deleteSes
             <a href="admManageUsers.php">Update and Delete Users</a>
         </div>
         </li>
-        <li class="active"><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
+        <li class="active"><a href="admManageTutorSession.php">Manage Tutoring Session</a></li>
         <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Manage Personal Information</a>
                 <div class="dropdown-content">
@@ -74,7 +74,7 @@ if ((preg_match("/\AADM/", @$_SESSION['loginUser'])) && (isset($_POST['deleteSes
 else if(preg_match("/\AADM/", @$_SESSION['loginUser'])){
     ?>
     <br>
-    <div class="prompt">You did not navigate the pages correctly. <br> You will be navigated back to Manage Tutor Session UI in 5 seconds.</div>
+    <div class="prompt">You did not navigate the pages correctly. <br> You will be navigated back to Manage Tutoring Session UI in 5 seconds.</div>
 <?php
     header("Refresh:5;URL=admManageTutorSession.php");
     die();

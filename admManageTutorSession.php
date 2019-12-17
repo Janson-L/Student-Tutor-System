@@ -1,5 +1,5 @@
 <head>
-        <title>USTS-Manage Tutor Session</title>
+        <title>USTS-Manage Tutoring Session</title>
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/form.css">
         <link rel="stylesheet" href="css/table.css">
@@ -19,7 +19,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 <a href="admManageUsers.php">Update and Delete Users</a>
             </div>
         </li>
-        <li class="active"><a href="admManageTutorSession.php">Manage Tutor Session</a></li>
+        <li class="active"><a href="admManageTutorSession.php">Manage Tutoring Session</a></li>
         <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Manage Personal Information</a>
                 <div class="dropdown-content">
@@ -52,7 +52,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             return sprintf("%02d%s%02d", floor($t / 3600), ':', ($t / 60) % 60);
         }
         ?>
-    <h2>Manage Tutor Session</h2>
+    <h2>Manage Tutoring Session</h2>
     <div class="container">
         <form method='POST'>
         <div class="row">
