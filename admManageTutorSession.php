@@ -89,7 +89,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
 
         <?php
             if ($searchTable == 0) { ?>
-            <h2>Top 10 Recently Added Session</h2>
+            <h2>Top 10 Recently Added Tutoring Session</h2>
         <?php } else if ($searchTable == 1) { ?>
             <h2>Search by Session ID</h2>
         <?php } else if ($searchTable == 2) { ?>
