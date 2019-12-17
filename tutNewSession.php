@@ -141,7 +141,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
             
         }
         ?>
-    <h2>Add New Session</h2>
+    <h2>Add New Tutoring Session</h2>
     <div class="container">
         <form action='tutNewSession.php' method='POST'>
             <div class="row">
