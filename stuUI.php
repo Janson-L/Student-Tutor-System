@@ -13,10 +13,10 @@ if (preg_match("/\ASTU/", @$_SESSION['loginUser'])) {
     <ul>
         <li class="active"><a href="stuUI.php">Home</a></li>
         <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Tutor Session</a>
+            <a href="javascript:void(0)" class="dropbtn">Tutoring Session</a>
             <div class="dropdown-content">
-                <a href="stuSessionRegistration.php">Register/Deregister Tutor Session</a>
-                <a href="stuShowRegisteredSession.php">Show Registered Tutor Session</a>
+                <a href="stuSessionRegistration.php">Register/Deregister Tutoring Session</a>
+                <a href="stuShowRegisteredSession.php">Show Registered Tutoring Session</a>
             </div>
         </li>
         <li class="dropdown">

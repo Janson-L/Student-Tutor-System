@@ -1,5 +1,5 @@
 <head>
-    <title>USTS- Show Session</title>
+    <title>USTS- Show Tutoring Session</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/outStyle.css">
@@ -15,10 +15,10 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
     <ul>
         <li><a href="tutUI.php">Home</a></li>
         <li class="dropdown active">
-            <a href="javascript:void(0)" class="dropbtn">Manage Tutor Session</a>
+            <a href="javascript:void(0)" class="dropbtn">Manage Tutoring Session</a>
             <div class="dropdown-content">
-                <a href="tutNewSession.php">Add New Tutor Session</a>
-                <a href="tutShowSession.php">Show Tutor Session</a>
+                <a href="tutNewSession.php">Add New Tutoring Session</a>
+                <a href="tutShowSession.php">Show Tutoring Session</a>
             </div>
         </li>
         <li class="dropdown">
@@ -53,7 +53,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         }
         ?>
 
-    <h2>Show Tutor Session</h2>
+    <h2>Show Tutoring Session</h2>
     <form method='POST'>
         <div class="container">
             <div class="row">

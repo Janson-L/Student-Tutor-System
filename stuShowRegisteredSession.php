@@ -1,5 +1,5 @@
 <head>
-    <title>USTS- Show Registered Session</title>
+    <title>USTS- Show Registered Tutoring Session</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/table.css">
@@ -14,10 +14,10 @@ if(preg_match("/\ASTU/",@$_SESSION['loginUser'])){
  <ul>
         <li><a href="stuUI.php">Home</a></li>
         <li class="dropdown active">
-            <a href="javascript:void(0)" class="dropbtn">Tutor Session</a>
+            <a href="javascript:void(0)" class="dropbtn">Tutoring Session</a>
             <div class="dropdown-content">
-                <a href="stuSessionRegistration.php">Register/Deregister Tutor Session</a>
-                <a href="stuShowRegisteredSession.php">Show Registered Tutor Session</a>
+                <a href="stuSessionRegistration.php">Register/Deregister Tutoring Session</a>
+                <a href="stuShowRegisteredSession.php">Show Registered Tutoring Session</a>
             </div>
         </li>
         <li class="dropdown">
@@ -50,7 +50,7 @@ if (isset($_POST['searchQuery'])) {
     $searchQuery = $_POST['searchQuery'];
 }
 ?>
-<h2>Show Registered Tutor Sessions</h2> <br>
+<h2>Show Registered Tutoring Sessions</h2> <br>
 <div class="container">
 <form method='POST'>
 <div class="row">
@@ -88,7 +88,7 @@ if (isset($_POST['search'])) {
 ?>
 
 <?php if ($searchTable == 0) { ?>
-    <h3>All Registered Sessions</h3>
+    <h3>All Registered Tutoring Sessions</h3>
 <?php } else if ($searchTable == 1) { ?>
     <h3>Search by SessionID</h3>
 <?php } else if ($searchTable == 2) { ?>
