@@ -97,7 +97,7 @@ if (isset($_POST['pass']) && isset($_POST['passRetype'])) {
         $formCheckPassword = true;
     }
 
-    if($formCheckMatrixNo&&$formCheckPassword&&$formCheckPhoneNo&&$formCheckUserName){
+    if($formCheckMatrixNo==true&&$formCheckPassword==true&&$formCheckPhoneNo==true&&$formCheckUserName==true){
         $successRegistration=true;
     }
         }

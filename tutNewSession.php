@@ -34,6 +34,10 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
     <?php
         $dbc = mysqli_connect('localhost', 'root', '', 'utem_student_tutor_system') or die("Connection not established"); //Register and change to a non root user
         $formFilledCorrectly = false;
+        $formCheckSubjectCode=false;
+        $formCheckDateTime=false;
+        $formCheckTopic=false;
+        $formCheckLocation=false;
         $topic = "";
         $subjectCode = "";
         $date = "";
@@ -45,14 +49,35 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         $location = "";
         $out = "";
 
-
         if (isset($_POST['topic'])) {
             $topic = $_POST['topic'];
+            if(preg_match("/^[A-Za-z0-9 ]{1,30}+$/", $topic)){
+                $formCheckTopic=true;
+            }
+            else{
+                $out .= "Invalid topic name. Maximum 30 alphanumeric characters only. <br>";
+                $formCheckTopic = false;
+            }
         }
 
         if (isset($_POST['subjectCode'])) {
             $subjectCode = $_POST['subjectCode'];
+            if(preg_match("/^[A-Z]{4}[0-9]{4}+$/", $subjectCode)){
+                    $formCheckSubjectCode=true;
+            }
+            else if(preg_match("/^[A-Za-z]{4}[0-9]{4}+$/", $subjectCode)){
+                $out .= "All characters of Subject Code must be capital letter and no space in between. <br> ";
+                $formCheckSubjectCode = false;
+            }
+            else if($subjectCode==null){
+                $formCheckSubjectCode=true;
+            }
+            else{
+                $out .= "Invalid subject code. Please enter a valid subject code. Reminder: It is optional ;) <br>";
+                $formCheckSubjectCode = false;
+            }
         }
+        
 
         if (isset($_POST['date'])) {
             $date = $_POST['date'];
@@ -78,34 +103,45 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
 
         if (isset($_POST['location'])) {
             $location = $_POST['location'];
+            if(preg_match("/^[A-Za-z0-9 ]{1,20}+$/", $location)){
+                $formCheckLocation=true;
+            }
+            else{
+                $out .= "Invalid location name. Maximum 20 alphanumeric characters only. <br>";
+                $formCheckLocation = false;
+            }
         }
 
         if (isset($_POST['startTimeH']) && isset($_POST['startTimeM']) && isset($_POST['endTimeH']) && isset($_POST['endTimeM'])) {
-            $formFilledCorrectly = true;
+            $formCheckDateTime=true;
             $currentDate = date('Y-m-d', time());
             $currentTime = date('His', time());
             $currentTime += "070000"; //to convert it to Malaysia Time
 
             if ($date < $currentDate) //to check the selected date with current date
             {
-                $formFilledCorrectly = false;
+                $formCheckDateTime = false;
                 $out .= "Date selected is not a valid date. Please select a date that is either today or later than current date. <br> ";
             } else {
                 if ($date == $currentDate) {
                     if ($startTime <= $currentTime) {
-                        $formFilledCorrectly = false;
+                        $formCheckDateTime = false;
                         $out .= "Time selected is not a valid time. Please select time that is later than current time. <br> ";
                     } else if (($startTime - $currentTime) <= "055900") {
-                        $formFilledCorrectly = false;
+                        $formCheckDateTime = false;
                         $out .= "Tutors are not allowed to add tutor session that starts in less than 6 hours from the current time. <br> ";
                     }
                 }
 
                 if ($startTime >= $endTime) {
-                    $formFilledCorrectly = false;
+                    $formCheckDateTime = false;
                     $out .= "Please select the correct end time. Duration of the session must be at least 5 minutes. <br> ";
                 }
             }
+        }
+
+        if ($formCheckSubjectCode==true&&$formCheckDateTime==true&&$formCheckTopic==true&&$formCheckLocation==true){
+            $formFilledCorrectly=true;
         }
 
         if ($formFilledCorrectly == true) {
@@ -146,11 +182,11 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         <form action='tutNewSession.php' method='POST'>
             <div class="row">
                 <div class="col-25"><label>Topic: </label></div>
-                <div class="col-75"><input type='text' name='topic' value='<?php echo $topic ?>'pattern="^[A-Za-z0-9 ]{1,30}$" required maxlength="30">(Maximum 30 alphanumeric characters)</div>
+                <div class="col-75"><input type='text' name='topic' value='<?php echo $topic ?>' required maxlength="30">(Maximum 30 alphanumeric characters)</div>
             </div>
             <div class="row">
                 <div class="col-25"><label>Subject Code (if applicable): </label></div>
-                <div class="col-75"><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>' pattern="^[A-Z]{4}[0-9]{4}$" maxlength="8" placeholder="BITI1113"></div>
+                <div class="col-75"><input type='text' name="subjectCode" value='<?php echo $subjectCode ?>' maxlength="8" placeholder="BITI1113"></div>
             </div>
             <div class="row">
                 <div class="col-25"><label>Date: </label></div>
@@ -180,7 +216,7 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
             </div>
             <div class="row">
                 <div class="col-25"><label>Location:</label></div>
-                <div class="col-75"><input type='text' name='location' value='<?php echo $location ?>' pattern="^[A-Za-z0-9 ]{1,20}$" required maxlength="20">(Maximum 20 alphanumeric characters)</div>
+                <div class="col-75"><input type='text' name='location' value='<?php echo $location ?>' required maxlength="20">(Maximum 20 alphanumeric characters)</div>
             </div>
             <br>
             <div class="row" style="float:right;">
@@ -189,6 +225,8 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
         </form><br>
 
     </div>
+    Note: <br> 
+        1. Tutors can only create new tutoring session at least 6 hours before starting time.
         
     <?php
        if ($formFilledCorrectly == true) {
@@ -201,8 +239,6 @@ if (preg_match("/\ATUT/", @$_SESSION['loginUser'])) {
     <?php
     }
     ?>
-        Note: <br> 
-        1. Tutors can only create new tutoring session at least 6 hours before starting time.
 
 <?php } else {
     ?>
