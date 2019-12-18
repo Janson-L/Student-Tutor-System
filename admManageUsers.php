@@ -73,22 +73,29 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
             } else if ($_POST['searchType'] == "userNameSearch") {
                 $searchTable = 2;
             }
+            else{
+                $searchTable=0;
+            }
         }
         ?>
 
     <?php
-        if ($searchTable == 1) { ?>
+        if ($searchTable == 0) { ?>
+            <h3>Show All</h3>
+        <?php } else if ($searchTable == 1) { ?>
         <h3>Search by User ID</h3>
     <?php } else if ($searchTable == 2) { ?>
         <h3>Search by User Name</h3>
     <?php } ?>
     <?php
-        // if($searchTable==0)
-        // {
-        //     $query="SELECT studentID AS userID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student UNION
-        //     SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor;";
-        // }
+        if($searchTable==0)
+        {
+            $query="SELECT studentID AS userID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student UNION
+            SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor;";
+        }
+      
         if (isset($_POST['search'])) {
+            
             if ($searchTable == 1) {
                 $query = "SELECT studentID AS userID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student WHERE studentID='$searchQuery' UNION
                 SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor WHERE tutorID='$searchQuery';";
@@ -96,7 +103,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                 $query = "SELECT studentID AS userID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM student WHERE name LIKE'%$searchQuery%' UNION
                 SELECT tutorID, name, matrixNo, phoneNo,loginAttempt, accountStatus FROM tutor WHERE name LIKE'%$searchQuery%';";
             }
-
+        }
             $result = mysqli_query($dbc, $query) or die("Query Failed");
             if (mysqli_num_rows($result) > 0) {
                 $currentDate = date('Y-m-d', time());
@@ -166,7 +173,7 @@ if (preg_match("/\AADM/", @$_SESSION['loginUser'])) {
                     </td>
                 </tr>
         <?php }
-            } ?>
+             ?>
             </table>
             </div> <br>
 
