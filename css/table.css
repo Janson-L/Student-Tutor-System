@@ -1,0 +1,31 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table,td,th{
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    height: 50px;
+    background-color:rgb(30, 128, 189);
+    color: white;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  tr:nth-child(odd) {background-color: #cfcbcb;}
+
+  .tableButton {
+    background-color: rgb(30, 128, 189);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: center;
+  }

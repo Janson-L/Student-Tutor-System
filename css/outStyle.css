@@ -1,0 +1,27 @@
+p { 
+    font-size:large; 
+    color:black;
+    text-align: left; 
+  }
+
+  .important {
+    font-weight:bold;
+    color:blue;
+  }
+
+.prompt{ 
+  font-size:large; 
+  color:black;
+  text-align: center; 
+}
+
+.error{
+  font-size:large; 
+    color:red;
+    text-align: left; 
+}
+
+.superImportant {
+  font-weight:bold;
+  font-size: 2cm;
+}
