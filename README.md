@@ -1,6 +1,4 @@
-# UTeM-Workshop-1-Student-Tutor-System
-Personal Repository for Workshop 1 Progress
-
-This is a system for fulfilling Workshop 1 course requirement from UTeM.
-
+# Student-Tutor-System
 Student Tutor System is a web application that provides a platform for students to organize or attend peer tutoring session. 
+
+This project is carried out to fulfill the course requirement of Workshop 1 (BITU2913) in UTeM.
